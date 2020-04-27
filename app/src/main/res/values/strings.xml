@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TsingHelper</string>
+    <string name="title_home">首页</string>
+    <string name="title_task">任务</string>
+    <string name="title_messages">消息</string>
+    <string name="title_mine">我的</string>
+</resources>
