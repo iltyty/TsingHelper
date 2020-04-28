@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_height">45dp</dimen>
+    <dimen name="item_gap">20dp</dimen>
+    <dimen name="item_icon_height">30dp</dimen>
+    <dimen name="item_icon_padding">5dp</dimen>
+    <dimen name="item_text_margin">5dp</dimen>
+    <dimen name="task_item_avatar_size">36dp</dimen>
+    <dimen name="task_item_text_margin">40dp</dimen>
+</resources>

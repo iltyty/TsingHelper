@@ -4,4 +4,6 @@
     <string name="title_task">任务</string>
     <string name="title_messages">消息</string>
     <string name="title_mine">我的</string>
+
+    <string name="query_hint">搜索任务发布者ID</string>
 </resources>

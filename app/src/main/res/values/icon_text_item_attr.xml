@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="icon_text_item_attr">
+        <attr name="icon_src" format="reference" />
+        <attr name="text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="task_item_attr">
+        <attr name="task_avatar_src" format="reference" />
+        <attr name="task_title" format="string" />
+        <attr name="task_reward" format="string" />
+        <attr name="task_deadline" format="string" />
+    </declare-styleable>
+</resources>

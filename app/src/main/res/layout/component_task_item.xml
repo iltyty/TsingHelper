@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000">
+
+    <ImageView
+        android:id="@+id/task_item_avatar"
+        android:layout_width="@dimen/task_item_avatar_size"
+        android:layout_height="@dimen/task_item_avatar_size"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/task_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/task_item_text_margin"
+        android:layout_marginLeft="@dimen/task_item_text_margin"
+        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
+
+    <TextView
+        android:id="@+id/task_item_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/task_item_title"
+        android:layout_marginStart="@dimen/task_item_text_margin"
+        android:layout_marginLeft="@dimen/task_item_text_margin"
+        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar"/>
+
+    <TextView
+        android:id="@+id/task_item_deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/task_item_reward"
+        android:layout_marginStart="@dimen/task_item_text_margin"
+        android:layout_marginLeft="@dimen/task_item_text_margin"
+        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
+
+</RelativeLayout>
