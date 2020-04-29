@@ -27,7 +27,7 @@
             android:queryBackground="@null"
             android:queryHint="@string/query_task_hint"
             android:searchIcon="@drawable/ic_search_16dp"
-            app:theme="@style/AppSearchView" />
+            android:theme="@style/AppSearchView" />
 
         <Spinner
             android:id="@+id/spinner"

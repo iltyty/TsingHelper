@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,10 @@ public class HomeFragment extends Fragment {
 
     private void initRecyclerView() {
         mAdapter = new TaskAdapter(genTasks());
+//        mLayoutManager = new LinearLayoutManager(getContext()) {
+//            @Override
+//            public boolean canScrollVertically() { return false; }
+//        };
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),

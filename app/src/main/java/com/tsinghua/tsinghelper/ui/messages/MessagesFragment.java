@@ -69,7 +69,7 @@ public class MessagesFragment extends Fragment {
 
     private ArrayList<MessageDTO> getMessages() {
         ArrayList<MessageDTO> messages = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             String s = String.valueOf(i + 1);
             messages.add(new MessageDTO(UUID.randomUUID(), UUID.randomUUID(),
                     new Timestamp(System.currentTimeMillis()), "消息内容" + s));
