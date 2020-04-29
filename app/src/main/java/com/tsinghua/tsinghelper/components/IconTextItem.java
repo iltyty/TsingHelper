@@ -38,9 +38,9 @@ public class IconTextItem extends RelativeLayout {
         mView = LayoutInflater.from(context).inflate(R.layout.component_icon_text_item,
                 this, true);
         ButterKnife.bind(mView);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.icon_text_item_attr);
-        itemIcon.setImageResource(a.getResourceId(R.styleable.icon_text_item_attr_icon_src,
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IconTextItem);
+        itemIcon.setImageResource(a.getResourceId(R.styleable.IconTextItem_icon_src,
                 R.drawable.ic_home_item_36dp));
-        itemText.setText(a.getString(R.styleable.icon_text_item_attr_text));
+        itemText.setText(a.getString(R.styleable.IconTextItem_text));
     }
 }

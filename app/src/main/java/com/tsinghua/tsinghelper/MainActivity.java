@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.navigation_bar)
     EasyNavigationBar mNavigationBar;
     // all fragments
-    List<Fragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

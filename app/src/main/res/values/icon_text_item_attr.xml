@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="icon_text_item_attr">
+    <declare-styleable name="IconTextItem">
         <attr name="icon_src" format="reference" />
         <attr name="text" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="task_item_attr">
+    <declare-styleable name="TaskItem">
         <attr name="task_avatar_src" format="reference" />
         <attr name="task_title" format="string" />
         <attr name="task_reward" format="string" />
         <attr name="task_deadline" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="state_item_attr">
+    <declare-styleable name="AccountStateItem">
         <attr name="state_icon_src" format="reference" />
         <attr name="state_text" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="message_item_attr">
+    <declare-styleable name="MessageItem">
         <attr name="message_icon_src" format="reference" />
         <attr name="message_content_text" format="string" />
         <attr name="message_time_text" format="string" />

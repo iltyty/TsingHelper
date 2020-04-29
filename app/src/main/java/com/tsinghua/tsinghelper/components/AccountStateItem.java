@@ -38,9 +38,9 @@ public class AccountStateItem extends RelativeLayout {
         mView = LayoutInflater.from(context).inflate(R.layout.component_state_item,
                 this, true);
         ButterKnife.bind(mView);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.state_item_attr);
-        itemIcon.setImageResource(a.getResourceId(R.styleable.state_item_attr_state_icon_src,
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AccountStateItem);
+        itemIcon.setImageResource(a.getResourceId(R.styleable.AccountStateItem_state_icon_src,
                 R.drawable.ic_green_dot_8dp));
-        itemText.setText(a.getString(R.styleable.state_item_attr_state_text));
+        itemText.setText(a.getString(R.styleable.AccountStateItem_state_text));
     }
 }

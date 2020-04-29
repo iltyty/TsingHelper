@@ -43,12 +43,12 @@ public class TaskItem extends RelativeLayout {
         mView = LayoutInflater.from(context).inflate(R.layout.component_task_item,
                 this, true);
         ButterKnife.bind(mView);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.task_item_attr);
-        mAvatar.setImageResource(a.getResourceId(R.styleable.task_item_attr_task_avatar_src,
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TaskItem);
+        mAvatar.setImageResource(a.getResourceId(R.styleable.TaskItem_task_avatar_src,
                 R.drawable.ic_home_item_36dp));
-        mTitle.setText(a.getString(R.styleable.task_item_attr_task_title));
-        mReward.setText(a.getString(R.styleable.task_item_attr_task_reward));
-        mDeadline.setText(a.getString(R.styleable.task_item_attr_task_deadline));
+        mTitle.setText(a.getString(R.styleable.TaskItem_task_title));
+        mReward.setText(a.getString(R.styleable.TaskItem_task_reward));
+        mDeadline.setText(a.getString(R.styleable.TaskItem_task_deadline));
     }
 }
 

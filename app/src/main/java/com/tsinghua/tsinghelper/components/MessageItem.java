@@ -40,10 +40,10 @@ public class MessageItem extends RelativeLayout {
         mView = LayoutInflater.from(context).inflate(R.layout.component_message_item,
                 this, true);
         ButterKnife.bind(mView);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.message_item_attr);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MessageItem);
         mSenderAvatar.setImageResource(a.getResourceId(
-                R.styleable.message_item_attr_message_icon_src,  R.drawable.ic_home_item_36dp));
-        mContent.setText(a.getString(R.styleable.message_item_attr_message_content_text));
-        mTime.setText(a.getString(R.styleable.message_item_attr_message_time_text));
+                R.styleable.MessageItem_message_icon_src,  R.drawable.ic_home_item_36dp));
+        mContent.setText(a.getString(R.styleable.MessageItem_message_content_text));
+        mTime.setText(a.getString(R.styleable.MessageItem_message_time_text));
     }
 }
