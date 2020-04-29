@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ public class HomeFragment extends Fragment {
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private DividerItemDecoration mDivider;
 
     @Nullable
     @Override
@@ -41,7 +43,10 @@ public class HomeFragment extends Fragment {
         mAdapter = new TaskAdapter(genTasks());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
+        mDivider = new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
     }
 

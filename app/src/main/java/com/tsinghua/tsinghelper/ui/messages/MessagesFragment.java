@@ -63,8 +63,8 @@ public class MessagesFragment extends Fragment {
         mDivider = new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(mDivider);
+        mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     private ArrayList<MessageDTO> getMessages() {
