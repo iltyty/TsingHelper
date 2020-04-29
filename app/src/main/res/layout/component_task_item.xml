@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/task_item_margin_bottom"
     android:background="#00000000">
 
     <ImageView
@@ -28,7 +29,7 @@
         android:layout_below="@+id/task_item_title"
         android:layout_marginStart="@dimen/task_item_text_margin"
         android:layout_marginLeft="@dimen/task_item_text_margin"
-        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar"/>
+        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
 
     <TextView
         android:id="@+id/task_item_deadline"

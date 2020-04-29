@@ -14,6 +14,9 @@ import com.tsinghua.tsinghelper.ui.task.TaskFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     // text of bottom tab bar item
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_add_24dp, R.drawable.ic_message_active_24dp,
             R.drawable.ic_mine_active_24dp };
     // bottom navigation bar
+    @BindView(R.id.navigation_bar)
     EasyNavigationBar mNavigationBar;
     // all fragments
     List<Fragment> mFragments = new ArrayList<>();
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavigationBar = findViewById(R.id.navigation_bar);
+        ButterKnife.bind(this);
 
         mTabText = new String[]{ getString(R.string.title_home), getString(R.string.title_task),
                 "", getString(R.string.title_messages), getString(R.string.title_mine)};

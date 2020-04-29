@@ -11,4 +11,15 @@
         <attr name="task_reward" format="string" />
         <attr name="task_deadline" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="state_item_attr">
+        <attr name="state_icon_src" format="reference" />
+        <attr name="state_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="message_item_attr">
+        <attr name="message_icon_src" format="reference" />
+        <attr name="message_content_text" format="string" />
+        <attr name="message_time_text" format="string" />
+    </declare-styleable>
 </resources>

@@ -5,6 +5,20 @@
     <dimen name="item_icon_height">30dp</dimen>
     <dimen name="item_icon_padding">5dp</dimen>
     <dimen name="item_text_margin">5dp</dimen>
+
     <dimen name="task_item_avatar_size">36dp</dimen>
     <dimen name="task_item_text_margin">40dp</dimen>
+    <dimen name="task_item_margin_bottom">5dp</dimen>
+
+    <dimen name="state_dropdown_vertical_offset">34dp</dimen>
+    <dimen name="state_item_text_size">12sp</dimen>
+    <dimen name="state_item_text_margin_start">4dp</dimen>
+    <dimen name="state_item_text_margin_end">15dp</dimen>
+    <dimen name="state_item_icon_margin_start">12dp</dimen>
+    <dimen name="state_item_icon_size">8dp</dimen>
+
+    <dimen name="message_item_icon_size">36dp</dimen>
+    <dimen name="message_item_text_margin_start">4dp</dimen>
+    <dimen name="message_item_margin_top">8dp</dimen>
+    <dimen name="message_item_margin_bottom">15dp</dimen>
 </resources>
