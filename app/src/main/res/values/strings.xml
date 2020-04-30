@@ -14,4 +14,6 @@
         <item>忙碌</item>
         <item>隐身</item>
     </string-array>
+
+    <string name="personal_asset_btn_text">我的资产</string>
 </resources>
