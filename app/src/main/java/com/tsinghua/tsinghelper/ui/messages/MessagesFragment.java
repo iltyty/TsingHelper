@@ -65,11 +65,12 @@ public class MessagesFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
     }
 
     private ArrayList<MessageDTO> getMessages() {
         ArrayList<MessageDTO> messages = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             String s = String.valueOf(i + 1);
             messages.add(new MessageDTO(UUID.randomUUID(), UUID.randomUUID(),
                     new Timestamp(System.currentTimeMillis()), "消息内容" + s));

@@ -42,22 +42,24 @@ public class HomeFragment extends Fragment {
 
     private void initRecyclerView() {
         mAdapter = new TaskAdapter(genTasks());
-//        mLayoutManager = new LinearLayoutManager(getContext()) {
-//            @Override
-//            public boolean canScrollVertically() { return false; }
-//        };
         mLayoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false);
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         mDivider = new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
     }
 
     private ArrayList<TaskDTO> genTasks() {
         ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             String s = String.valueOf(i + 1);
             tasks.add(new TaskDTO("任务" + s,
                     "报酬" + s, "截止日期" + s ));
