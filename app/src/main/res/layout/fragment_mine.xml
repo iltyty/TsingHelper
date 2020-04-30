@@ -270,14 +270,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_in_progress_24dp"
+                    android:src="@drawable/ic_in_progress_24dp"
+                    android:text="进行中（0）"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
                     app:layout_column="0"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"
-                    app:text="进行中（0）" />
+                    app:layout_rowWeight="1" />
 
                 <com.tsinghua.tsinghelper.components.IconTextItem
                     android:id="@+id/published_to_be_paid"
@@ -286,14 +288,16 @@
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:layout_weight="1"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_to_be_paid_24dp"
+                    android:src="@drawable/ic_to_be_paid_24dp"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                    android:text="待付款（0）"
                     app:layout_column="1"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"
-                    app:text="待付款（0）" />
+                    app:layout_rowWeight="1" />
 
                 <com.tsinghua.tsinghelper.components.IconTextItem
                     android:id="@+id/published_done"
@@ -302,13 +306,15 @@
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:layout_weight="1"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_done_24dp"
+                    android:src="@drawable/ic_done_24dp"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                    android:text="已完成（0）"
                     app:layout_column="2"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
-                    app:layout_rowWeight="1"
-                    app:text="已完成（0）" />
+                    app:layout_rowWeight="1" />
 
             </androidx.gridlayout.widget.GridLayout>
 
@@ -346,7 +352,7 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            
+
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_2"
                 android:layout_width="match_parent"
@@ -370,9 +376,11 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                         android:gravity="center"
-                        app:icon_src="@drawable/ic_in_progress_24dp"
-                        app:layout_columnWeight="1"
-                        app:text="进行中（0）" />
+                        android:src="@drawable/ic_in_progress_24dp"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        android:text="进行中（0）"
+                        app:layout_columnWeight="1" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -387,9 +395,11 @@
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                         android:gravity="center"
-                        app:icon_src="@drawable/ic_done_24dp"
-                        app:layout_columnWeight="1"
-                        app:text="已完成（0）">
+                        android:src="@drawable/ic_done_24dp"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        android:text="已完成（0）"
+                        app:layout_columnWeight="1">
 
                     </com.tsinghua.tsinghelper.components.IconTextItem>
                 </RelativeLayout>

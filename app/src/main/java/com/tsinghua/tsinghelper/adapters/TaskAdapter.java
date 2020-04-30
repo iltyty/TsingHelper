@@ -21,7 +21,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private ArrayList<TaskDTO> mTasks;
 
-    public TaskAdapter(ArrayList<TaskDTO> tasks) { this.mTasks = tasks; }
+    public TaskAdapter(ArrayList<TaskDTO> tasks) {
+        this.mTasks = tasks;
+    }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
         this.mTasks = tasks;

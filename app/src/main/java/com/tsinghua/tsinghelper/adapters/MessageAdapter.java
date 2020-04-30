@@ -21,7 +21,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private ArrayList<MessageDTO> mMessages;
 
-    public MessageAdapter(ArrayList<MessageDTO> messages) { mMessages = messages; }
+    public MessageAdapter(ArrayList<MessageDTO> messages) {
+        mMessages = messages;
+    }
 
     public void setMessages(ArrayList<MessageDTO> messages) {
         mMessages = messages;

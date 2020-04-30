@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 20; i++) {
             String s = String.valueOf(i + 1);
             tasks.add(new TaskDTO("任务" + s,
-                    "报酬" + s, "截止日期" + s ));
+                    "报酬" + s, "截止日期" + s));
         }
         return tasks;
     }

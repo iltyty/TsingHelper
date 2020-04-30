@@ -22,7 +22,9 @@ public class AccountStateItem extends RelativeLayout {
 
     private View mView;
 
-    public AccountStateItem(Context context) { this(context, null); }
+    public AccountStateItem(Context context) {
+        this(context, null);
+    }
 
     public AccountStateItem(Context context, AttributeSet attrs) {
         super(context, attrs);

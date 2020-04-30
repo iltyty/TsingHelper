@@ -69,14 +69,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_community_item_32dp"
+                android:src="@drawable/ic_community_item_32dp"
                 app:layout_column="0"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="社区互助">
+                android:text="社区互助">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -85,14 +85,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_food_item_32dp"
+                android:src="@drawable/ic_food_item_32dp"
                 app:layout_column="1"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="代餐跑腿">
+                android:text="代餐跑腿">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -101,14 +101,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_study_item_32dp"
+                android:src="@drawable/ic_study_item_32dp"
                 app:layout_column="2"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="学习解惑">
+                android:text="学习解惑">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -117,14 +117,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_questionnaire_item_32dp"
+                android:src="@drawable/ic_questionnaire_item_32dp"
                 app:layout_column="3"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="个人问卷">
+                android:text="个人问卷">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
         </androidx.gridlayout.widget.GridLayout>

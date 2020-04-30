@@ -24,7 +24,6 @@
         android:layout_marginStart="@dimen/item_text_margin"
         android:layout_marginLeft="@dimen/item_text_margin"
         android:gravity="center_vertical"
-        android:textColor="@color/iconTextItemTextColor"
         tools:layout_constraintTop_toBottomOf="@id/item_icon" />
 
 </RelativeLayout>

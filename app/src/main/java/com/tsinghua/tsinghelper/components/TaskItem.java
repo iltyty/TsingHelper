@@ -27,7 +27,9 @@ public class TaskItem extends RelativeLayout {
 
     private View mView;
 
-    public TaskItem(Context context) { this(context, null); }
+    public TaskItem(Context context) {
+        this(context, null);
+    }
 
     public TaskItem(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -6,6 +6,8 @@
     <dimen name="bottom_bar_add_icon_size">36dp</dimen>
     <dimen name="bottom_bar_add_layout_height">70dp</dimen>
 
+    <dimen name="icon_text_item_default_text_size">15sp</dimen>
+
     <dimen name="item_height">45dp</dimen>
     <dimen name="item_gap">20dp</dimen>
     <dimen name="item_icon_height">30dp</dimen>
@@ -36,4 +38,5 @@
     <dimen name="asset_btn_height">32dp</dimen>
     <dimen name="mine_page_item_margin_top">15dp</dimen>
     <dimen name="mine_page_icon_margin_top">10dp</dimen>
+    <dimen name="mine_page_icon_text_item_text_size">12sp</dimen>
 </resources>

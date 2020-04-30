@@ -73,56 +73,56 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_helper_item_30dp"
+                android:src="@drawable/ic_helper_item_30dp"
                 app:layout_column="0"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="清友助手" />
+                android:text="清友助手" />
 
             <com.tsinghua.tsinghelper.components.IconTextItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_email_item_30dp"
+                android:src="@drawable/ic_email_item_30dp"
                 app:layout_column="1"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="清友邮箱" />
+                android:text="清友邮箱" />
 
             <com.tsinghua.tsinghelper.components.IconTextItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_community_item_30dp"
+                android:src="@drawable/ic_community_item_30dp"
                 app:layout_column="2"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="清友社区" />
+                android:text="清友社区" />
 
             <com.tsinghua.tsinghelper.components.IconTextItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_address_book_item_30dp"
+                android:src="@drawable/ic_address_book_item_30dp"
                 app:layout_column="3"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="通讯录" />
+                android:text="通讯录" />
 
         </androidx.gridlayout.widget.GridLayout>
 
