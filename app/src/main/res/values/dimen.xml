@@ -28,5 +28,6 @@
     <dimen name="cash_desc_text_size">12sp</dimen>
     <dimen name="asset_btn_width">60dp</dimen>
     <dimen name="asset_btn_height">32dp</dimen>
-    <dimen name="mine_page_item_margin_top">25dp</dimen>
+    <dimen name="mine_page_item_margin_top">15dp</dimen>
+    <dimen name="mine_page_icon_margin_top">10dp</dimen>
 </resources>
