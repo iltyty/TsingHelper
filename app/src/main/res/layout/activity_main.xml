@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -9,11 +10,15 @@
     <com.next.easynavigation.view.EasyNavigationBar
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:Easy_addIconSize="40dp"
-        app:Easy_addLayoutBottom="10dp"
-        app:Easy_addLayoutHeight="100dp"
+        android:layout_height="wrap_content"
+        app:Easy_addIconSize="@dimen/bottom_bar_add_icon_size"
+        app:Easy_addLayoutHeight="@dimen/bottom_bar_add_layout_height"
         app:Easy_addLayoutRule="RULE_CENTER"
-        app:Easy_navigationHeight="60dp" />
+        app:Easy_navigationHeight="@dimen/bottom_bar_height"
+        app:Easy_tabIconSize="@dimen/bottom_bar_icon_size"
+        app:Easy_tabTextSize="@dimen/bottom_bar_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
