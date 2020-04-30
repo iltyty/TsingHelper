@@ -40,7 +40,7 @@ public class IconTextItem extends RelativeLayout {
         ButterKnife.bind(mView);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IconTextItem);
         itemIcon.setImageResource(a.getResourceId(R.styleable.IconTextItem_icon_src,
-                R.drawable.ic_home_item_36dp));
+                R.drawable.ic_community_item_32dp));
         itemText.setText(a.getString(R.styleable.IconTextItem_text));
     }
 }

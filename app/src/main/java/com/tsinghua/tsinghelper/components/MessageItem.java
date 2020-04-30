@@ -42,7 +42,7 @@ public class MessageItem extends RelativeLayout {
         ButterKnife.bind(mView);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MessageItem);
         mSenderAvatar.setImageResource(a.getResourceId(
-                R.styleable.MessageItem_message_icon_src,  R.drawable.ic_home_item_36dp));
+                R.styleable.MessageItem_message_icon_src,  R.drawable.ic_community_item_32dp));
         mContent.setText(a.getString(R.styleable.MessageItem_message_content_text));
         mTime.setText(a.getString(R.styleable.MessageItem_message_time_text));
     }

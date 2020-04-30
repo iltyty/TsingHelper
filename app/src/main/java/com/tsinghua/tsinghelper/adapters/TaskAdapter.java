@@ -68,7 +68,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskDeadline.setText(task.getDeadline());
 
             // TODO: set task publisher's avatar
-            mTaskAvatar.setImageResource(R.drawable.ic_home_item_36dp);
+            mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
         }
     }
 }

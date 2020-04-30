@@ -65,7 +65,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             mMessageTime.setText(message.getTimeString());
 
             // TODO: set message sender's avatar
-            mMessageAvatar.setImageResource(R.drawable.ic_home_item_36dp);
+            mMessageAvatar.setImageResource(R.drawable.ic_community_item_32dp);
         }
     }
 
