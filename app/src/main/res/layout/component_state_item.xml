@@ -26,6 +26,6 @@
         android:layout_toEndOf="@id/state_icon"
         android:layout_toRightOf="@id/state_icon"
         android:gravity="center_vertical"
-        android:textSize="@dimen/state_item_text_size"/>
+        android:textSize="@dimen/state_item_text_size" />
 
 </RelativeLayout>
