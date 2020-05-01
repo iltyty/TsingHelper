@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,14 +41,10 @@ public class TaskFragment extends Fragment {
     }
 
     private void initTab() {
-        PagerAdpter mPagerAdapter = new PagerAdpter(getFragmentManager(), NUM_TABS);
+        PagerAdapter mPagerAdapter = new PagerAdapter(getFragmentManager(), NUM_TABS, getContext());
         mViewPager.setAdapter(mPagerAdapter);
-
-        mTabLayout.addTab(mTabLayout.newTab().setText("所有任务"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("时间排序"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("报酬排序"));
-
         mTabLayout.setupWithViewPager(mViewPager);
+
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -65,12 +63,31 @@ public class TaskFragment extends Fragment {
         });
     }
 
-    public static class PagerAdpter extends FragmentPagerAdapter {
+    public static class PagerAdapter extends FragmentPagerAdapter {
         int numOfTabs;
+        private Context mContext;
+        private ArrayList<Fragment> mFragments = new ArrayList<>();
+        private static final ArrayList<String> TITLES = new ArrayList<>();
 
-        PagerAdpter(FragmentManager fm, int numOfTabs) {
-            super(fm);
-            this.numOfTabs = numOfTabs;
+        PagerAdapter(FragmentManager fm, int numTabs, Context cxt) {
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+            mContext = cxt;
+            numOfTabs = numTabs;
+
+            TITLES.add(mContext.getResources().getString(R.string.task_tab_all));
+            TITLES.add(mContext.getResources().getString(R.string.task_tab_time));
+            TITLES.add(mContext.getResources().getString(R.string.task_tab_reward));
+
+            mFragments.add(new TaskFragment1());
+            mFragments.add(new TaskFragment2());
+            mFragments.add(new TaskFragment3());
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLES.get(position);
         }
 
         @Override
@@ -81,13 +98,7 @@ public class TaskFragment extends Fragment {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            if(position == 0) {
-                return new TaskFragment1();
-            } else if(position == 1) {
-                return new TaskFragment2();
-            } else {
-                return new TaskFragment3();
-            }
+            return mFragments.get(position);
         }
     }
 }
