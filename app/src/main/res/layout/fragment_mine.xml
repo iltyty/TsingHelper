@@ -53,15 +53,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon_avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_address_book_item_30dp"
+                android:src="@drawable/not_logged_in"
                 app:layout_constraintStart_toStartOf="parent"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="@dimen/avatar_border_size"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -417,6 +419,90 @@
 
             <ImageView
                 android:id="@+id/icon_right_arrow3"
+                android:layout_width="@dimen/right_arrow_size"
+                android:layout_height="@dimen/right_arrow_size"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_right_arrow_8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_other_functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mine_page_item_margin_top"
+            android:background="@drawable/shape_mine_item_bg">
+
+            <TextView
+                android:id="@+id/text_view_other_functions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:text="其他功能"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:columnCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_other_functions"
+                app:orientation="horizontal"
+                app:rowCount="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/mine_relationships"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_relationships_24dp"
+                        android:text="我的关系"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        app:layout_columnWeight="1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <ImageView
+                android:id="@+id/icon_right_arrow4"
                 android:layout_width="@dimen/right_arrow_size"
                 android:layout_height="@dimen/right_arrow_size"
                 android:layout_marginTop="20dp"

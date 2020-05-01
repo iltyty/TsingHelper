@@ -32,6 +32,7 @@
     <dimen name="message_item_margin_bottom">15dp</dimen>
 
     <dimen name="avatar_size">40dp</dimen>
+    <dimen name="avatar_border_size">1dp</dimen>
     <dimen name="right_arrow_size">8dp</dimen>
     <dimen name="cash_desc_text_size">12sp</dimen>
     <dimen name="asset_btn_width">60dp</dimen>
