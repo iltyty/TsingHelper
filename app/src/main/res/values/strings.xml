@@ -16,4 +16,7 @@
     </string-array>
 
     <string name="personal_asset_btn_text">我的资产</string>
+    <string name="tasks_all">所有任务</string>
+    <string name="tasks_time">时间排序</string>
+    <string name="tasks_reward">报酬排序</string>
 </resources>
