@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,6 +39,11 @@ public class CircleIconTextItem extends RelativeLayout {
         init(context, attrs);
     }
 
+    public static float convertPixelsToDp(float px, Context context) {
+        return px / ((float) context.getResources().getDisplayMetrics()
+                .densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
     private void init(Context context, AttributeSet attrs) {
         int textSize;
 
@@ -47,25 +51,28 @@ public class CircleIconTextItem extends RelativeLayout {
                 this, true);
         ButterKnife.bind(mView);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleIconTextItem);
-        itemIcon.setImageResource(a.getResourceId(R.styleable.CircleIconTextItem_android_src,
-                R.drawable.ic_community_item_32dp));
-        itemIcon.setBorderColor(a.getColor(R.styleable.CircleIconTextItem_borderColor, Color.BLACK));
+
+        itemIcon.setImageResource(a.getResourceId(
+                R.styleable.CircleIconTextItem_android_src, R.drawable.ic_community_item_32dp));
+        itemIcon.setBorderColor(a.getColor(
+                R.styleable.CircleIconTextItem_borderColor, Color.BLACK
+        ));
         itemIcon.setBorderWidth(a.getDimensionPixelSize(
                 R.styleable.CircleIconTextItem_borderWidth, 0
         ));
 
         itemText.setText(a.getString(R.styleable.CircleIconTextItem_android_text));
-        textSize = a.getDimensionPixelSize(R.styleable.CircleIconTextItem_android_textSize, 0);
+        textSize = a.getDimensionPixelSize(
+                R.styleable.CircleIconTextItem_android_textSize, 0
+        );
+        itemText.setTextColor(a.getColor(
+                R.styleable.CircleIconTextItem_android_textColor, Color.BLACK
+        ));
         if (textSize > 0) {
             itemText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         }
-        itemText.setTextColor(a.getColor(R.styleable.CircleIconTextItem_android_textColor, Color.BLACK));
-        a.recycle();
-    }
 
-    public static float convertPixelsToDp(float px, Context context){
-        return px / ((float) context.getResources().getDisplayMetrics()
-                .densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        a.recycle();
     }
 
 }
