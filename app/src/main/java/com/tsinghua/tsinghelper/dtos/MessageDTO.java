@@ -21,17 +21,25 @@ public class MessageDTO {
         mReceiver = receiver;
     }
 
-    public String getContent() { return mContent; }
+    public String getContent() {
+        return mContent;
+    }
 
-    public Timestamp getTime() { return mTime; }
+    public Timestamp getTime() {
+        return mTime;
+    }
 
     public String getTimeString() {
-        SimpleDateFormat formatter =  new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         return formatter.format(mTime);
     }
 
-    public UUID getSender() { return mSender; }
+    public UUID getSender() {
+        return mSender;
+    }
 
-    public UUID getReceiver() { return mReceiver; }
+    public UUID getReceiver() {
+        return mReceiver;
+    }
 }

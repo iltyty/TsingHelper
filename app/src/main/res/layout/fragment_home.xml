@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -69,14 +68,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_home_item_36dp"
+                android:src="@drawable/ic_community_item_32dp"
                 app:layout_column="0"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="社区互助">
+                android:text="社区互助">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -85,14 +84,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_food_item_36dp"
+                android:src="@drawable/ic_food_item_32dp"
                 app:layout_column="1"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="代餐跑腿">
+                android:text="代餐跑腿">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -101,14 +100,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_study_item_36dp"
+                android:src="@drawable/ic_study_item_32dp"
                 app:layout_column="2"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="学习解惑">
+                android:text="学习解惑">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
@@ -117,14 +116,14 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:gravity="center"
-                app:icon_src="@drawable/ic_questionnaire_item_36dp"
+                android:src="@drawable/ic_questionnaire_item_32dp"
                 app:layout_column="3"
                 app:layout_columnSpan="1"
                 app:layout_columnWeight="1"
                 app:layout_row="0"
                 app:layout_rowSpan="1"
                 app:layout_rowWeight="1"
-                app:text="个人问卷">
+                android:text="个人问卷">
 
             </com.tsinghua.tsinghelper.components.IconTextItem>
         </androidx.gridlayout.widget.GridLayout>
@@ -151,6 +150,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_task_list"
             app:layout_constraintBottom_toBottomOf="parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
@@ -163,33 +163,33 @@
                 app:layout_constrainedHeight="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
         </RelativeLayout>
 
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/relative_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/text_view_task_list">-->
+        <!--        <RelativeLayout-->
+        <!--            android:id="@+id/relative_layout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:layout_marginLeft="10dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginEnd="10dp"-->
+        <!--            android:layout_marginRight="10dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/text_view_task_list">-->
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/recycler_view"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentLeft="true"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:layout_alignParentBottom="true" />-->
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--                android:id="@+id/recycler_view"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentStart="true"-->
+        <!--                android:layout_alignParentLeft="true"-->
+        <!--                android:layout_alignParentEnd="true"-->
+        <!--                android:layout_alignParentRight="true"-->
+        <!--                android:layout_alignParentBottom="true" />-->
 
-<!--        </RelativeLayout>-->
+        <!--        </RelativeLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

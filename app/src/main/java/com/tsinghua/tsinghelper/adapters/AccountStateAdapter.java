@@ -16,7 +16,7 @@ public class AccountStateAdapter extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<Integer> mStateIcons = new ArrayList<>();
-    private final String[] mStateText = { "在线", "忙碌", "隐身" };
+    private final String[] mStateText = {"在线", "忙碌", "隐身"};
 
     public AccountStateAdapter(Context context) {
         mContext = context;

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -19,9 +18,7 @@ import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
 import com.tsinghua.tsinghelper.adapters.MessageAdapter;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 

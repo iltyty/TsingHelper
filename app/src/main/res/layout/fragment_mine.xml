@@ -254,7 +254,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_1"
                 android:layout_width="0dp"
@@ -271,14 +270,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_in_progress_16dp"
+                    android:src="@drawable/ic_in_progress_24dp"
+                    android:text="进行中（0）"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
                     app:layout_column="0"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"
-                    app:text="进行中（0）" />
+                    app:layout_rowWeight="1" />
 
                 <com.tsinghua.tsinghelper.components.IconTextItem
                     android:id="@+id/published_to_be_paid"
@@ -287,14 +288,16 @@
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:layout_weight="1"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_to_be_paid_16dp"
+                    android:src="@drawable/ic_to_be_paid_24dp"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                    android:text="待付款（0）"
                     app:layout_column="1"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
                     app:layout_rowSpan="1"
-                    app:layout_rowWeight="1"
-                    app:text="待付款（0）" />
+                    app:layout_rowWeight="1" />
 
                 <com.tsinghua.tsinghelper.components.IconTextItem
                     android:id="@+id/published_done"
@@ -303,15 +306,30 @@
                     android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                     android:layout_weight="1"
                     android:gravity="center"
-                    app:icon_src="@drawable/ic_done_16dp"
+                    android:src="@drawable/ic_done_24dp"
+                    android:textColor="@color/mine_page_icon_text_item_text_color"
+                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                    android:text="已完成（0）"
                     app:layout_column="2"
                     app:layout_columnSpan="1"
                     app:layout_columnWeight="1"
                     app:layout_row="0"
-                    app:layout_rowWeight="1"
-                    app:text="已完成（0）" />
+                    app:layout_rowWeight="1" />
 
             </androidx.gridlayout.widget.GridLayout>
+
+            <ImageView
+                android:id="@+id/icon_right_arrow2"
+                android:layout_width="@dimen/right_arrow_size"
+                android:layout_height="@dimen/right_arrow_size"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_right_arrow_8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -346,34 +364,69 @@
                 app:orientation="horizontal"
                 app:rowCount="1">
 
-                <com.tsinghua.tsinghelper.components.IconTextItem
-                    android:id="@+id/received_in_progress"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                    android:gravity="center"
-                    app:icon_src="@drawable/ic_in_progress_16dp"
-                    app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_gravity="center_horizontal|left"
-                    app:text="进行中（0）" />
+                    app:layout_columnWeight="1">
 
-                <com.tsinghua.tsinghelper.components.IconTextItem
-                    android:id="@+id/received_done"
-                    android:layout_width="wrap_content"
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/received_in_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_in_progress_24dp"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        android:text="进行中（0）"
+                        app:layout_columnWeight="1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                    android:gravity="center"
-                    app:icon_src="@drawable/ic_done_16dp"
-                    app:layout_column="1"
-                    app:layout_columnSpan="2"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/received_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_done_24dp"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        android:text="已完成（0）"
+                        app:layout_columnWeight="1">
+
+                    </com.tsinghua.tsinghelper.components.IconTextItem>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     app:layout_columnWeight="1"
-                    app:layout_gravity="center_horizontal"
-                    app:layout_row="0"
-                    app:text="已完成（0）" />
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
 
             </androidx.gridlayout.widget.GridLayout>
+
+            <ImageView
+                android:id="@+id/icon_right_arrow3"
+                android:layout_width="@dimen/right_arrow_size"
+                android:layout_height="@dimen/right_arrow_size"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_right_arrow_8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
