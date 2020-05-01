@@ -7,13 +7,11 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".ui.mine.MineFragment">
 
-
-    <LinearLayout
-        android:id="@+id/linear_layout_top"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,9 +25,8 @@
                 android:id="@+id/text_view_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="我的"
                 android:textColor="#000000"
                 android:textSize="20sp"
@@ -40,13 +37,26 @@
                 android:id="@+id/icon_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/ic_settings_18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/linear_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_mid"
@@ -59,11 +69,10 @@
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/not_logged_in"
-                app:layout_constraintStart_toStartOf="parent"
                 app:civ_border_color="@color/colorWhite"
                 app:civ_border_width="@dimen/avatar_border_size"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -72,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:text="我的名字"
                 android:textColor="#000000"
@@ -84,7 +93,7 @@
                 android:id="@+id/icon_right_arrow1"
                 android:layout_width="@dimen/right_arrow_size"
                 android:layout_height="@dimen/right_arrow_size"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
@@ -98,7 +107,8 @@
             android:id="@+id/linear_layout_asset"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_asset1"
@@ -139,8 +149,8 @@
 
                 <TextView
                     android:id="@+id/coin_digit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="21dp"
+                    android:layout_height="19dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
@@ -266,57 +276,67 @@
                 app:layout_constraintTop_toBottomOf="@id/text_view_published_tasks_title"
                 app:orientation="horizontal">
 
-                <com.tsinghua.tsinghelper.components.IconTextItem
-                    android:id="@+id/published_in_progress"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                    android:gravity="center"
-                    android:src="@drawable/ic_in_progress_24dp"
-                    android:text="进行中（0）"
-                    android:textColor="@color/mine_page_icon_text_item_text_color"
-                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
                     app:layout_column="0"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1" />
+                    app:layout_columnWeight="1">
 
-                <com.tsinghua.tsinghelper.components.IconTextItem
-                    android:id="@+id/published_to_be_paid"
-                    android:layout_width="wrap_content"
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_in_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_in_progress_24dp"
+                        android:text="进行中（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/ic_to_be_paid_24dp"
-                    android:textColor="@color/mine_page_icon_text_item_text_color"
-                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
-                    android:text="待付款（0）"
                     app:layout_column="1"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_rowSpan="1"
-                    app:layout_rowWeight="1" />
+                    app:layout_columnWeight="1">
 
-                <com.tsinghua.tsinghelper.components.IconTextItem
-                    android:id="@+id/published_done"
-                    android:layout_width="wrap_content"
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_to_be_paid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_to_be_paid_24dp"
+                        android:text="待付款（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/ic_done_24dp"
-                    android:textColor="@color/mine_page_icon_text_item_text_color"
-                    android:textSize="@dimen/mine_page_icon_text_item_text_size"
-                    android:text="已完成（0）"
                     app:layout_column="2"
-                    app:layout_columnSpan="1"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_rowWeight="1" />
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_done_24dp"
+                        android:text="已完成（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
 
             </androidx.gridlayout.widget.GridLayout>
 
@@ -379,9 +399,9 @@
                         android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                         android:gravity="center"
                         android:src="@drawable/ic_in_progress_24dp"
+                        android:text="进行中（0）"
                         android:textColor="@color/mine_page_icon_text_item_text_color"
                         android:textSize="@dimen/mine_page_icon_text_item_text_size"
-                        android:text="进行中（0）"
                         app:layout_columnWeight="1" />
                 </RelativeLayout>
 
@@ -398,9 +418,9 @@
                         android:layout_marginTop="@dimen/mine_page_icon_margin_top"
                         android:gravity="center"
                         android:src="@drawable/ic_done_24dp"
+                        android:text="已完成（0）"
                         android:textColor="@color/mine_page_icon_text_item_text_color"
                         android:textSize="@dimen/mine_page_icon_text_item_text_size"
-                        android:text="已完成（0）"
                         app:layout_columnWeight="1">
 
                     </com.tsinghua.tsinghelper.components.IconTextItem>
