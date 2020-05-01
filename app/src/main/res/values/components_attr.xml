@@ -7,6 +7,15 @@
         <attr name="android:textColor" />
     </declare-styleable>
 
+    <declare-styleable name="CircleIconTextItem">
+        <attr name="android:src"/>
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="borderColor" format="color"/>
+        <attr name="borderWidth" format="dimension" />
+    </declare-styleable>
+
     <declare-styleable name="TaskItem">
         <attr name="task_avatar_src" format="reference" />
         <attr name="task_title" format="string" />
