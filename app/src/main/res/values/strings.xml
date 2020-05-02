@@ -7,6 +7,7 @@
 
     <string name="query_publisher_hint">搜索任务发布者ID</string>
     <string name="query_task_hint">搜索任务关键词</string>
+    <string name="query_messages_hint">搜索消息关键词</string>
 
     <string name="task_tab_all">所有任务</string>
     <string name="task_tab_time">时间排序</string>

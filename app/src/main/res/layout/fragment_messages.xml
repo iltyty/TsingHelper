@@ -32,7 +32,7 @@
                 android:background="@drawable/shape_round_border"
                 android:iconifiedByDefault="false"
                 android:queryBackground="@null"
-                android:queryHint="@string/query_task_hint"
+                android:queryHint="@string/query_messages_hint"
                 android:searchIcon="@drawable/ic_search_16dp"
                 android:theme="@style/AppSearchView" />
 
