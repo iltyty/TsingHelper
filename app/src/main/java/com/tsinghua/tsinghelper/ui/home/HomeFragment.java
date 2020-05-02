@@ -1,5 +1,7 @@
 package com.tsinghua.tsinghelper.ui.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.ui.task.TaskDetail;
 
 import java.util.ArrayList;
 
@@ -25,7 +29,7 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DividerItemDecoration mDivider;
 
@@ -54,6 +58,8 @@ public class HomeFragment extends Fragment {
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
+
+        mAdapter.setOnItemClickListener(myOnClickListener);
     }
 
     private ArrayList<TaskDTO> genTasks() {
@@ -66,5 +72,13 @@ public class HomeFragment extends Fragment {
         return tasks;
     }
 
-
+    private TaskAdapter.OnItemClickListener myOnClickListener = new TaskAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(View v, int position) {
+            TaskDTO task = mAdapter.mTasks.get(position);
+            Intent intent = new Intent(getActivity(), TaskDetail.class);
+            intent.putExtra("taskTitle", task.getTitle());
+            startActivity(intent);
+        }
+    };
 }

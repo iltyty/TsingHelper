@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,8 +20,10 @@ public class TaskDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_published_tasks);
+        setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+
+//        Intent intent = getIntent();
 
         initToolbar();
 //        initTabLayout();

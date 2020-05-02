@@ -1,16 +1,22 @@
 package com.tsinghua.tsinghelper.adapters;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.ui.task.TaskDetail;
 
 import java.util.ArrayList;
 
@@ -19,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    private ArrayList<TaskDTO> mTasks;
+    public ArrayList<TaskDTO> mTasks;
 
     public TaskAdapter(ArrayList<TaskDTO> tasks) {
         this.mTasks = tasks;
@@ -46,9 +52,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setTaskData(mTasks.get(position));
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+                // Do something
+//                TaskDTO task = mTasks.get(position);
+//                Toast.makeText(v.getContext(), task.getTitle()+"  Clicked!", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(v.getContext(), TaskDetail.class);
+//                intent.putExtra("taskTitle", task.getTitle());
+//                // TODO: add more information
+//
+//
+//                v.getContext().startActivity(intent);
+//
+//            }
+//        });
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.task_item_avatar)
         ImageView mTaskAvatar;
@@ -62,6 +83,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
         }
 
         public void setTaskData(TaskDTO task) {
@@ -72,5 +94,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             // TODO: set task publisher's avatar
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
         }
+
+        @Override
+        public void onClick(View v) {
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(v, getAdapterPosition());
+            }
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
+    }
+
+    public OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
     }
 }
