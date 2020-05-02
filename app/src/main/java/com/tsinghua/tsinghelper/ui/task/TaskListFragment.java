@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    private final int INIT_TASKS_CNT = 0;
+    private final int INIT_TASKS_CNT = 20;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -43,7 +43,7 @@ public class TaskListFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(genTasks());
+        mAdapter = new TaskAdapter(getContext(), genTasks());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),

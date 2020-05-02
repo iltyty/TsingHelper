@@ -1,6 +1,5 @@
 package com.tsinghua.tsinghelper.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetail;
@@ -25,9 +22,11 @@ import butterknife.ButterKnife;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
+    private Context mContext;
     public ArrayList<TaskDTO> mTasks;
 
-    public TaskAdapter(ArrayList<TaskDTO> tasks) {
+    public TaskAdapter(Context cxt, ArrayList<TaskDTO> tasks) {
+        mContext = cxt;
         this.mTasks = tasks;
     }
 
@@ -52,21 +51,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setTaskData(mTasks.get(position));
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-                // Do something
-//                TaskDTO task = mTasks.get(position);
-//                Toast.makeText(v.getContext(), task.getTitle()+"  Clicked!", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(v.getContext(), TaskDetail.class);
-//                intent.putExtra("taskTitle", task.getTitle());
-//                // TODO: add more information
-//
-//
-//                v.getContext().startActivity(intent);
-//
-//            }
-//        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -97,19 +81,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            if(mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(v, getAdapterPosition());
-            }
+            Intent it = new Intent(mContext, TaskDetail.class);
+            mContext.startActivity(it);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View v, int position);
-    }
-
-    public OnItemClickListener mOnItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mOnItemClickListener = listener;
     }
 }
