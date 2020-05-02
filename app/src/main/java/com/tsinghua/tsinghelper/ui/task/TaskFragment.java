@@ -33,14 +33,17 @@ public class TaskFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle SavedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle SavedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_task, container, false);
         ButterKnife.bind(this, root);
-        initTab();
+        initTabs();
         return root;
     }
 
-    private void initTab() {
+    private void initTabs() {
         PagerAdapter mPagerAdapter = new PagerAdapter(getFragmentManager(), NUM_TABS, getContext());
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -64,10 +67,10 @@ public class TaskFragment extends Fragment {
     }
 
     public static class PagerAdapter extends FragmentPagerAdapter {
-        int numOfTabs;
         private Context mContext;
-        private ArrayList<Fragment> mFragments = new ArrayList<>();
+        private static final ArrayList<Fragment> mFragments = new ArrayList<>();
         private static final ArrayList<String> TITLES = new ArrayList<>();
+        private final int numOfTabs;
 
         PagerAdapter(FragmentManager fm, int numTabs, Context cxt) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -79,9 +82,9 @@ public class TaskFragment extends Fragment {
             TITLES.add(mContext.getResources().getString(R.string.task_tab_time));
             TITLES.add(mContext.getResources().getString(R.string.task_tab_reward));
 
-            mFragments.add(new TaskFragment1());
-            mFragments.add(new TaskFragment2());
-            mFragments.add(new TaskFragment3());
+            for (int i = 0; i < numOfTabs; i++) {
+                mFragments.add(new TaskListFragment());
+            }
         }
 
         @Nullable

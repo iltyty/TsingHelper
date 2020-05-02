@@ -10,6 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:context=".ui.messages.MessagesFragment">
 
         <LinearLayout
@@ -44,10 +46,10 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:dropDownWidth="wrap_content"
+                android:dropDownVerticalOffset="@dimen/state_dropdown_vertical_offset"
                 android:entries="@array/account_state"
                 android:prompt="@string/account_state_prompt"
-                android:spinnerMode="dropdown"
-                android:dropDownVerticalOffset="@dimen/state_dropdown_vertical_offset" />
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
@@ -75,10 +77,10 @@
                 android:background="#00ffffff"
                 android:gravity="center"
                 android:src="@drawable/ic_helper_item_30dp"
+                android:text="清友助手"
                 app:layout_column="0"
                 app:layout_columnSpan="1"
-                app:layout_columnWeight="1"
-                android:text="清友助手" />
+                app:layout_columnWeight="1" />
 
             <com.tsinghua.tsinghelper.components.CircleIconTextItem
                 android:layout_width="wrap_content"
@@ -86,10 +88,10 @@
                 android:background="#00ffffff"
                 android:gravity="center"
                 android:src="@drawable/ic_email_item_30dp"
+                android:text="清友邮箱"
                 app:layout_column="1"
                 app:layout_columnSpan="1"
-                app:layout_columnWeight="1"
-                android:text="清友邮箱" />
+                app:layout_columnWeight="1" />
 
             <com.tsinghua.tsinghelper.components.CircleIconTextItem
                 android:layout_width="wrap_content"
@@ -97,10 +99,10 @@
                 android:background="#00ffffff"
                 android:gravity="center"
                 android:src="@drawable/ic_community_item_30dp"
+                android:text="清友社区"
                 app:layout_column="2"
                 app:layout_columnSpan="1"
-                app:layout_columnWeight="1"
-                android:text="清友社区" />
+                app:layout_columnWeight="1" />
 
             <com.tsinghua.tsinghelper.components.CircleIconTextItem
                 android:layout_width="wrap_content"
@@ -108,10 +110,10 @@
                 android:background="#00ffffff"
                 android:gravity="center"
                 android:src="@drawable/ic_address_book_item_30dp"
+                android:text="通讯录"
                 app:layout_column="3"
                 app:layout_columnSpan="1"
-                app:layout_columnWeight="1"
-                android:text="通讯录" />
+                app:layout_columnWeight="1" />
 
         </androidx.gridlayout.widget.GridLayout>
 
@@ -133,7 +135,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
         </RelativeLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

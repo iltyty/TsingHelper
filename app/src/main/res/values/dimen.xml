@@ -38,6 +38,6 @@
     <dimen name="asset_btn_width">60dp</dimen>
     <dimen name="asset_btn_height">32dp</dimen>
     <dimen name="mine_page_item_margin_top">15dp</dimen>
-    <dimen name="mine_page_icon_margin_top">10dp</dimen>
+    <dimen name="mine_page_icon_margin_top">30dp</dimen>
     <dimen name="mine_page_icon_text_item_text_size">12sp</dimen>
 </resources>
