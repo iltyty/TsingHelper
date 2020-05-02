@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_layout_top"
+            android:id="@+id/constraint_layout_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -58,8 +58,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_layout_mid"
+        <RelativeLayout
+            android:id="@+id/relative_layout_to_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -71,9 +71,7 @@
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/not_logged_in"
                 app:civ_border_color="@color/colorWhite"
-                app:civ_border_width="@dimen/avatar_border_size"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:civ_border_width="@dimen/avatar_border_size" />
 
             <TextView
                 android:id="@+id/text_view_name"
@@ -86,22 +84,21 @@
                 android:text="我的名字"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/icon_avatar"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_toRightOf="@id/icon_avatar" />
 
             <ImageView
-                android:id="@+id/icon_right_arrow1"
+                android:id="@+id/icon_right_arrow_profile"
                 android:layout_width="@dimen/right_arrow_size"
                 android:layout_height="@dimen/right_arrow_size"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_right_arrow_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_right_arrow_8dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linear_layout_asset"
@@ -253,18 +250,42 @@
             android:layout_marginTop="@dimen/mine_page_item_margin_top"
             android:background="@drawable/shape_mine_item_bg">
 
-            <TextView
-                android:id="@+id/text_view_published_tasks_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_published"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:text="我发布的任务"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_published_tasks_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="我发布的任务"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow_published"
+                    android:layout_width="@dimen/right_arrow_size"
+                    android:layout_height="@dimen/right_arrow_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right_arrow_8dp" />
+
+            </RelativeLayout>
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_1"
@@ -273,7 +294,7 @@
                 app:columnCount="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_published_tasks_title"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_published"
                 app:orientation="horizontal">
 
                 <RelativeLayout
@@ -340,18 +361,6 @@
 
             </androidx.gridlayout.widget.GridLayout>
 
-            <ImageView
-                android:id="@+id/icon_right_arrow2"
-                android:layout_width="@dimen/right_arrow_size"
-                android:layout_height="@dimen/right_arrow_size"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_right_arrow_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -362,18 +371,43 @@
             android:layout_marginTop="@dimen/mine_page_item_margin_top"
             android:background="@drawable/shape_mine_item_bg">
 
-            <TextView
-                android:id="@+id/text_view_task_received_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_doing"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:text="我在做的任务"
-                android:textColor="#000000"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_task_received_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="我在做的任务"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow_doing"
+                    android:layout_width="@dimen/right_arrow_size"
+                    android:layout_height="@dimen/right_arrow_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right_arrow_8dp" />
+
+            </RelativeLayout>
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_2"
@@ -382,7 +416,7 @@
                 app:columnCount="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_task_received_title"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_doing"
                 app:orientation="horizontal"
                 app:rowCount="1">
 
@@ -437,18 +471,6 @@
 
             </androidx.gridlayout.widget.GridLayout>
 
-            <ImageView
-                android:id="@+id/icon_right_arrow3"
-                android:layout_width="@dimen/right_arrow_size"
-                android:layout_height="@dimen/right_arrow_size"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_right_arrow_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -458,18 +480,42 @@
             android:layout_marginTop="@dimen/mine_page_item_margin_top"
             android:background="@drawable/shape_mine_item_bg">
 
-            <TextView
-                android:id="@+id/text_view_other_functions"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_others"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:text="其他功能"
-                android:textColor="#000000"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_other_functions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="其他功能"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow_others"
+                    android:layout_width="@dimen/right_arrow_size"
+                    android:layout_height="@dimen/right_arrow_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right_arrow_8dp" />
+
+            </RelativeLayout>
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_3"
@@ -478,7 +524,7 @@
                 app:columnCount="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_other_functions"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_others"
                 app:orientation="horizontal"
                 app:rowCount="1">
 
@@ -520,18 +566,6 @@
                 </RelativeLayout>
 
             </androidx.gridlayout.widget.GridLayout>
-
-            <ImageView
-                android:id="@+id/icon_right_arrow4"
-                android:layout_width="@dimen/right_arrow_size"
-                android:layout_height="@dimen/right_arrow_size"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_right_arrow_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

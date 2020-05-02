@@ -95,7 +95,7 @@ public class TaskFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return this.numOfTabs;
+            return numOfTabs;
         }
 
         @NonNull
