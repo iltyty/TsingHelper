@@ -39,7 +39,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/search_view"
         app:layout_constraintTop_toBottomOf="@+id/search_view"
-        app:tabGravity="fill" />
+        app:tabGravity="fill"
+        app:tabRippleColor="@color/transparent" />
 
     <RelativeLayout
         android:layout_width="match_parent"

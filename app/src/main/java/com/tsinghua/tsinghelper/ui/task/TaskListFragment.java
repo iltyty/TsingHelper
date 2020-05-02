@@ -22,6 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
+
+    private final int INIT_TASKS_CNT = 0;
+
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -53,7 +56,7 @@ public class TaskListFragment extends Fragment {
 
     private ArrayList<TaskDTO> genTasks() {
         ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < INIT_TASKS_CNT; i++) {
             String s = String.valueOf(i + 1);
             tasks.add(new TaskDTO("所有任务" + s,
                     "报酬" + s, "截止日期" + s));
