@@ -54,7 +54,7 @@ public class MessagesFragment extends Fragment {
 
 
     private void initRecyclerView() {
-        mAdapter = new MessageAdapter(getMessages());
+        mAdapter = new MessageAdapter(getActivity(), getMessages());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),

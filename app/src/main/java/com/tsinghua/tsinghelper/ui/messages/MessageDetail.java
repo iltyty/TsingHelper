@@ -1,4 +1,4 @@
-package com.tsinghua.tsinghelper.ui.task;
+package com.tsinghua.tsinghelper.ui.messages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +15,11 @@ import com.tsinghua.tsinghelper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TaskDetail extends AppCompatActivity {
-    @BindView(R.id.toolbar_task)
+public class MessageDetail extends AppCompatActivity {
+    @BindView(R.id.toolbar_message)
     Toolbar mToolbar;
-    @BindView(R.id.task_title)
-    TextView mTaskTitle;
+    @BindView(R.id.sender_name)
+    TextView mSenderName;
 
     Intent mIntent;
 
@@ -35,7 +35,7 @@ public class TaskDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_detail);
+        setContentView(R.layout.activity_message_detail);
         ButterKnife.bind(this);
 
         mIntent = getIntent();
@@ -53,6 +53,6 @@ public class TaskDetail extends AppCompatActivity {
     }
 
     private void initLayout() {
-        mTaskTitle.setText(mIntent.getExtras().getString("TASK_TITLE"));
+        mSenderName.setText(mIntent.getExtras().getString("SENDER_NAME"));
     }
 }
