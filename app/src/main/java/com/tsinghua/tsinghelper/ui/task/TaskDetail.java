@@ -1,7 +1,9 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -16,6 +18,10 @@ import butterknife.ButterKnife;
 public class TaskDetail extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.task_title)
+    TextView mTaskTitle;
+
+    Intent mIntent;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -23,7 +29,6 @@ public class TaskDetail extends AppCompatActivity {
             onBackPressed();    //Call the back button's method
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -33,10 +38,10 @@ public class TaskDetail extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-//        Intent intent = getIntent();
+        mIntent = getIntent();
 
         initToolbar();
-//        initTabLayout();
+        initLayout();
     }
 
     private void initToolbar() {
@@ -45,5 +50,9 @@ public class TaskDetail extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+    private void initLayout() {
+        mTaskTitle.setText(mIntent.getExtras().getString("TASK_TITLE"));
     }
 }

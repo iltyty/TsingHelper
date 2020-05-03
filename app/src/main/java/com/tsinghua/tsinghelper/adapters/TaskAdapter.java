@@ -81,7 +81,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
+            TaskDTO task = mTasks.get(getAdapterPosition());
             Intent it = new Intent(mContext, TaskDetail.class);
+
+            it.putExtra("TASK_TITLE", task.getTitle());
+            // TODO: send more information
+
             mContext.startActivity(it);
         }
     }
