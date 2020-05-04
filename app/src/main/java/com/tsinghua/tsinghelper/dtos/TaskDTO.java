@@ -12,9 +12,15 @@ public class TaskDTO {
         mDeadline = deadline;
     }
 
-    public String getTitle() { return mTitle; }
+    public String getTitle() {
+        return mTitle;
+    }
 
-    public String getReward() { return mReward; }
+    public String getReward() {
+        return mReward;
+    }
 
-    public String getDeadline() { return mDeadline; }
+    public String getDeadline() {
+        return mDeadline;
+    }
 }

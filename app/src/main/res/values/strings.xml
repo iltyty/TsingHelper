@@ -7,6 +7,11 @@
 
     <string name="query_publisher_hint">搜索任务发布者ID</string>
     <string name="query_task_hint">搜索任务关键词</string>
+    <string name="query_messages_hint">搜索消息关键词</string>
+
+    <string name="task_tab_all">所有任务</string>
+    <string name="task_tab_time">时间排序</string>
+    <string name="task_tab_reward">报酬排序</string>
 
     <string name="account_state_prompt">状态</string>
     <string-array name="account_state">
@@ -14,4 +19,12 @@
         <item>忙碌</item>
         <item>隐身</item>
     </string-array>
+
+    <string name="personal_asset_btn_text">我的资产</string>
+    <string name="tasks_all">所有任务</string>
+    <string name="tasks_time">时间排序</string>
+    <string name="tasks_reward">报酬排序</string>
+
+    <string name="published_task_tab">进行中</string>
+    <string name="task_detail">任务详情</string>
 </resources>

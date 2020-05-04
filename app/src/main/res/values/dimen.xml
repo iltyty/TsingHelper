@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="bottom_bar_height">45dp</dimen>
+    <dimen name="bottom_bar_icon_size">20dp</dimen>
+    <dimen name="bottom_bar_text_size">10sp</dimen>
+    <dimen name="bottom_bar_add_icon_size">36dp</dimen>
+    <dimen name="bottom_bar_add_layout_height">70dp</dimen>
+
+    <dimen name="icon_text_item_default_text_size">15sp</dimen>
+
     <dimen name="item_height">45dp</dimen>
     <dimen name="item_gap">20dp</dimen>
     <dimen name="item_icon_height">30dp</dimen>
     <dimen name="item_icon_padding">5dp</dimen>
     <dimen name="item_text_margin">5dp</dimen>
 
-    <dimen name="task_item_avatar_size">36dp</dimen>
+    <dimen name="task_item_avatar_size">32dp</dimen>
     <dimen name="task_item_text_margin">40dp</dimen>
-    <dimen name="task_item_margin_bottom">5dp</dimen>
+    <dimen name="task_item_margin_top">8dp</dimen>
+    <dimen name="task_item_margin_bottom">12dp</dimen>
 
     <dimen name="state_dropdown_vertical_offset">34dp</dimen>
     <dimen name="state_item_text_size">12sp</dimen>
@@ -17,8 +26,18 @@
     <dimen name="state_item_icon_margin_start">12dp</dimen>
     <dimen name="state_item_icon_size">8dp</dimen>
 
-    <dimen name="message_item_icon_size">36dp</dimen>
+    <dimen name="message_item_icon_size">32dp</dimen>
     <dimen name="message_item_text_margin_start">4dp</dimen>
     <dimen name="message_item_margin_top">8dp</dimen>
     <dimen name="message_item_margin_bottom">15dp</dimen>
+
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="avatar_border_size">1dp</dimen>
+    <dimen name="right_arrow_size">8dp</dimen>
+    <dimen name="cash_desc_text_size">12sp</dimen>
+    <dimen name="asset_btn_width">60dp</dimen>
+    <dimen name="asset_btn_height">32dp</dimen>
+    <dimen name="mine_page_item_margin_top">15dp</dimen>
+    <dimen name="mine_page_icon_margin_top">30dp</dimen>
+    <dimen name="mine_page_icon_text_item_text_size">12sp</dimen>
 </resources>

@@ -1,150 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context=".ui.home.HomeFragment">
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
 
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/shape_round_border"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@null"
-        android:queryHint="@string/query_publisher_hint"
-        android:searchIcon="@drawable/ic_search_16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/AppSearchView" />
+        android:background="#ffffff"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/textview_do_task"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:text="做任务"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
-
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/grid_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        app:alignmentMode="alignMargins"
-        app:columnCount="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_do_task"
-        app:orientation="horizontal">
-
-        <com.tsinghua.tsinghelper.components.IconTextItem
-            android:layout_width="wrap_content"
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00ffffff"
-            android:gravity="center"
-            app:layout_column="0"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
-            app:icon_src="@drawable/ic_home_item_36dp"
-            app:text="社区互助">
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_round_border"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:queryHint="@string/query_publisher_hint"
+            android:searchIcon="@drawable/ic_search_16dp"
+            android:theme="@style/AppSearchView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </com.tsinghua.tsinghelper.components.IconTextItem>
-
-        <com.tsinghua.tsinghelper.components.IconTextItem
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textview_do_task"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00ffffff"
-            android:gravity="center"
-            app:layout_column="1"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
-            app:icon_src="@drawable/ic_food_item_36dp"
-            app:text="代餐跑腿">
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="做任务"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
-        </com.tsinghua.tsinghelper.components.IconTextItem>
-
-        <com.tsinghua.tsinghelper.components.IconTextItem
-            android:layout_width="wrap_content"
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/grid_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00ffffff"
-            android:gravity="center"
-            app:layout_column="2"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
-            app:icon_src="@drawable/ic_study_item_36dp"
-            app:text="学习解惑">
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:columnCount="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_do_task"
+            app:orientation="horizontal">
 
-        </com.tsinghua.tsinghelper.components.IconTextItem>
+            <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/community"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:src="@drawable/ic_community_item_32dp"
+                app:layout_column="0"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                android:text="社区互助">
 
-        <com.tsinghua.tsinghelper.components.IconTextItem
-            android:layout_width="wrap_content"
+            </com.tsinghua.tsinghelper.components.IconTextItem>
+
+            <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:src="@drawable/ic_food_item_32dp"
+                app:layout_column="1"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                android:text="代餐跑腿">
+
+            </com.tsinghua.tsinghelper.components.IconTextItem>
+
+            <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/study"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:src="@drawable/ic_study_item_32dp"
+                app:layout_column="2"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                android:text="学习解惑">
+
+            </com.tsinghua.tsinghelper.components.IconTextItem>
+
+            <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/questionnaire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:src="@drawable/ic_questionnaire_item_32dp"
+                app:layout_column="3"
+                app:layout_columnSpan="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0"
+                app:layout_rowSpan="1"
+                app:layout_rowWeight="1"
+                android:text="个人问卷">
+
+            </com.tsinghua.tsinghelper.components.IconTextItem>
+        </androidx.gridlayout.widget.GridLayout>
+
+        <TextView
+            android:id="@+id/text_view_task_list"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00ffffff"
-            android:gravity="center"
-            app:layout_column="3"
-            app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
-            app:layout_rowWeight="1"
-            app:icon_src="@drawable/ic_questionnaire_item_36dp"
-            app:text="个人问卷">
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="推荐任务"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grid_layout" />
 
-        </com.tsinghua.tsinghelper.components.IconTextItem>
-    </androidx.gridlayout.widget.GridLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_task_list">
 
-    <TextView
-        android:id="@+id/text_view_task_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:text="任务列表"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grid_layout" />
+            <include layout="@layout/fragment_task_list" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_task_list" />
+        </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

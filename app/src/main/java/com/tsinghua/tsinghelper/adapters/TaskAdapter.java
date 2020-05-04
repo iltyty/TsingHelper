@@ -1,5 +1,7 @@
 package com.tsinghua.tsinghelper.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.ui.task.TaskDetail;
 
 import java.util.ArrayList;
 
@@ -19,9 +22,13 @@ import butterknife.ButterKnife;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    private ArrayList<TaskDTO> mTasks;
+    private Context mContext;
+    public ArrayList<TaskDTO> mTasks;
 
-    public TaskAdapter(ArrayList<TaskDTO> tasks) { this.mTasks = tasks; }
+    public TaskAdapter(Context cxt, ArrayList<TaskDTO> tasks) {
+        mContext = cxt;
+        this.mTasks = tasks;
+    }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
         this.mTasks = tasks;
@@ -46,7 +53,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.setTaskData(mTasks.get(position));
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.task_item_avatar)
         ImageView mTaskAvatar;
@@ -60,6 +67,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
         }
 
         public void setTaskData(TaskDTO task) {
@@ -68,7 +76,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskDeadline.setText(task.getDeadline());
 
             // TODO: set task publisher's avatar
-            mTaskAvatar.setImageResource(R.drawable.ic_home_item_36dp);
+            mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
+        }
+
+        @Override
+        public void onClick(View v) {
+            TaskDTO task = mTasks.get(getAdapterPosition());
+            Intent it = new Intent(mContext, TaskDetail.class);
+
+            it.putExtra("TASK_TITLE", task.getTitle());
+            // TODO: send more information
+
+            mContext.startActivity(it);
         }
     }
 }

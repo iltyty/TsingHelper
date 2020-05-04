@@ -1,9 +1,9 @@
 package com.tsinghua.tsinghelper;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
 
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tsinghua.tsinghelper.ui.home.HomeFragment;
@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
     // text of bottom tab bar item
     private String[] mTabText;
     // icon when not selected
-    private int[] mNormalIcon = { R.drawable.ic_home_24dp, R.drawable.ic_task_24dp,
-            R.drawable.ic_add_24dp, R.drawable.ic_message_24dp, R.drawable.ic_mine_24dp };
+    private int[] mNormalIcon = {R.drawable.ic_home_24dp, R.drawable.ic_task_24dp,
+            R.drawable.ic_add_24dp, R.drawable.ic_message_24dp, R.drawable.ic_mine_24dp};
     // icon when selected
-    private int[] mSelectIcon = { R.drawable.ic_home_active_24dp, R.drawable.ic_task_active_24dp,
+    private int[] mSelectIcon = {R.drawable.ic_home_active_24dp, R.drawable.ic_task_active_24dp,
             R.drawable.ic_add_24dp, R.drawable.ic_message_active_24dp,
-            R.drawable.ic_mine_active_24dp };
+            R.drawable.ic_mine_active_24dp};
     // bottom navigation bar
     @BindView(R.id.navigation_bar)
     EasyNavigationBar mNavigationBar;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mTabText = new String[]{ getString(R.string.title_home), getString(R.string.title_task),
+        mTabText = new String[]{getString(R.string.title_home), getString(R.string.title_task),
                 "", getString(R.string.title_messages), getString(R.string.title_mine)};
 
         mFragments.add(new HomeFragment());

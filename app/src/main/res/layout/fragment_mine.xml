@@ -4,20 +4,559 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.mine.MineFragment">
 
-    <TextView
-        android:id="@+id/text_mine"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_view_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="我的"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/icon_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_settings_18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/linear_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_to_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon_avatar"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/not_logged_in"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="@dimen/avatar_border_size" />
+
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="我的名字"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_toRightOf="@id/icon_avatar" />
+
+            <ImageView
+                android:id="@+id/icon_right_arrow_profile"
+                android:layout_width="@dimen/right_arrow_size"
+                android:layout_height="@dimen/right_arrow_size"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_right_arrow_8dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_asset"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_asset1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/cash_digit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="0.00"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cash_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="现金（元）"
+                    android:textSize="@dimen/cash_desc_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cash_digit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_asset2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/coin_digit"
+                    android:layout_width="21dp"
+                    android:layout_height="19dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="0.00"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/coin_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="清友币（枚）"
+                    android:textSize="@dimen/cash_desc_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/coin_digit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_asset3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/total_digit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="0.00"
+                    android:textColor="#000000"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/total_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="总收入（元）"
+                    android:textSize="@dimen/cash_desc_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/total_digit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_asset_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/personal_asset_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/asset_btn_height"
+                    android:layout_marginTop="13dp"
+                    android:background="@drawable/shape_btn_selector"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/personal_asset_btn_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_task_published"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/mine_page_item_margin_top"
+            android:background="@drawable/shape_mine_item_bg">
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_published"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_published_tasks_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="我发布的任务"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow_published"
+                    android:layout_width="@dimen/right_arrow_size"
+                    android:layout_height="@dimen/right_arrow_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right_arrow_8dp" />
+
+            </RelativeLayout>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_layout_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:columnCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_published"
+                app:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_column="0"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_in_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_in_progress_24dp"
+                        android:text="进行中（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_column="1"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_to_be_paid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_to_be_paid_24dp"
+                        android:text="待付款（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_column="2"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/published_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_done_24dp"
+                        android:text="已完成（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
+
+                </RelativeLayout>
+
+
+            </androidx.gridlayout.widget.GridLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_task_in_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mine_page_item_margin_top"
+            android:background="@drawable/shape_mine_item_bg">
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_doing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_task_received_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="我在做的任务"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+
+                <ImageView
+                    android:id="@+id/icon_right_arrow_doing"
+                    android:layout_width="@dimen/right_arrow_size"
+                    android:layout_height="@dimen/right_arrow_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_right_arrow_8dp" />
+
+            </RelativeLayout>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:columnCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_doing"
+                app:orientation="horizontal"
+                app:rowCount="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/received_in_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_in_progress_24dp"
+                        android:text="进行中（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        app:layout_columnWeight="1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/received_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_done_24dp"
+                        android:text="已完成（0）"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        app:layout_columnWeight="1">
+
+                    </com.tsinghua.tsinghelper.components.IconTextItem>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_other_functions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mine_page_item_margin_top"
+            android:background="@drawable/shape_mine_item_bg">
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_to_others"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/text_view_other_functions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="其他功能"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:columnCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/relative_layout_to_others"
+                app:orientation="horizontal"
+                app:rowCount="1">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1">
+
+                    <com.tsinghua.tsinghelper.components.IconTextItem
+                        android:id="@+id/mine_relationships"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
+                        android:gravity="center"
+                        android:src="@drawable/ic_relationships_24dp"
+                        android:text="我的关系"
+                        android:textColor="@color/mine_page_icon_text_item_text_color"
+                        android:textSize="@dimen/mine_page_icon_text_item_text_size"
+                        app:layout_columnWeight="1" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_columnWeight="1"
+                    tools:layout_editor_absoluteX="578dp"
+                    tools:layout_editor_absoluteY="41dp">
+
+                </RelativeLayout>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="IconTextItem">
-        <attr name="icon_src" format="reference" />
-        <attr name="text" format="string" />
+        <attr name="android:src" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleIconTextItem">
+        <attr name="android:src"/>
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="borderColor" format="color"/>
+        <attr name="borderWidth" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="TaskItem">
