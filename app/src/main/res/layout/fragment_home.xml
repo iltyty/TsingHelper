@@ -64,6 +64,7 @@
             app:orientation="horizontal">
 
             <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/community"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
@@ -80,6 +81,7 @@
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
             <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/meal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
@@ -96,6 +98,7 @@
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
             <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/study"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
@@ -112,6 +115,7 @@
             </com.tsinghua.tsinghelper.components.IconTextItem>
 
             <com.tsinghua.tsinghelper.components.IconTextItem
+                android:id="@+id/questionnaire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
