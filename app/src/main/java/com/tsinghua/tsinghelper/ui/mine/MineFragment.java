@@ -1,17 +1,22 @@
 package com.tsinghua.tsinghelper.ui.mine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.LoginUtil;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +28,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private static final int TO_DOING_CODE = 3;
     private static final int TO_OTHERS_CODE = 4;
 
+    @BindView(R.id.tv_username)
+    TextView mUsername;
+
     @BindView(R.id.relative_layout_to_profile)
     RelativeLayout mToProfile;
     @BindView(R.id.relative_layout_to_published)
@@ -31,6 +39,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout mToDoing;
     @BindView(R.id.relative_layout_to_others)
     RelativeLayout mToOthers;
+    private SharedPreferences mSharedPreferences;
 
     @Nullable
     @Override
@@ -39,6 +48,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         View root = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, root);
 
+        mSharedPreferences = LoginUtil.getUserInfoSharedPreferences(Objects.requireNonNull(getContext()));
+
+        setUserInfo();
         setClickListeners();
 
         return root;
@@ -68,5 +80,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.relative_layout_to_others:
                 break;
         }
+    }
+
+    private void setUserInfo() {
+        mUsername.setText(mSharedPreferences.getString("username", ""));
     }
 }
