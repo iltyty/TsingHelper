@@ -96,7 +96,9 @@
                 android:scaleType="fitCenter"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_right_arrow_8dp" />
+                android:src="@drawable/ic_right_arrow_8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
