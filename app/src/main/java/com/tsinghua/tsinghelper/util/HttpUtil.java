@@ -10,9 +10,11 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    private static final String SERVER_URL  = "192.168.1.116:3000/";
-    private static final String USER_PREFIX = SERVER_URL + "users/";
-    private static final String TASK_PREFIX = SERVER_URL + "tasks/";
+    public static final String SERVER_URL = "http://192.168.1.116:3000/";
+    public static final String USER_PREFIX = SERVER_URL + "users/";
+    public static final String USER_LOGIN = USER_PREFIX + "login/";
+    public static final String USER_REGISTER = USER_PREFIX + "register/";
+    public static final String TASK_PREFIX = SERVER_URL + "tasks/";
 
     private static final OkHttpClient mClient = new OkHttpClient();
 
@@ -25,8 +27,7 @@ public class HttpUtil {
     // Initiate an asynchronous post request
     public static void post(String url, HashMap<String, String> params, Callback callback) {
         FormBody.Builder builder = new FormBody.Builder();
-        for(String key: params.keySet())
-        {
+        for (String key : params.keySet()) {
             builder.add(key, params.get(key));
         }
         RequestBody requestBody = builder.build();
