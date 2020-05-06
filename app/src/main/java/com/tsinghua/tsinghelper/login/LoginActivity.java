@@ -3,6 +3,7 @@ package com.tsinghua.tsinghelper.login;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-
+        
     }
 
     public void forgetPassword(View view) {
