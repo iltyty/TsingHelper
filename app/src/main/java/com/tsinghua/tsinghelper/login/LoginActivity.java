@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mETPassword;
     @BindView(R.id.et_phone)
     EditText mETPhoneNumber;
+    @BindView(R.id.cb_remember_login)
+    CheckBox mRemember;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,61 +48,70 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    private boolean checkFields(String username, String password, String phone) {
-        if (username.isEmpty()) {
-            ToastUtil.showToast(this, "请输入用户名");
-            return false;
-        }
-        if (password.isEmpty()) {
-            ToastUtil.showToast(this, "请输入密码");
-            return false;
-        }
-        if (phone.isEmpty()) {
-            ToastUtil.showToast(this, "请输入手机号");
-            return false;
-        }
-        return true;
-    }
-
-    public void login(View view) {
+    private HashMap<String, String> checkFields() {
+        String phonePattern = "\\d{11}";
         String username = mETUsername.getText().toString();
         String password = mETPassword.getText().toString();
         String phone = mETPhoneNumber.getText().toString();
 
-        if (!checkFields(username, password, phone)) {
+        if (username.isEmpty()) {
+            ToastUtil.showToast(this, "请输入用户名");
+            return null;
+        }
+        if (password.isEmpty()) {
+            ToastUtil.showToast(this, "请输入密码");
+            return null;
+        }
+        if (!phone.matches(phonePattern)) {
+            ToastUtil.showToast(this, "请输入11位手机号");
+            return null;
+        }
+
+        HashMap<String, String> res = new HashMap<>();
+        res.put("phone", phone);
+        res.put("username", username);
+        res.put("password", password);
+        return res;
+    }
+
+    public void login(View view) {
+        HashMap<String, String> params = checkFields();
+        if (params == null) {
             return;
         }
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("phone", phone);
-        params.put("username", username);
-        params.put("password", password);
-
         HttpUtil.post(HttpUtil.USER_LOGIN, params, new Callback() {
+            Intent it = new Intent(LoginActivity.this, MainActivity.class);
             @Override
             public void onResponse(
                     @NotNull Call call, @NotNull Response response) throws IOException {
                 String resStr = response.body().string();
-                JSONObject resJson;
-                if (response.code() == 201) {
-                    // login succeeded
-                    LoginActivity.this.runOnUiThread(() ->
-                            ToastUtil.showToast(LoginActivity.this, "登录成功")
-                    );
-
-                    HashMap<String, String> userInfo = new HashMap<>();
-                    userInfo.put("username", username);
-                    try {
-                        resJson = new JSONObject(resStr);
-                        userInfo.put("userId", resJson.getString("userId"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    LoginUtil.recordUserInfo(LoginActivity.this, userInfo);
-            
-                    Intent it = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(it);
-                    finish();
+                switch (response.code()) {
+                    case 201:
+                        // login succeeded
+                        LoginActivity.this.runOnUiThread(() ->
+                                ToastUtil.showToast(LoginActivity.this, "登录成功")
+                        );
+                        if (mRemember.isChecked()) {
+                            // remember login status
+                            saveUserInfo(resStr, params);
+                        }
+                        Intent it = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(it);
+                        finish();
+                        break;
+                    case 400:
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "请求参数不合法");
+                        break;
+                    case 403:
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "密码错误");
+                        break;
+                    case 404:
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "用户名不存在");
+                        break;
+                    default:
+                        Log.i("info", resStr);
+                        break;
                 }
             }
 
@@ -108,11 +120,57 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("error", e.toString());
             }
         });
-
     }
 
     public void register(View view) {
+        HashMap<String, String> params = checkFields();
+        if (params == null) {
+            return;
+        }
 
+        HttpUtil.post(HttpUtil.USER_REGISTER, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String resStr = response.body().string();
+                switch (response.code()) {
+                    case 201:
+                        // register succeeded
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "注册成功");
+                        // login automatically
+                        login(view);
+                        break;
+                    case 400:
+                        // invalid params
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "请求参数不合法");
+                        break;
+                    case 403:
+                        // username or phone number already existed
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "此用户已注册");
+                        break;
+                    default:
+                        Log.i("info", resStr);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void saveUserInfo(String resStr, HashMap<String, String> params) {
+        HashMap<String, String> userInfo = new HashMap<>();
+        userInfo.put("username", params.get("username"));
+        JSONObject resJson;
+        try {
+            resJson = new JSONObject(resStr);
+            userInfo.put("userId", resJson.getString("userId"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LoginUtil.recordUserInfo(LoginActivity.this, userInfo);
     }
 
     public void forgetPassword(View view) {

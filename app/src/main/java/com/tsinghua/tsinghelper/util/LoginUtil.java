@@ -30,4 +30,12 @@ public class LoginUtil {
         }
         editor.apply();
     }
+
+    public static void clearUserInfo(Context context) {
+        SharedPreferences sharedPreferences =
+                context.getSharedPreferences(USER_INFO_FILENAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }
