@@ -74,28 +74,28 @@
                 app:civ_border_width="@dimen/avatar_border_size" />
 
             <TextView
-                android:id="@+id/text_view_name"
+                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/icon_avatar"
                 android:gravity="center_vertical"
                 android:text="我的名字"
                 android:textColor="#000000"
-                android:textSize="16sp"
-                android:layout_toRightOf="@id/icon_avatar" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/icon_right_arrow_profile"
                 android:layout_width="@dimen/right_arrow_size"
                 android:layout_height="@dimen/right_arrow_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:scaleType="fitCenter"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_right_arrow_8dp" />
 
         </RelativeLayout>
@@ -375,8 +375,8 @@
                 android:id="@+id/relative_layout_to_doing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -484,8 +484,8 @@
                 android:id="@+id/relative_layout_to_others"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
