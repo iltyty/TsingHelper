@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mine.DoingTasksActivity">
+    tools:context=".ui.home.TasksTypeActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,11 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="在做的任务"
+            android:text="任务"
             android:textColor="#000000"
             android:textSize="16sp" />
 
     </androidx.appcompat.widget.Toolbar>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -36,7 +37,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:tabIndicatorFullWidth="false"
         app:tabRippleColor="@color/transparent" />
 
     <RelativeLayout

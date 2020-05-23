@@ -22,9 +22,23 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity
+            android:name=".login.LoginActivity"
+            android:theme="@style/Theme.bgFullScreen">
 
-        <activity android:name=".MainActivity"></activity>
+        </activity>
+
+        <activity android:name=".MainActivity" />
+
+        <!-- home fragment -->
+        <activity
+            android:name=".ui.home.TasksTypeActivity"
+            android:label="TasksTypeActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <activity
             android:name=".ui.mine.PublishedTasksActivity"
@@ -40,6 +54,7 @@
             android:label="TaskDetail">
         </activity>
 
+        <!-- mine fragment -->
         <activity
             android:name=".ui.mine.DoingTasksActivity"
             android:label="DoingTasksActivity"
@@ -49,10 +64,14 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <!-- message fragment -->
         <activity
             android:name=".ui.messages.MessageDetail"
             android:label="MessageDetail"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".ui.task.NewTaskTypeActivity">
+
         </activity>
     </application>
 

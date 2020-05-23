@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.IconTextItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 
 import java.util.ArrayList;
@@ -21,10 +23,21 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
+
+    private static final int REQ_CODE = 1;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.community)
+    IconTextItem mCommunityItem;
+    @BindView(R.id.meal)
+    IconTextItem mMealItem;
+    @BindView(R.id.study)
+    IconTextItem mStudyItem;
+    @BindView(R.id.questionnaire)
+    IconTextItem mQuestItem;
+
     private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DividerItemDecoration mDivider;
@@ -35,8 +48,18 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
+
+        setClickListeners();
         initRecyclerView();
+
         return root;
+    }
+
+    public void setClickListeners() {
+        mCommunityItem.setOnClickListener(this);
+        mMealItem.setOnClickListener(this);
+        mStudyItem.setOnClickListener(this);
+        mQuestItem.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -64,5 +87,18 @@ public class HomeFragment extends Fragment {
                     "报酬" + s, "截止日期" + s));
         }
         return tasks;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.community:
+            case R.id.meal:
+            case R.id.study:
+            case R.id.questionnaire:
+                Intent it = new Intent(getActivity(), TasksTypeActivity.class);
+                startActivityForResult(it, REQ_CODE);
+                break;
+        }
     }
 }

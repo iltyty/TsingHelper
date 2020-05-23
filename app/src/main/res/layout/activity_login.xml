@@ -2,16 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/bg_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".login.LoginActivity">
 
     <LinearLayout
         android:id="@+id/lay_login_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_login"
         android:orientation="vertical"
         android:paddingBottom="16dp">
 
@@ -172,7 +171,7 @@
                 android:background="@null"
                 android:ems="15"
                 android:focusable="true"
-                android:hint="手机号(登录时不用填)"
+                android:hint="手机号"
                 android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:lines="1"
