@@ -68,11 +68,14 @@
         <activity
             android:name=".ui.messages.MessageDetail"
             android:label="MessageDetail"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".ui.task.NewTaskTypeActivity">
-
-        </activity>
+        <!-- task fragment -->
+        <activity android:name=".ui.task.NewTaskTypeActivity" />
+        <activity android:name=".ui.task.CommunityTaskActivity" />
+        <activity android:name=".ui.task.MealTaskActivity" />
+        <activity android:name=".ui.task.StudyTaskActivity" />
+        <activity android:name=".ui.task.QuestionnaireTaskActivity" />
     </application>
 
 </manifest>
