@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="#ffffff"
     tools:context=".ui.task.TaskFragment">
 
     <SearchView
