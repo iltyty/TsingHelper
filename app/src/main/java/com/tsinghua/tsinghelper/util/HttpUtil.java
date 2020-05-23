@@ -10,7 +10,7 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
-    public static final String SERVER_URL = "http://192.168.1.116:3000/";
+    public static final String SERVER_URL = "http://123.56.51.235:3000/";
     public static final String USER_PREFIX = SERVER_URL + "users/";
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
