@@ -1,7 +1,9 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +28,19 @@ public class NewTaskTypeActivity extends AppCompatActivity implements View.OnCli
     @BindView(R.id.questionnaire)
     IconTextItem mQuestItem;
 
+    private static final int TO_COMMUNITY_CODE = 0;
+    private static final int TO_MEAL_CODE = 1;
+    private static final int TO_QUESTIONNAIRE_CODE = 2;
+    private static final int TO_STUDY_CODE = 3;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task_type);
         ButterKnife.bind(this);
+
+        setClickListeners();
 
         initToolbar();
     }
@@ -54,10 +64,21 @@ public class NewTaskTypeActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.community:
+                Intent toCommunity = new Intent(NewTaskTypeActivity.this, CommunityTaskActivity.class);
+                startActivityForResult(toCommunity, TO_COMMUNITY_CODE);
+//                Toast.makeText(NewTaskTypeActivity.this, "COMMUNITY!", Toast.LENGTH_LONG).show();
+                break;
             case R.id.meal:
+                Intent toMeal = new Intent(NewTaskTypeActivity.this, MealTaskActivity.class);
+                startActivityForResult(toMeal, TO_MEAL_CODE);
+                break;
             case R.id.study:
+                Intent toStudy = new Intent(NewTaskTypeActivity.this, StudyTaskActivity.class);
+                startActivityForResult(toStudy, TO_STUDY_CODE);
+                break;
             case R.id.questionnaire:
-                System.out.println("clicked");
+                Intent toQuestionnaire = new Intent(NewTaskTypeActivity.this, QuestionnaireTaskActivity.class);
+                startActivityForResult(toQuestionnaire, TO_QUESTIONNAIRE_CODE);
                 break;
         }
     }

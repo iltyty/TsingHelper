@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sender_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="发布任务-学习解惑"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="25dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习解惑任务说明："
+            android:layout_marginStart="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/study_task_description"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/view1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务标题"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view3"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="标题须清晰准确，不要模棱两可"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="涉及学科"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="列举问题所涉及的学科"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="问题描述"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view7"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/procedure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="详细描述遇到的问题"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每位用户可完成次数"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view9"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/times_per_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="1"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务预计完成次数"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view11"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/times_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="最低3次"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务奖励单价（单位：元）"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view13"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="最低0.20元"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view15"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="任务持续时间（单位：天）"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view15"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="30"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view17"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+        <TextView
+            android:id="@+id/view18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="持续时间到，不会有用户再接受任务，已接受任务的用户仍可以提交作品"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintTop_toTopOf="@id/view17"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:id="@+id/view19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="雇主审核时间限制（单位：小时）"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="@id/view18"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="15dp" />
+
+        <EditText
+            android:id="@+id/time_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="24"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@null"
+            />
+
+        <View
+            android:id="@+id/view20"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_gray"/>
+
+
+    </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
