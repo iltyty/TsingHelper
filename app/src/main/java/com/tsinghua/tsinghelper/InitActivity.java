@@ -23,7 +23,6 @@ public class InitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
 
-        LoginUtil.clearUserInfo(this);
         if (LoginUtil.isLoggedIn(this)) {
             // redirect to the main page of the app
             Intent it = new Intent(this, MainActivity.class);

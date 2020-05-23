@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="发布任务/任务类型"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        app:columnCount="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:orientation="horizontal">
+
+        <com.tsinghua.tsinghelper.components.IconTextItem
+            android:id="@+id/community"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:src="@drawable/ic_community_item_32dp"
+            android:text="社区互助"
+            app:layout_column="0"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1">
+
+        </com.tsinghua.tsinghelper.components.IconTextItem>
+
+        <com.tsinghua.tsinghelper.components.IconTextItem
+            android:id="@+id/meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:src="@drawable/ic_food_item_32dp"
+            android:text="代餐跑腿"
+            app:layout_column="1"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1">
+
+        </com.tsinghua.tsinghelper.components.IconTextItem>
+
+        <com.tsinghua.tsinghelper.components.IconTextItem
+            android:id="@+id/study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:src="@drawable/ic_study_item_32dp"
+            android:text="学习解惑"
+            app:layout_column="2"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1">
+
+        </com.tsinghua.tsinghelper.components.IconTextItem>
+
+        <com.tsinghua.tsinghelper.components.IconTextItem
+            android:id="@+id/questionnaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:src="@drawable/ic_questionnaire_item_32dp"
+            android:text="个人问卷"
+            app:layout_column="3"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_rowWeight="1">
+
+        </com.tsinghua.tsinghelper.components.IconTextItem>
+    </androidx.gridlayout.widget.GridLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
