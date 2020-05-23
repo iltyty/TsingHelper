@@ -49,17 +49,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private HashMap<String, String> checkFields() {
-        String phonePattern = "\\d{11}";
+        // 11位手机号码
+        String phonePattern = "^\\d{11}$";
+        // 中英文、数字和下划线
+        String usernamePattern = "^[\\u4e00-\\u9fa5_a-zA-Z0-9]{2,10}+$";
+        // 5到16位字母和数字的组合
+        String passwordPattern = "^\\w{5,16}$";
         String username = mETUsername.getText().toString();
         String password = mETPassword.getText().toString();
         String phone = mETPhoneNumber.getText().toString();
 
-        if (username.isEmpty()) {
-            ToastUtil.showToast(this, "请输入用户名");
+        if (!username.matches(usernamePattern)) {
+            ToastUtil.showToast(this, "用户名必须为2到10位");
             return null;
         }
-        if (password.isEmpty()) {
-            ToastUtil.showToast(this, "请输入密码");
+        if (!password.matches(passwordPattern)) {
+            ToastUtil.showToast(this, "密码必须为5到16位");
             return null;
         }
         if (!phone.matches(phonePattern)) {
@@ -94,6 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                         );
                         if (mRemember.isChecked()) {
                             // remember login status
+                            try {
+                                JSONObject json = new JSONObject(resStr);
+                                params.put("token", json.getString("token"));
+                            } catch (JSONException ignored) {
+                            }
+                            params.remove("password");
                             saveUserInfo(resStr, params);
                         }
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
@@ -101,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                         break;
                     case 400:
-                        ToastUtil.showToastOnUIThread(LoginActivity.this, "请求参数不合法");
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, resStr);
                         break;
                     case 403:
                         ToastUtil.showToastOnUIThread(LoginActivity.this, "密码错误");
