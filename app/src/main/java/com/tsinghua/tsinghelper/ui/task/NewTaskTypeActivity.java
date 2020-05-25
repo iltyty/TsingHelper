@@ -3,7 +3,6 @@ package com.tsinghua.tsinghelper.ui.task;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,19 +65,22 @@ public class NewTaskTypeActivity extends AppCompatActivity implements View.OnCli
             case R.id.community:
                 Intent toCommunity = new Intent(NewTaskTypeActivity.this, CommunityTaskActivity.class);
                 startActivityForResult(toCommunity, TO_COMMUNITY_CODE);
-//                Toast.makeText(NewTaskTypeActivity.this, "COMMUNITY!", Toast.LENGTH_LONG).show();
+                finish();
                 break;
             case R.id.meal:
                 Intent toMeal = new Intent(NewTaskTypeActivity.this, MealTaskActivity.class);
                 startActivityForResult(toMeal, TO_MEAL_CODE);
+                finish();
                 break;
             case R.id.study:
                 Intent toStudy = new Intent(NewTaskTypeActivity.this, StudyTaskActivity.class);
                 startActivityForResult(toStudy, TO_STUDY_CODE);
+                finish();
                 break;
             case R.id.questionnaire:
                 Intent toQuestionnaire = new Intent(NewTaskTypeActivity.this, QuestionnaireTaskActivity.class);
                 startActivityForResult(toQuestionnaire, TO_QUESTIONNAIRE_CODE);
+                finish();
                 break;
         }
     }
