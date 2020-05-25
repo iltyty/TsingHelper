@@ -66,8 +66,8 @@
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -99,10 +99,14 @@
 
         <View
             android:id="@+id/view5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/light_gray"/>
+            android:layout_width="0dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+            android:background="@color/light_gray" />
 
         <TextView
             android:id="@+id/view6"
@@ -134,8 +138,12 @@
         <View
             android:id="@+id/view7"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -168,8 +176,12 @@
         <View
             android:id="@+id/view9"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -202,8 +214,12 @@
         <View
             android:id="@+id/view11"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -236,8 +252,8 @@
         <View
             android:id="@+id/view13"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -270,8 +286,8 @@
         <View
             android:id="@+id/view15"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -304,8 +320,8 @@
         <View
             android:id="@+id/view17"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
             android:background="@color/light_gray"/>
 
         <TextView
@@ -351,8 +367,8 @@
         <View
             android:id="@+id/view20"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
             android:background="@color/light_gray"/>
 
 
