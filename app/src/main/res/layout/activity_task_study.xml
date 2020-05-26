@@ -38,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="25dp"
@@ -126,7 +127,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:text="涉及学科"
                 android:textColor="@color/black"
@@ -139,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:hint="列举问题所涉及的学科"
@@ -168,7 +167,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:text="问题描述"
                     android:textColor="@color/black"
@@ -182,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:overScrollMode="never" />
-               
+
             </LinearLayout>
 
             <EditText

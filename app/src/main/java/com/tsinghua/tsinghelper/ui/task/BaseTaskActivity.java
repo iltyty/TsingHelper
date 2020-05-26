@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ScrollView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import java.util.List;
 public class BaseTaskActivity extends AppCompatActivity {
     protected int maxSelectNum = 4;
     protected Toolbar mToolbar;
+    protected ScrollView mScrollView;
     protected RecyclerView mRecyclerView;
     protected GridImageAdapter mAdapter;
     protected List<LocalMedia> mSelectList = new ArrayList<>();
@@ -40,10 +42,21 @@ public class BaseTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
+    protected void setFocusChangeListeners() {
+        mScrollView.getViewTreeObserver().addOnGlobalFocusChangeListener(
+                (oldFocus, newFocus) -> {
+                    mScrollView.smoothScrollTo(0, newFocus.getBottom());
+                    mScrollView.post(newFocus::requestFocus);
+                });
+    }
+
     protected void initWidgets(Activity activity) {
         // find widgets
         mToolbar = findViewById(R.id.toolbar);
+        mScrollView = findViewById(R.id.scroll_view);
         mRecyclerView = findViewById(R.id.recycler_view);
+
+        setFocusChangeListeners();
 
         // initiate toolbar
         setSupportActionBar(mToolbar);
