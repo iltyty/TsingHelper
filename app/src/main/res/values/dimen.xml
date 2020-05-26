@@ -49,4 +49,11 @@
     <dimen name="new_task_short_divider_margin_ver">10dp</dimen>
     <!-- title font size -->
     <dimen name="new_task_title_font_size">15sp</dimen>
+    <!-- size of the uploaded images -->
+    <dimen name="new_task_image_size">60dp</dimen>
+    <dimen name="new_task_image_relative_layout_size">75dp</dimen>
+    <dimen name="new_task_image_linear_layout_size">30dp</dimen>
+    <dimen name="new_task_image_delete_icon_size">30dp</dimen>
+    <dimen name="new_task_image_margin_top">15dp</dimen>
+    <dimen name="new_task_image_margin_left">15dp</dimen>
 </resources>
