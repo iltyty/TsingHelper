@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.tsinghua.tsinghelper.R;
-import com.tsinghua.tsinghelper.util.LoginUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import java.util.Objects;
 
@@ -48,7 +48,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         View root = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, root);
 
-        mSharedPreferences = LoginUtil.getUserInfoSharedPreferences(Objects.requireNonNull(getContext()));
+        mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences(Objects.requireNonNull(getContext()));
 
         setUserInfo();
         setClickListeners();

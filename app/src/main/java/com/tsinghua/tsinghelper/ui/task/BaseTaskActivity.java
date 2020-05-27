@@ -176,7 +176,7 @@ public class BaseTaskActivity extends AppCompatActivity {
     }
 
     protected void createTask(HashMap<String, String> params, Activity activity) {
-        HttpUtil.post(HttpUtil.TASK_GET, params, new Callback() {
+        HttpUtil.post(HttpUtil.TASK_ADD, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());

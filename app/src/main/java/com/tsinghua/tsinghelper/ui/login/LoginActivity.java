@@ -99,7 +99,9 @@ public class LoginActivity extends AppCompatActivity {
                             // remember login status
                             try {
                                 JSONObject json = new JSONObject(resStr);
-                                params.put("token", json.getString("token"));
+                                String token = json.getString("token");
+                                params.put("token", token);
+                                HttpUtil.AUTH_TOKEN = token;
                             } catch (JSONException ignored) {
                             }
                             params.remove("password");

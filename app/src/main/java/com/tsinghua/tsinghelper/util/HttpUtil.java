@@ -10,6 +10,8 @@ import okhttp3.RequestBody;
 
 public class HttpUtil {
 
+    public static String AUTH_TOKEN = "";
+
     private static final String SERVER_URL = "http://192.168.1.105:3000/";
     //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
     private static final String USER_PREFIX = SERVER_URL + "users/";
@@ -36,7 +38,11 @@ public class HttpUtil {
         }
         RequestBody requestBody = builder.build();
 
-        Request request = new Request.Builder().url(url).post(requestBody).build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("auth", AUTH_TOKEN)
+                .build();
         mClient.newCall(request).enqueue(callback);
     }
 }
