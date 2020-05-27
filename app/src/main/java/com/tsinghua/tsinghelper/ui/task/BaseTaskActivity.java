@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ScrollView;
 
 import androidx.appcompat.app.ActionBar;
@@ -22,16 +24,41 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.GridImageAdapter;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
 import com.tsinghua.tsinghelper.managers.ImageGridLayoutManager;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 @SuppressLint("Registered")
 public class BaseTaskActivity extends AppCompatActivity {
     protected int maxSelectNum = 4;
+
+    @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
+    @BindView(R.id.scroll_view)
     protected ScrollView mScrollView;
+    @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
+    @BindView(R.id.title)
+    protected EditText mTitle;
+    @BindView(R.id.description)
+    protected EditText mDescription;
+    @BindView(R.id.reward)
+    protected EditText mReward;
+    @BindView(R.id.review_time)
+    protected EditText mReviewTime;
+
     protected GridImageAdapter mAdapter;
     protected List<LocalMedia> mSelectList = new ArrayList<>();
 
@@ -51,10 +78,7 @@ public class BaseTaskActivity extends AppCompatActivity {
     }
 
     protected void initWidgets(Activity activity) {
-        // find widgets
-        mToolbar = findViewById(R.id.toolbar);
-        mScrollView = findViewById(R.id.scroll_view);
-        mRecyclerView = findViewById(R.id.recycler_view);
+        ButterKnife.bind(activity);
 
         setFocusChangeListeners();
 
@@ -114,5 +138,65 @@ public class BaseTaskActivity extends AppCompatActivity {
             mAdapter.setData(mSelectList);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    protected HashMap<String, String> checkFields(Activity activity) {
+        String title = mTitle.getText().toString();
+        String description = mDescription.getText().toString();
+        String reward = mReward.getText().toString();
+        String reviewTime = mReviewTime.getText().toString();
+
+        if (title.length() < 2 || title.length() > 20) {
+            ToastUtil.showToast(activity, "任务标题必须为2到20位");
+            return null;
+        }
+        if (description.isEmpty()) {
+            ToastUtil.showToast(activity, "任务描述不能为空");
+            return null;
+        }
+        if (reward.isEmpty()) {
+            ToastUtil.showToast(activity, "任务报酬、不能为空");
+            return null;
+        }
+        if (Double.parseDouble(reward) <= 0.2) {
+            ToastUtil.showToast(activity, "报酬最少为0.2元");
+            return null;
+        }
+        if (reviewTime.isEmpty()) {
+            ToastUtil.showToast(activity, "审核时间不能为空");
+            return null;
+        }
+
+        HashMap<String, String> res = new HashMap<>();
+        res.put("title", title);
+        res.put("description", description);
+        res.put("reward", reward);
+        res.put("reviewTime", reviewTime);
+        return res;
+    }
+
+    protected void createTask(HashMap<String, String> params, Activity activity) {
+        HttpUtil.post(HttpUtil.TASK_GET, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                String resStr = response.body().string();
+                switch (response.code()) {
+                    case 201:
+                        ToastUtil.showToastOnUIThread(activity, "任务创建成功");
+                        break;
+                    case 400:
+                        ToastUtil.showToastOnUIThread(activity, "请求参数不合法");
+                        break;
+                    default:
+                        Log.i("info", resStr);
+                        break;
+                }
+            }
+        });
     }
 }

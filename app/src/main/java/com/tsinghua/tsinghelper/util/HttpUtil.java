@@ -13,10 +13,12 @@ public class HttpUtil {
     private static final String SERVER_URL = "http://192.168.1.105:3000/";
     //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
     private static final String USER_PREFIX = SERVER_URL + "users/";
+    private static final String TASK_PREFIX = SERVER_URL + "tasks/";
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
-    public static final String TASK_PREFIX = SERVER_URL + "tasks/";
+    public static final String TASK_ADD = TASK_PREFIX + "add/";
+    public static final String TASK_GET = TASK_PREFIX + "get/";
 
     private static final OkHttpClient mClient = new OkHttpClient();
 

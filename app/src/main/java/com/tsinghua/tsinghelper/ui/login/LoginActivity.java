@@ -1,4 +1,4 @@
-package com.tsinghua.tsinghelper.login;
+package com.tsinghua.tsinghelper.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -94,9 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 switch (response.code()) {
                     case 201:
                         // login succeeded
-                        LoginActivity.this.runOnUiThread(() ->
-                                ToastUtil.showToast(LoginActivity.this, "登录成功")
-                        );
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "登陆成功");
                         if (mRemember.isChecked()) {
                             // remember login status
                             try {
@@ -112,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                         break;
                     case 400:
-                        ToastUtil.showToastOnUIThread(LoginActivity.this, resStr);
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "请求参数不合法");
                         break;
                     case 403:
                         ToastUtil.showToastOnUIThread(LoginActivity.this, "密码错误");

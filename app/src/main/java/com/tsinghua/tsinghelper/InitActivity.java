@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tsinghua.tsinghelper.login.LoginActivity;
+import com.tsinghua.tsinghelper.ui.login.LoginActivity;
 import com.tsinghua.tsinghelper.util.LoginUtil;
 
 // This activity is the main activity of the app.
