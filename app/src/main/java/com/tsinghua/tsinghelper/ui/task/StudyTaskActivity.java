@@ -62,8 +62,8 @@ public class StudyTaskActivity extends BaseTaskActivity {
 
         params.put("subjects", subjects);
         params.put("duration", duration);
-        params.put("timesTotal", timesTotal);
-        params.put("timePerPerson", timesPerPerson);
+        params.put("times_total", timesTotal);
+        params.put("time_per_person", timesPerPerson);
         return params;
     }
 

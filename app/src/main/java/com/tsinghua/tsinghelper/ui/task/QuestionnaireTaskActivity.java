@@ -55,7 +55,7 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
 
         params.put("link", link);
         params.put("duration", duration);
-        params.put("timesTotal", timesTotal);
+        params.put("times_total", timesTotal);
         return params;
     }
 
