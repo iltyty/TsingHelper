@@ -67,6 +67,11 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity
+            android:name=".ui.mine.InfoProfileActivity"
+            android:label="InfoProfileActivity"
+            android:parentActivityName=".MainActivity" />
+
         <!-- message fragment -->
         <activity
             android:name=".ui.messages.MessageDetail"
