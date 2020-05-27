@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.HttpUtil;
-import com.tsinghua.tsinghelper.util.LoginUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -94,16 +94,16 @@ public class LoginActivity extends AppCompatActivity {
                 switch (response.code()) {
                     case 201:
                         // login succeeded
-                        ToastUtil.showToastOnUIThread(LoginActivity.this, "登陆成功");
+                        ToastUtil.showToastOnUIThread(LoginActivity.this, "登录成功");
                         if (mRemember.isChecked()) {
                             // remember login status
                             try {
                                 JSONObject json = new JSONObject(resStr);
                                 String token = json.getString("token");
-                                params.put("token", token);
-                                HttpUtil.AUTH_TOKEN = token;
+                                params.put("auth", token);
                             } catch (JSONException ignored) {
                             }
+                            System.out.println("params" + params);
                             params.remove("password");
                             saveUserInfo(resStr, params);
                         }
@@ -172,16 +172,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveUserInfo(String resStr, HashMap<String, String> params) {
-        HashMap<String, String> userInfo = new HashMap<>();
-        userInfo.put("username", params.get("username"));
         JSONObject resJson;
         try {
             resJson = new JSONObject(resStr);
-            userInfo.put("userId", resJson.getString("userId"));
+            params.put("userId", resJson.getString("userId"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        LoginUtil.recordUserInfo(LoginActivity.this, userInfo);
+        UserInfoUtil.putPrefs(params);
     }
 
     public void forgetPassword(View view) {

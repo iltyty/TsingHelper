@@ -16,8 +16,6 @@ import androidx.fragment.app.Fragment;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,7 +46,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         View root = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, root);
 
-        mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences(Objects.requireNonNull(getContext()));
+        mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
 
         setUserInfo();
         setClickListeners();
@@ -56,7 +54,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
-    public void setClickListeners() {
+    private void setClickListeners() {
         mToProfile.setOnClickListener(this);
         mToPublished.setOnClickListener(this);
         mToDoing.setOnClickListener(this);
