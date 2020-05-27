@@ -13,7 +13,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -24,6 +23,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toTopOf="@id/view5" />
 
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/subjects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -184,7 +184,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/procedure"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -226,6 +226,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
+                android:digits="0123456789"
+                android:inputType="number"
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:hint="1"
@@ -258,10 +260,12 @@
                 app:layout_constraintTop_toTopOf="@id/view11" />
 
             <EditText
-                android:id="@+id/times_all"
+                android:id="@+id/times_total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:digits="0123456789"
+                android:inputType="number"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
@@ -291,10 +295,12 @@
                 app:layout_constraintTop_toTopOf="@id/view13" />
 
             <EditText
-                android:id="@+id/money"
+                android:id="@+id/reward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
@@ -324,13 +330,15 @@
                 app:layout_constraintTop_toTopOf="@id/view15" />
 
             <EditText
-                android:id="@+id/time"
+                android:id="@+id/duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
                 android:hint="30"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
@@ -370,12 +378,14 @@
                 app:layout_constraintTop_toTopOf="@id/view18" />
 
             <EditText
-                android:id="@+id/time_check"
+                android:id="@+id/review_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
                 android:background="@null"
                 android:hint="24"
                 android:textColor="@color/black"

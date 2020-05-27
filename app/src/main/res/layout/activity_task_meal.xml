@@ -13,7 +13,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -24,6 +23,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -78,6 +78,30 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="15dp" />
 
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:hint="标题须清晰准确，不要模棱两可"
+            android:textColor="@color/black"
+            android:textColorHint="@color/light_gray"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/view111"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+            android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+            android:background="@color/light_gray" />
+
         <View
             android:id="@+id/view3"
             android:layout_width="match_parent"
@@ -99,7 +123,7 @@
             android:layout_marginLeft="15dp" />
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/site"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请使用准确具体的地名"
@@ -189,10 +213,12 @@
             android:layout_marginLeft="15dp" />
 
         <EditText
-            android:id="@+id/procedure"
+            android:id="@+id/food_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="1"
+            android:digits="0123456789"
+            android:inputType="number"
             android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
@@ -261,12 +287,14 @@
             android:layout_marginLeft="15dp" />
 
         <EditText
-            android:id="@+id/money"
+            android:id="@+id/reward"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="最低0.20元"
             android:textSize="12sp"
             android:layout_marginLeft="15dp"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
@@ -299,13 +327,15 @@
             android:layout_marginLeft="15dp" />
 
         <EditText
-            android:id="@+id/time_check"
+            android:id="@+id/review_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="24"
             android:textSize="12sp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
