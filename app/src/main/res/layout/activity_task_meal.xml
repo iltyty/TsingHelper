@@ -81,6 +81,26 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="15dp" />
 
+        <View
+            android:id="@+id/view111"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:background="@color/light_gray" />
+
+        <TextView
+            android:id="@+id/view112"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="任务标题"
+            android:textColor="@color/black"
+            android:textSize="@dimen/new_task_title_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view111" />
+
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -256,6 +276,7 @@
             android:layout_marginLeft="15dp" />
 
         <TimePicker
+            android:id="@+id/end_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

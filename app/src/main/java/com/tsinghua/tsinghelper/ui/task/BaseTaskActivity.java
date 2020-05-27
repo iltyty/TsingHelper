@@ -155,7 +155,7 @@ public class BaseTaskActivity extends AppCompatActivity {
             return null;
         }
         if (reward.isEmpty()) {
-            ToastUtil.showToast(activity, "任务报酬、不能为空");
+            ToastUtil.showToast(activity, "任务报酬不能为空");
             return null;
         }
         if (Double.parseDouble(reward) <= 0.2) {

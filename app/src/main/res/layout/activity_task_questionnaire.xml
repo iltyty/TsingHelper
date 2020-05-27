@@ -226,9 +226,9 @@
                 app:layout_constraintTop_toTopOf="@id/view9" />
 
             <EditText
-                android:id="@+id/times_per_person"
+                android:id="@+id/link"
                 android:digits="0123456789"
-                android:inputType="number"
+                android:inputType="textUri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
