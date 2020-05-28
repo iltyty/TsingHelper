@@ -271,7 +271,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:digits="0123456789"
-                android:hint="最低3次"
+                android:hint="最低1次"
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/light_gray"

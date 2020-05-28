@@ -48,15 +48,15 @@ public class StudyTaskActivity extends BaseTaskActivity {
             return null;
         }
         if (timesPerPerson.isEmpty() || Integer.parseInt(timesPerPerson) == 0) {
-            ToastUtil.showToast(this, "可完成次数必须为大于零的整数");
+            ToastUtil.showToast(this, "可完成次数必须大于0");
             return null;
         }
         if (timesTotal.isEmpty() || Integer.parseInt(timesTotal) == 0) {
-            ToastUtil.showToast(this, "预计完成次数必须为大于零的整数");
+            ToastUtil.showToast(this, "预计完成次数必须大于0");
             return null;
         }
         if (duration.isEmpty() || Double.parseDouble(duration) == 0) {
-            ToastUtil.showToast(this, "持续时间必须大于零");
+            ToastUtil.showToast(this, "持续时间必须大于0");
             return null;
         }
 
