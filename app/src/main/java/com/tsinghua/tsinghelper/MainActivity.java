@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.jaeger.library.StatusBarUtil;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tsinghua.tsinghelper.ui.home.HomeFragment;
 import com.tsinghua.tsinghelper.ui.messages.MessagesFragment;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        StatusBarUtil.setTransparent(this);
+        StatusBarUtil.setColor(MainActivity.this, 16777215);
+
         ButterKnife.bind(this);
 
         mTabText = new String[]{getString(R.string.title_home), getString(R.string.title_task),
@@ -64,8 +68,11 @@ public class MainActivity extends AppCompatActivity {
                         if (position == 2) {
                             Intent it = new Intent(MainActivity.this, NewTaskTypeActivity.class);
                             startActivityForResult(it, 1);
-
                             return true;
+                        } else if (position == 4) {
+                            StatusBarUtil.setColor(MainActivity.this, 16768570);
+                        } else if (position <= 4) {
+                            StatusBarUtil.setColor(MainActivity.this, 16777215);
                         }
                         return false;
                     }
