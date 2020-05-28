@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -75,6 +76,15 @@ public class BaseTaskActivity extends AppCompatActivity {
                     mScrollView.smoothScrollTo(0, newFocus.getBottom());
                     mScrollView.post(newFocus::requestFocus);
                 });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();    //Call the back button's method
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void initWidgets(Activity activity) {
@@ -158,7 +168,7 @@ public class BaseTaskActivity extends AppCompatActivity {
             ToastUtil.showToast(activity, "任务报酬不能为空");
             return null;
         }
-        if (Double.parseDouble(reward) <= 0.2) {
+        if (Double.parseDouble(reward) < 0.2) {
             ToastUtil.showToast(activity, "报酬最少为0.2元");
             return null;
         }
@@ -171,7 +181,7 @@ public class BaseTaskActivity extends AppCompatActivity {
         res.put("title", title);
         res.put("description", description);
         res.put("reward", reward);
-        res.put("review_time", reviewTime);
+        res.put("review_time", reviewTime + " hours");
         return res;
     }
 
@@ -181,6 +191,8 @@ public class BaseTaskActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());
+                ToastUtil.showToastOnUIThread(activity, "连接服务器失败，请稍后重试");
+                activity.finish();
             }
 
             @Override
@@ -197,6 +209,7 @@ public class BaseTaskActivity extends AppCompatActivity {
                         Log.i("info", resStr);
                         break;
                 }
+                activity.finish();
             }
         });
     }

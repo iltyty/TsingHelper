@@ -58,8 +58,8 @@ public class CommunityTaskActivity extends BaseTaskActivity {
         }
 
         params.put("type", "community");
-        params.put("duration", duration);
         params.put("times_total", timesTotal);
+        params.put("duration", duration + " days");
         params.put("time_per_person", timesPerPerson);
         return params;
     }

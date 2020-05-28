@@ -48,14 +48,14 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
             ToastUtil.showToast(this, "持续时间必须大于零");
             return null;
         }
-        if (link.isEmpty()) {
-            ToastUtil.showToast(this, "问卷链接不能为空");
+        if (!link.startsWith("http://") && !link.startsWith("https://")) {
+            ToastUtil.showToast(this, "请填写有效的问卷链接");
             return null;
         }
 
         params.put("link", link);
-        params.put("duration", duration);
         params.put("times_total", timesTotal);
+        params.put("duration", duration + " days");
         return params;
     }
 
