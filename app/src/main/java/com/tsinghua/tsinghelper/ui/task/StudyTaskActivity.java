@@ -60,6 +60,7 @@ public class StudyTaskActivity extends BaseTaskActivity {
             return null;
         }
 
+        params.put("type", "study");
         params.put("subjects", subjects);
         params.put("times_total", timesTotal);
         params.put("duration", duration + " days");
