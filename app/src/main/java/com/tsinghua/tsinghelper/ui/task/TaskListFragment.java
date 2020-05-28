@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
-import com.tsinghua.tsinghelper.dtos.TaskDTO;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +40,7 @@ public class TaskListFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext(), genTasks());
+        mAdapter = new TaskAdapter(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),
@@ -52,15 +49,5 @@ public class TaskListFragment extends Fragment {
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
-    }
-
-    private ArrayList<TaskDTO> genTasks() {
-        ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for (int i = 0; i < INIT_TASKS_CNT; i++) {
-            String s = String.valueOf(i + 1);
-            tasks.add(new TaskDTO("所有任务" + s,
-                    "报酬" + s, "截止日期" + s));
-        }
-        return tasks;
     }
 }

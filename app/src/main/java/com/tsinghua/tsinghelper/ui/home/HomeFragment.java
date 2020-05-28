@@ -16,9 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.components.IconTextItem;
-import com.tsinghua.tsinghelper.dtos.TaskDTO;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +49,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setClickListeners();
         initRecyclerView();
 
+        mAdapter.getAllTasks();
+
         return root;
     }
 
@@ -63,7 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext(), genTasks());
+        mAdapter = new TaskAdapter(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false) {
             @Override
@@ -77,16 +76,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
-    }
-
-    private ArrayList<TaskDTO> genTasks() {
-        ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            String s = String.valueOf(i + 1);
-            tasks.add(new TaskDTO("任务" + s,
-                    "报酬" + s, "截止日期" + s));
-        }
-        return tasks;
     }
 
     @Override

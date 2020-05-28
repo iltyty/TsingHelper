@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -14,20 +15,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetail;
+import com.tsinghua.tsinghelper.util.DateTimeUtil;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private Context mContext;
-    public ArrayList<TaskDTO> mTasks;
+    private ArrayList<TaskDTO> mTasks;
 
-    public TaskAdapter(Context cxt, ArrayList<TaskDTO> tasks) {
+    public TaskAdapter(Context cxt) {
         mContext = cxt;
-        this.mTasks = tasks;
+        mTasks = new ArrayList<>();
     }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
@@ -53,6 +66,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.setTaskData(mTasks.get(position));
     }
 
+    public void getAllTasks() {
+        HttpUtil.get(HttpUtil.TASK_GET_ALL, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ToastUtil.showToastOnUIThread((Activity) mContext,
+                        "获取任务列表失败，请稍后重试");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                String resStr = response.body().string();
+                try {
+                    JSONObject resJson = new JSONObject(resStr);
+                    JSONArray tasks = resJson.getJSONArray("tasks");
+                    for (int i = 0; i < tasks.length(); i++) {
+                        JSONObject task = (JSONObject) tasks.get(i);
+                        mTasks.add(new TaskDTO(task));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.task_item_avatar)
@@ -64,16 +103,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @BindView(R.id.task_item_deadline)
         TextView mTaskDeadline;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);
         }
 
-        public void setTaskData(TaskDTO task) {
-            mTaskTitle.setText(task.getTitle());
-            mTaskReward.setText(task.getReward());
-            mTaskDeadline.setText(task.getDeadline());
+        void setTaskData(TaskDTO task) {
+            mTaskTitle.setText(task.title);
+            mTaskReward.setText(task.reward);
+            if (task.endTime != null) {
+                mTaskDeadline.setText(DateTimeUtil.sdf.format(task.endTime.getTime()));
+            }
 
             // TODO: set task publisher's avatar
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
@@ -84,7 +125,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             TaskDTO task = mTasks.get(getAdapterPosition());
             Intent it = new Intent(mContext, TaskDetail.class);
 
-            it.putExtra("TASK_TITLE", task.getTitle());
+            it.putExtra("TASK_TITLE", task.title);
             // TODO: send more information
 
             mContext.startActivity(it);
