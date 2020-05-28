@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         setStatusBarUpperAPI21(true);
 //        StatusBarUtil.setTransparent(this);
 //        StatusBarUtil.setColor(MainActivity.this, 16777215);
@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         if(!colorPrimary) {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
         ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
