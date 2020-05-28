@@ -27,4 +27,8 @@
 
     <string name="published_task_tab">进行中</string>
     <string name="task_detail">任务详情</string>
+    <string name="community_task_description">为了防止提交任务的用户超出所需，一旦接受任务人数达到要求，任务将无法被接取。如果用户没有按时提交任务，则任务释放，任务重新可以被领取。您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+    <string name="study_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+    <string name="questionnaire_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+    <string name="meal_task_description">为了防止多份代餐，任务一旦被某用户接取就不能再被别人接取。直到任务失败或接取方取消接取，任务可重新被接取。您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
 </resources>

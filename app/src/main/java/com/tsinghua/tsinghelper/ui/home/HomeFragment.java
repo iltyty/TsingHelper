@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
-    public void setClickListeners() {
+    private void setClickListeners() {
         mCommunityItem.setOnClickListener(this);
         mMealItem.setOnClickListener(this);
         mStudyItem.setOnClickListener(this);

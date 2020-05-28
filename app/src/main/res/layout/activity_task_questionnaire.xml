@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.task.QuestionnaireTaskActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="发布任务-个人问卷"
+            android:textColor="#000000"
+            android:textSize="@dimen/new_task_title_font_size" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="createTask"
+        android:src="@drawable/ic_plus_24dp"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="个人问卷任务说明："
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/questionnaire_task_description"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="任务标题"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view3" />
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="标题须清晰准确，不要模棱两可"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+
+            <TextView
+                android:id="@+id/view6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:text="问卷描述"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view5" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:hint="简单介绍问卷内容，最多添加4张图片"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/light_gray"
+                    android:textSize="12sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="问卷填写需求描述"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view7" />
+
+            <EditText
+                android:id="@+id/requirements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="详细描述对问卷填写人群的需求"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view9"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="问卷链接"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view9" />
+
+            <EditText
+                android:id="@+id/link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:hint="请填写以http://或https://开头的链接"
+                android:inputType="textUri"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view11"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="问卷预计完成次数"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view11" />
+
+            <EditText
+                android:id="@+id/times_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:digits="0123456789"
+                android:hint="最低1次"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view13"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="任务奖励单价（单位：元）"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view13" />
+
+            <EditText
+                android:id="@+id/reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:digits="0123456789."
+                android:hint="最低0.20元"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_gray"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
+                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="任务持续时间（单位：天）"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view15" />
+
+            <EditText
+                android:id="@+id/duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
+                android:text="30"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view17"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="持续时间到，不会有用户再接受任务，已接受任务的用户仍可以提交作品"
+                android:textColor="@color/dark_gray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view17" />
+
+            <TextView
+                android:id="@+id/view19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="雇主审核时间限制（单位：小时）"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view18" />
+
+            <EditText
+                android:id="@+id/review_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:digits="0123456789."
+                android:inputType="numberDecimal"
+                android:text="24"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+                android:background="@color/light_gray" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

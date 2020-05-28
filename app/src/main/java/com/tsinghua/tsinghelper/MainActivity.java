@@ -1,6 +1,8 @@
 package com.tsinghua.tsinghelper;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,7 @@ import com.next.easynavigation.view.EasyNavigationBar;
 import com.tsinghua.tsinghelper.ui.home.HomeFragment;
 import com.tsinghua.tsinghelper.ui.messages.MessagesFragment;
 import com.tsinghua.tsinghelper.ui.mine.MineFragment;
+import com.tsinghua.tsinghelper.ui.task.NewTaskTypeActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskFragment;
 
 import java.util.ArrayList;
@@ -55,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
                 .fragmentList(mFragments)
                 .mode(EasyNavigationBar.MODE_ADD)
                 .fragmentManager(getSupportFragmentManager())
+                .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
+                    @Override
+                    public boolean onTabClickEvent(View view, int position) {
+                        if (position == 2) {
+                            Intent it = new Intent(MainActivity.this, NewTaskTypeActivity.class);
+                            startActivityForResult(it, 1);
+
+                            return true;
+                        }
+                        return false;
+                    }
+                })
                 .build();
     }
 }

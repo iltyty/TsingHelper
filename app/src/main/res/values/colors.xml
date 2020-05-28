@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffde3a</color>
-    <color name="colorPrimaryDark">#f2f2f2</color>
+    <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#03DAC5</color>
 
     <color name="icon_text_item_default_text_color">#000000</color>
@@ -9,4 +9,19 @@
     <color name="mine_page_icon_text_item_text_color">#696969</color>
 
     <color name="colorWhite">#ffffff</color>
+
+    <!-- login page -->
+    <color name="login_line_color">#dededf</color>
+    <color name="login_input_active">#31b968</color>
+    <color name="login_other_color">#cacaca</color>
+    <color name="account_input_bg_color">#33ffffff</color>
+    <color name="account_lock_bg">#ff43815c</color>
+    <color name="account_lock_font_color">#FF68997C</color>
+    <color name="account_input_color">#c9c9c9</color>
+    <color name="account_pressed_true">#14b94d</color>
+
+    <color name="bg_press">#ebebeb</color>\
+    <color name="bg_press_material">#d4d4d4</color>
+
+    <color name="new_task_image_bg_color">#f6f6f6</color>
 </resources>

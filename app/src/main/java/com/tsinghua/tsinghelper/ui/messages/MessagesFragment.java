@@ -70,7 +70,7 @@ public class MessagesFragment extends Fragment {
         for (int i = 0; i < 20; i++) {
             String s = String.valueOf(i + 1);
             messages.add(new MessageDTO(UUID.randomUUID(), UUID.randomUUID(),
-                    new Timestamp(System.currentTimeMillis()), "消息内容" + s));
+                    new Timestamp(System.currentTimeMillis()), "消息内容" + s, 0));
         }
         return messages;
     }

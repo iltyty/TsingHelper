@@ -40,4 +40,20 @@
     <dimen name="mine_page_item_margin_top">15dp</dimen>
     <dimen name="mine_page_icon_margin_top">30dp</dimen>
     <dimen name="mine_page_icon_text_item_text_size">12sp</dimen>
+
+    <!-- publishing task pages -->
+    <dimen name="new_task_divider_height">0.5dp</dimen>
+    <!-- horizontal margin -->
+    <dimen name="new_task_short_divider_margin_hor">15dp</dimen>
+    <!-- vertical margin -->
+    <dimen name="new_task_short_divider_margin_ver">10dp</dimen>
+    <!-- title font size -->
+    <dimen name="new_task_title_font_size">15sp</dimen>
+    <!-- size of the uploaded images -->
+    <dimen name="new_task_image_size">60dp</dimen>
+    <dimen name="new_task_image_relative_layout_size">75dp</dimen>
+    <dimen name="new_task_image_linear_layout_size">30dp</dimen>
+    <dimen name="new_task_image_delete_icon_size">30dp</dimen>
+    <dimen name="new_task_image_margin_top">15dp</dimen>
+    <dimen name="new_task_image_margin_left">15dp</dimen>
 </resources>
