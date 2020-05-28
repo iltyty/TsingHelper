@@ -152,7 +152,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
-                    android:hint="简单介绍任务内容"
+                    android:hint="简单介绍任务内容，最多添加4张图片"
                     android:textColor="@color/black"
                     android:textColorHint="@color/light_gray"
                     android:textSize="12sp" />
@@ -165,18 +165,6 @@
                     android:overScrollMode="never" />
 
             </LinearLayout>
-
-
-            <View
-                android:id="@+id/view7"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/new_task_divider_height"
-                android:layout_marginStart="@dimen/new_task_short_divider_margin_hor"
-                android:layout_marginLeft="@dimen/new_task_short_divider_margin_hor"
-                android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
-                android:layout_marginEnd="@dimen/new_task_short_divider_margin_hor"
-                android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
-                android:background="@color/light_gray" />
 
             <View
                 android:id="@+id/view9"

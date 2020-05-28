@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.task.StudyTaskActivity">
 
@@ -31,9 +31,9 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="30dp"
-        android:onClick="createTask"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
+        android:onClick="createTask"
         android:src="@drawable/ic_plus_24dp"
         app:borderWidth="0dp"
         app:fabSize="auto"
@@ -160,22 +160,36 @@
                 android:layout_marginRight="@dimen/new_task_short_divider_margin_hor"
                 android:background="@color/light_gray" />
 
+            <TextView
+                android:id="@+id/view8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:text="问题描述"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/view7" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/view8"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="问题描述"
+                    android:background="@null"
+                    android:hint="详细描述遇到的问题，最多添加4张图片"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/new_task_title_font_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/view7" />
+                    android:textColorHint="@color/light_gray"
+                    android:textSize="12sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
@@ -183,21 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:overScrollMode="never" />
-
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:hint="详细描述遇到的问题"
-                android:textColor="@color/black"
-                android:textColorHint="@color/light_gray"
-                android:textSize="12sp" />
 
             <View
                 android:id="@+id/view9"
@@ -232,8 +232,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:digits="0123456789"
-                android:hint="1"
                 android:inputType="number"
+                android:text="1"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="12sp" />
@@ -341,8 +341,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:digits="0123456789."
-                android:hint="30"
                 android:inputType="numberDecimal"
+                android:text="30"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="12sp" />
@@ -389,8 +389,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:digits="0123456789."
-                android:hint="24"
                 android:inputType="numberDecimal"
+                android:text="24"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="12sp" />
