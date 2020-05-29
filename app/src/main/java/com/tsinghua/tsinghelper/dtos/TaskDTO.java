@@ -1,21 +1,19 @@
 package com.tsinghua.tsinghelper.dtos;
 
-import android.annotation.SuppressLint;
+import com.tsinghua.tsinghelper.util.DateTimeUtil;
 
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class TaskDTO {
 
     // required fields
     public int id;
-    public Date startTime;
+    public double reward;
     public String type;
     public String title;
-    public String reward;
+    public String startTime;
     public String reviewTime;
+    public String deadlineStr;
     public String description;
     public String publisherId;
     public boolean isDone;
@@ -26,7 +24,7 @@ public class TaskDTO {
     public String link;
     public String site;
     public String demands;
-    public Date endTime;
+    public String endTime;
     public String subjects;
     public String duration;
     public int foodNum;
@@ -34,22 +32,11 @@ public class TaskDTO {
     public int timesPerPerson;
 
     public TaskDTO(JSONObject task) {
-
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月dd日 HH:mm");
-
-        String endTimeStr = optString(task, "end_time");
-        String startTimeStr = optString(task, "start_time");
-        if (!endTimeStr.isEmpty()) {
-            this.endTime = new Date(Long.parseLong(endTimeStr));
-        }
-        if (!startTimeStr.isEmpty()) {
-            this.startTime = new Date(Long.parseLong(startTimeStr));
-        }
         this.id = task.optInt("id", 1);
         this.type = task.optString("type", "");
         this.title = task.optString("title", "");
-        this.reward = task.optString("reward", "");
+        this.reward = task.optDouble("reward", 0);
+        this.startTime = task.optString("start_time", "");
         this.reviewTime = task.optString("review_time", "");
         this.description = task.optString("description", "");
         this.publisherId = task.optString("publisherId", "");
@@ -60,11 +47,14 @@ public class TaskDTO {
         this.link = optString(task, "link");
         this.site = optString(task, "site");
         this.demands = optString(task, "demands");
+        this.endTime = optString(task, "end_time");
         this.subjects = optString(task, "subjects");
         this.duration = optString(task, "duration");
         this.foodNum = task.optInt("food_num", 1);
         this.timesTotal = task.optInt("times_total", 1);
         this.timesPerPerson = task.optInt("times_per_person", 1);
+
+        this.deadlineStr = DateTimeUtil.getDeadlineStr(Long.parseLong(endTime));
     }
 
     private String optString(JSONObject json, String key) {

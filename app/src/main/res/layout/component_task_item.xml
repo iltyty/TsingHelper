@@ -12,6 +12,7 @@
         android:layout_width="@dimen/task_item_avatar_size"
         android:layout_height="@dimen/task_item_avatar_size"
         android:layout_centerVertical="true"
+        android:contentDescription="@null"
         android:scaleType="fitCenter" />
 
     <TextView
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/task_item_text_margin"
-        android:layout_marginLeft="@dimen/task_item_text_margin"
+        android:textColor="@color/task_item_title_color"
+        android:textSize="@dimen/task_item_title_size"
         tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
 
     <TextView
@@ -29,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/task_item_title"
         android:layout_marginStart="@dimen/task_item_text_margin"
+        android:textColor="@color/task_item_reward_color"
+        android:textSize="@dimen/task_item_reward_size"
         android:layout_marginLeft="@dimen/task_item_text_margin"
         tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
 
@@ -38,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/task_item_reward"
         android:layout_marginStart="@dimen/task_item_text_margin"
+        android:textColor="@color/task_item_deadline_color"
+        android:textSize="@dimen/task_item_deadline_size"
         android:layout_marginLeft="@dimen/task_item_text_margin"
         tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
 

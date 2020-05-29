@@ -18,6 +18,9 @@
     <dimen name="task_item_text_margin">40dp</dimen>
     <dimen name="task_item_margin_top">8dp</dimen>
     <dimen name="task_item_margin_bottom">12dp</dimen>
+    <dimen name="task_item_title_size">14sp</dimen>
+    <dimen name="task_item_reward_size">13sp</dimen>
+    <dimen name="task_item_deadline_size">12sp</dimen>
 
     <dimen name="state_dropdown_vertical_offset">34dp</dimen>
     <dimen name="state_item_text_size">12sp</dimen>

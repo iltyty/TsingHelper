@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetail;
-import com.tsinghua.tsinghelper.util.DateTimeUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
@@ -26,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,11 +110,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         }
 
         void setTaskData(TaskDTO task) {
+            char rmb = 165;
             mTaskTitle.setText(task.title);
-            mTaskReward.setText(task.reward);
-            if (task.endTime != null) {
-                mTaskDeadline.setText(DateTimeUtil.sdf.format(task.endTime.getTime()));
-            }
+            mTaskDeadline.setText(task.deadlineStr);
+            mTaskReward.setText(String.format(Locale.CHINA,
+                    "%s%.2f元", String.valueOf(rmb), task.reward));
 
             // TODO: set task publisher's avatar
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);

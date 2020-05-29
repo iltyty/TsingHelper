@@ -32,7 +32,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -183,7 +182,6 @@ public class BaseTaskActivity extends AppCompatActivity {
         res.put("reward", reward);
         res.put("description", description);
         res.put("review_time", reviewTime + " hours");
-        res.put("start_time", String.valueOf(new Date().getTime()));
         return res;
     }
 

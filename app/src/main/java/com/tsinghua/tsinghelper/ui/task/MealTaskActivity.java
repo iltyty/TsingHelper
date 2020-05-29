@@ -9,6 +9,7 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -29,7 +30,12 @@ public class MealTaskActivity extends BaseTaskActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_meal);
 
-        initWidgets(this);
+        initWidgets();
+    }
+
+    private void initWidgets() {
+        super.initWidgets(this);
+        mEndTime.setIs24HourView(true);
     }
 
     private HashMap<String, String> checkFields() {
@@ -56,7 +62,8 @@ public class MealTaskActivity extends BaseTaskActivity {
         params.put("site", site);
         params.put("type", "meal");
         params.put("food_num", foodNum);
-        params.put("end_time", String.valueOf(cal.getTimeInMillis()));
+        params.put("end_time", Long.toString(cal.getTimeInMillis()));
+        params.put("start_time", Long.toString(new Date().getTime()));
         return params;
     }
 

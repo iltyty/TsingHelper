@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.DateTimeUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -53,10 +55,16 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
             return null;
         }
 
+        int amount = Integer.parseInt(duration);
+        long startTimestamp = new Date().getTime();
+        long endTimestamp = DateTimeUtil.calculateEndTimestamp(
+                startTimestamp, amount, DateTimeUtil.TemporalUnit.DAY);
+
         params.put("link", link);
         params.put("type", "questionnaire");
         params.put("times_total", timesTotal);
-        params.put("duration", duration + " days");
+        params.put("end_time", Long.toString(endTimestamp));
+        params.put("start_time", Long.toString(startTimestamp));
         return params;
     }
 
