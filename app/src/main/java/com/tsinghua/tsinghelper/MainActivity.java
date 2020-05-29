@@ -1,10 +1,16 @@
 package com.tsinghua.tsinghelper;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.jaeger.library.StatusBarUtil;
@@ -43,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setStatusBarUpperAPI21(true);
 //        StatusBarUtil.setTransparent(this);
-        StatusBarUtil.setColor(MainActivity.this, 16777215);
+//        StatusBarUtil.setColor(MainActivity.this, 16777215);
 
         ButterKnife.bind(this);
 
@@ -70,13 +77,31 @@ public class MainActivity extends AppCompatActivity {
                             startActivityForResult(it, 1);
                             return true;
                         } else if (position == 4) {
-                            StatusBarUtil.setColor(MainActivity.this, 16768570);
+//                            StatusBarUtil.setColor(MainActivity.this, 16768570);
+                            setStatusBarUpperAPI21(false);
                         } else if (position <= 4) {
-                            StatusBarUtil.setColor(MainActivity.this, 16777215);
+//                            StatusBarUtil.setColor(MainActivity.this, 16777215);
+                            setStatusBarUpperAPI21(true);
                         }
                         return false;
                     }
                 })
                 .build();
+    }
+
+    private void setStatusBarUpperAPI21(boolean colorPrimary){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if(!colorPrimary) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, true);
+        }
     }
 }
