@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.getAllTasks();
+        mAdapter.getAllTasks(null);
     }
 
     private void setClickListeners() {
@@ -84,14 +84,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        int pos = 0;
         switch (v.getId()) {
-            case R.id.community:
             case R.id.meal:
+                pos = 1;
+                break;
             case R.id.study:
+                pos = 2;
+                break;
             case R.id.questionnaire:
-                Intent it = new Intent(getActivity(), TasksTypeActivity.class);
-                startActivityForResult(it, REQ_CODE);
+                pos = 3;
                 break;
         }
+        Intent it = new Intent(getActivity(), TasksTypeActivity.class);
+        it.putExtra("pos", pos);
+        startActivityForResult(it, REQ_CODE);
     }
 }

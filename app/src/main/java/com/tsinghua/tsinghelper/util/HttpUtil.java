@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -24,15 +25,21 @@ public class HttpUtil {
     public static final String USER_REGISTER = USER_PREFIX + "register/";
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
-    public static final String TASK_GET_ALL = TASK_PREFIX + "all/";
+    public static final String TASK_GET_ALL = TASK_PREFIX + "all";
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/upload";
     public static final String AVATAR_DOWNLOAD = PROFILE_PREFIX + "avatar/download";
 
     private static final OkHttpClient mClient = new OkHttpClient();
 
     // Initiate an asynchronous get request
-    public static void get(String url, Callback callback) {
-        Request request = new Request.Builder().url(url).build();
+    public static void get(String url, HashMap<String, String> params, Callback callback) {
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        if (params != null) {
+            for (String key : params.keySet()) {
+                httpBuilder.addQueryParameter(key, params.get(key));
+            }
+        }
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
         mClient.newCall(request).enqueue(callback);
     }
 

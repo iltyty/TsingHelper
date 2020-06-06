@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -53,12 +54,16 @@ public class TasksTypeActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        Intent it = getIntent();
+        mTabLayout.getTabAt(it.getIntExtra("pos", 0)).select();
     }
 
     public static class Adapter extends FragmentPagerAdapter {
 
         private final int TAB_CNT = 4;
         private final String[] TITLE = {"社区互助", "代餐跑腿", "学习解惑", "个人问卷"};
+        private final String[] TYPES = {"community", "meal", "study", "questionnaire"};
         private final ArrayList<Fragment> mFragments = new ArrayList<>();
         private Context mContext;
 
@@ -67,7 +72,7 @@ public class TasksTypeActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment());
+                mFragments.add(new TaskListFragment(TYPES[i]));
             }
         }
 

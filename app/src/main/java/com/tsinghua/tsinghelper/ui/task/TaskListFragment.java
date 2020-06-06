@@ -15,18 +15,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    private final int INIT_TASKS_CNT = 20;
+    private HashMap<String, String> queryParams = new HashMap<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DividerItemDecoration mDivider;
+
+    public TaskListFragment() {
+    }
+
+    public TaskListFragment(String taskType) {
+        queryParams.put("type", taskType);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.getAllTasks(queryParams);
+    }
 
     @Nullable
     @Override

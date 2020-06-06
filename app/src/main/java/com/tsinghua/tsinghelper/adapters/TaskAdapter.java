@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -66,8 +67,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.setTaskData(mTasks.get(position));
     }
 
-    public void getAllTasks() {
-        HttpUtil.get(HttpUtil.TASK_GET_ALL, new Callback() {
+    public void getAllTasks(HashMap<String, String> params) {
+        HttpUtil.get(HttpUtil.TASK_GET_ALL, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 ToastUtil.showToastOnUIThread((Activity) mContext,
@@ -86,6 +87,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         JSONObject task = (JSONObject) tasks.get(i);
                         mTasks.add(new TaskDTO(task));
                     }
+                    ((Activity) mContext).runOnUiThread(() -> notifyDataSetChanged());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
