@@ -81,6 +81,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 try {
                     JSONObject resJson = new JSONObject(resStr);
                     JSONArray tasks = resJson.getJSONArray("tasks");
+                    mTasks.clear();
                     for (int i = 0; i < tasks.length(); i++) {
                         JSONObject task = (JSONObject) tasks.get(i);
                         mTasks.add(new TaskDTO(task));
