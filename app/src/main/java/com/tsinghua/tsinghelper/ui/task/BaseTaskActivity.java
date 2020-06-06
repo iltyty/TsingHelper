@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
 
@@ -106,17 +105,14 @@ public class BaseTaskActivity extends AppCompatActivity {
         mAdapter.setData(mSelectList);
         mAdapter.setSelectMax(maxSelectNum);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setItemClickListener(new GridImageAdapter.onItemClickListener() {
-            @Override
-            public void onItemClick(int pos, View v) {
-                if (mSelectList.size() > 0) {
-                    LocalMedia media = mSelectList.get(pos);
-                    String pictureType = media.getMimeType();
-                    int mediaType = PictureMimeType.getMimeType(pictureType);
-                    if (mediaType == 1) { // image preview
-                        PictureSelector.create(activity).externalPicturePreview(
-                                pos, mSelectList, AnimationType.DEFAULT_ANIMATION);
-                    }
+        mAdapter.setItemClickListener((pos, v) -> {
+            if (mSelectList.size() > 0) {
+                LocalMedia media = mSelectList.get(pos);
+                String pictureType = media.getMimeType();
+                int mediaType = PictureMimeType.getMimeType(pictureType);
+                if (mediaType == 1) { // image preview
+                    PictureSelector.create(activity).externalPicturePreview(
+                            pos, mSelectList, AnimationType.DEFAULT_ANIMATION);
                 }
             }
         });

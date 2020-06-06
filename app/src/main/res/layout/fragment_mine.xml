@@ -64,7 +64,7 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/icon_avatar"
+                android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="20dp"
@@ -80,7 +80,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/icon_avatar"
+                android:layout_toRightOf="@id/avatar"
                 android:gravity="center_vertical"
                 android:text="我的名字"
                 android:textColor="#000000"

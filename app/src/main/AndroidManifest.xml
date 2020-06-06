@@ -68,7 +68,7 @@
         </activity>
 
         <activity
-            android:name=".ui.mine.InfoProfileActivity"
+            android:name=".ui.mine.ProfileActivity"
             android:label="InfoProfileActivity"
             android:parentActivityName=".MainActivity" />
 
