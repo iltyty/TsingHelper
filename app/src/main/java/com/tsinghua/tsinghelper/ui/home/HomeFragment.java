@@ -49,9 +49,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setClickListeners();
         initRecyclerView();
 
-        mAdapter.getAllTasks();
-
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.getAllTasks();
     }
 
     private void setClickListeners() {
