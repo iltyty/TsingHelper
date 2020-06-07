@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,11 +12,12 @@ import com.tsinghua.tsinghelper.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TaskItem extends RelativeLayout {
 
     @BindView(R.id.task_item_avatar)
-    ImageView mAvatar;
+    CircleImageView mAvatar;
     @BindView(R.id.task_item_title)
     TextView mTitle;
     @BindView(R.id.task_item_reward)

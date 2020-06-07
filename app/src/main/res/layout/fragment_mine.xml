@@ -68,7 +68,6 @@
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:src="@drawable/not_logged_in"
                 app:civ_border_color="@color/colorWhite"
                 app:civ_border_width="@dimen/avatar_border_size" />
