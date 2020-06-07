@@ -94,6 +94,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .isEnableCrop(true)
                 .isCamera(false)
                 .isCompress(true)
+                .cropImageWideHigh(500, 500)
+                .freeStyleCropEnabled(true)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
