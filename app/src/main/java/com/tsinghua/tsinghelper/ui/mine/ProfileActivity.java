@@ -65,8 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.e("error", e.toString());
-                    ToastUtil.showToastOnUIThread(ProfileActivity.this,
-                            "获取头像失败，请稍后重试");
                 }
 
                 @Override
@@ -114,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.e("error", e.toString());
                     ToastUtil.showToastOnUIThread(ProfileActivity.this,
-                            "上传头像失败，请稍后重试");
+                            "服务器开了小差，休息一会儿吧");
                 }
 
                 @Override

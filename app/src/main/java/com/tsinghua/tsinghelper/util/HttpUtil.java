@@ -26,8 +26,7 @@ public class HttpUtil {
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
     public static final String TASK_GET_ALL = TASK_PREFIX + "all";
-    public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/upload";
-    public static final String AVATAR_DOWNLOAD = PROFILE_PREFIX + "avatar/download";
+    public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar";
 
     private static final OkHttpClient mClient = new OkHttpClient();
 

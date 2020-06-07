@@ -114,7 +114,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.e("error", e.toString());
-                    ToastUtil.showToastOnUIThread(getActivity(), "获取头像失败，请稍后重试");
+                    ToastUtil.showToastOnUIThread(getActivity(),
+                            "服务器开了小差，休息一会儿吧");
                 }
 
                 @Override
