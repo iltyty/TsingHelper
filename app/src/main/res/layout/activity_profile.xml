@@ -152,9 +152,7 @@
         android:id="@+id/tab_layout_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/relative_layout_items"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

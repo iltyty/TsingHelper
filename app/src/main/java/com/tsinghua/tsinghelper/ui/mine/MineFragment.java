@@ -25,7 +25,6 @@ import com.tsinghua.tsinghelper.util.UserInfoUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +91,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.relative_layout_to_doing:
                 Intent itDoing = new Intent(getActivity(), DoingTasksActivity.class);
-                startActivityForResult(itDoing, TO_DOING_CODE);
+                startActivity(itDoing);
                 break;
             case R.id.relative_layout_to_others:
                 break;
@@ -125,7 +124,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (response.code() == 200) {
                         byte[] bytes = response.body().bytes();
                         Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        Objects.requireNonNull(getActivity()).runOnUiThread(
+                        requireActivity().runOnUiThread(
                                 () -> mAvatar.setImageBitmap(bm));
                     }
                 }

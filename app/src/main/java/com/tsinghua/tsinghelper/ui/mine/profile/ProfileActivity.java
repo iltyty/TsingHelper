@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
     RelativeLayout mRelativeLayout;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
+    @BindView(R.id.tv_username)
+    TextView mUsername;
     @BindView(R.id.button_info_modify)
     Button mBtnEdit;
 
@@ -42,6 +46,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+
+        initWidgets();
+    }
+
+    private void initWidgets() {
+        SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
+        mUsername.setText(sp.getString("username", ""));
     }
 
     @Override

@@ -60,6 +60,13 @@
     <dimen name="new_task_image_margin_top">15dp</dimen>
     <dimen name="new_task_image_margin_left">15dp</dimen>
 
-    <!-- -->
+    <!-- profile -->
     <dimen name="profile_page_edit_btn_height">32dp</dimen>
+
+    <dimen name="preference_item_title_size">14sp</dimen>
+    <dimen name="preference_item_value_size">13sp</dimen>
+    <dimen name="preference_item_margin_top">15dp</dimen>
+    <dimen name="preference_item_margin_bottom">15dp</dimen>
+    <dimen name="preference_item_margin_start">15dp</dimen>
+    <dimen name="preference_item_margin_end">15dp</dimen>
 </resources>

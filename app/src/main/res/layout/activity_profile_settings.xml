@@ -51,4 +51,33 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout">
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/preference_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="昵称"
+            app:preference_value="" />
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/preference_signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="个性签名"
+            app:preference_value="" />
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

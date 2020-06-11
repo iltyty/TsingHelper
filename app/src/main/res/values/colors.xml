@@ -28,4 +28,7 @@
     <color name="task_item_title_color">#000000</color>
     <color name="task_item_reward_color">#ff0000</color>
     <color name="task_item_deadline_color">#696969</color>
+
+    <color name="preference_item_title_color">#000000</color>
+    <color name="preference_item_value_color">#000000</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +18,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.components.PreferenceItem;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -37,18 +39,31 @@ import okhttp3.Response;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
 
-    @BindView(R.id.relative_layout)
-    RelativeLayout mRelativeLayout;
     private int AVATAR_REQUEST_CODE = 1;
     private int BG_REQUEST_CODE = 2;
+
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
+    @BindView(R.id.relative_layout)
+    RelativeLayout mRelativeLayout;
+    @BindView(R.id.preference_username)
+    PreferenceItem mUsername;
+    @BindView(R.id.preference_signature)
+    PreferenceItem mSignature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
+
+        initWidgets();
+    }
+
+    private void initWidgets() {
+        SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
+        mUsername.setValue(sp.getString("username", ""));
+        mSignature.setValue(sp.getString("signature", "未填写"));
     }
 
     @Override

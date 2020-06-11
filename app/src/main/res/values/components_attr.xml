@@ -33,4 +33,9 @@
         <attr name="message_content_text" format="string" />
         <attr name="message_time_text" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="PreferenceItem">
+        <attr name="preference_title" format="string" />
+        <attr name="preference_value" format="string" />
+    </declare-styleable>
 </resources>
