@@ -13,8 +13,13 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -67,9 +72,22 @@ public class ProfileActivity extends AppCompatActivity {
         urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
-        for (int i = 0; i < urls.size(); i++) {
-            getImage(urls.get(i), i);
-        }
+//        for (int i = 0; i < urls.size(); i++) {
+//            getImage(urls.get(i), i);
+//        }
+
+        Glide.with(this).load(urls.get(0)).into(mAvatar);
+        Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource,
+                                        @Nullable Transition<? super Drawable> transition) {
+                mRelativeLayout.setBackground(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+            }
+        });
     }
 
     private void getImage(String url, int code) {

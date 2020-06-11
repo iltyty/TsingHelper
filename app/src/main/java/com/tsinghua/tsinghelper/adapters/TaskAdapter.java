@@ -3,9 +3,6 @@ package com.tsinghua.tsinghelper.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetail;
@@ -126,26 +124,27 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
 
             String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, task.publisherId);
-            try {
-                HttpUtil.downloadImage(url, new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.e("error", e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response)
-                            throws IOException {
-                        if (response.code() == 200) {
-                            byte[] bytes = response.body().bytes();
-                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            ((Activity) mContext).runOnUiThread(
-                                    () -> mTaskAvatar.setImageBitmap(bm));
-                        }
-                    }
-                });
-            } catch (IOException ignored) {
-            }
+            Glide.with(mContext).load(url).into(mTaskAvatar);
+//            try {
+//                HttpUtil.downloadImage(url, new Callback() {
+//                    @Override
+//                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                        Log.e("error", e.toString());
+//                    }
+//
+//                    @Override
+//                    public void onResponse(@NotNull Call call, @NotNull Response response)
+//                            throws IOException {
+//                        if (response.code() == 200) {
+//                            byte[] bytes = response.body().bytes();
+//                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                            ((Activity) mContext).runOnUiThread(
+//                                    () -> mTaskAvatar.setImageBitmap(bm));
+//                        }
+//                    }
+//                });
+//            } catch (IOException ignored) {
+//            }
         }
 
         @Override
