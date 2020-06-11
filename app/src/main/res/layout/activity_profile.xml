@@ -14,8 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:background="@color/dark_gray"
         android:backgroundTint="#80000000"
-        android:backgroundTintMode="src_over"
-        android:theme="@style/Theme.bgFullScreen">
+        android:backgroundTintMode="src_over">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"

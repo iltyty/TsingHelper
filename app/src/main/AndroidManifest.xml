@@ -10,11 +10,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:requestLegacyExternalStorage="true"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".InitActivity"
@@ -54,8 +54,7 @@
 
         <activity
             android:name=".ui.task.TaskDetail"
-            android:label="TaskDetail">
-        </activity>
+            android:label="TaskDetail"></activity>
 
         <!-- mine fragment -->
         <activity
@@ -70,7 +69,8 @@
         <activity
             android:name=".ui.mine.profile.ProfileActivity"
             android:label="InfoProfileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.bgFullScreen" />
 
         <!-- message fragment -->
         <activity
@@ -82,11 +82,13 @@
         <activity android:name=".ui.task.NewTaskTypeActivity" />
         <activity
             android:name=".ui.task.CommunityTaskActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.task.MealTaskActivity" />
         <activity android:name=".ui.task.StudyTaskActivity" />
         <activity android:name=".ui.task.QuestionnaireTaskActivity" />
-        <activity android:name=".ui.mine.profile.ProfileSettingsActivity" />
+        <activity
+            android:name=".ui.mine.profile.ProfileSettingsActivity"
+            android:theme="@style/Theme.bgFullScreen" />
     </application>
 
 </manifest>
