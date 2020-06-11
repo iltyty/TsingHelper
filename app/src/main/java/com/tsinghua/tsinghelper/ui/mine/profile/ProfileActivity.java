@@ -2,9 +2,6 @@ package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,17 +21,11 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.relative_layout)
@@ -72,56 +63,21 @@ public class ProfileActivity extends AppCompatActivity {
         urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
-//        for (int i = 0; i < urls.size(); i++) {
-//            getImage(urls.get(i), i);
-//        }
-
-        Glide.with(this).load(urls.get(0)).into(mAvatar);
-        Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource,
-                                        @Nullable Transition<? super Drawable> transition) {
-                mRelativeLayout.setBackground(resource);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-            }
-        });
-    }
-
-    private void getImage(String url, int code) {
         try {
-            HttpUtil.downloadImage(url, new Callback() {
+            Glide.with(this).load(urls.get(0)).into(mAvatar);
+            Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
                 @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.e("error", e.toString());
+                public void onResourceReady(@NonNull Drawable resource,
+                                            @Nullable Transition<? super Drawable> transition) {
+                    mRelativeLayout.setBackground(resource);
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response)
-                        throws IOException {
-                    if (response.code() == 200) {
-                        byte[] bytes = response.body().bytes();
-                        Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        if (code == 0) {
-                            // code for getting avatar
-                            ProfileActivity.this.runOnUiThread(
-                                    () -> mAvatar.setImageBitmap(bm));
-                        } else if (code == 1) {
-                            // code for getting background image
-                            ProfileActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Drawable db = new BitmapDrawable(getResources(), bm);
-                                    mRelativeLayout.setBackground(db);
-                                }
-                            });
-                        }
-                    }
+                public void onLoadCleared(@Nullable Drawable placeholder) {
                 }
             });
-        } catch (IOException ignored) {
+        } catch (Exception e) {
+            Log.e("error", e.toString());
         }
     }
 

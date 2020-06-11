@@ -2,9 +2,6 @@ package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -88,56 +85,21 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
-//        for (int i = 0; i < urls.size(); i++) {
-//            getImage(urls.get(i), i);
-//        }
-
-        Glide.with(this).load(urls.get(0)).into(mAvatar);
-        Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource,
-                                        @Nullable Transition<? super Drawable> transition) {
-                mRelativeLayout.setBackground(resource);
-            }
-
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-            }
-        });
-    }
-
-    private void getImage(String url, int code) {
         try {
-            HttpUtil.downloadImage(url, new Callback() {
+            Glide.with(this).load(urls.get(0)).into(mAvatar);
+            Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
                 @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.e("error", e.toString());
+                public void onResourceReady(@NonNull Drawable resource,
+                                            @Nullable Transition<? super Drawable> transition) {
+                    mRelativeLayout.setBackground(resource);
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response)
-                        throws IOException {
-                    if (response.code() == 200) {
-                        byte[] bytes = response.body().bytes();
-                        Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        if (code == 0) {
-                            // code for getting avatar
-                            ProfileSettingsActivity.this.runOnUiThread(
-                                    () -> mAvatar.setImageBitmap(bm));
-                        } else if (code == 1) {
-                            // code for getting background image
-                            ProfileSettingsActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Drawable db = new BitmapDrawable(getResources(), bm);
-                                    mRelativeLayout.setBackground(db);
-                                }
-                            });
-                        }
-                    }
+                public void onLoadCleared(@Nullable Drawable placeholder) {
                 }
             });
-        } catch (IOException ignored) {
+        } catch (Exception e) {
+            Log.e("error", e.toString());
         }
     }
 
