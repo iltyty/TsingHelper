@@ -1,8 +1,6 @@
 package com.tsinghua.tsinghelper;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
-import com.jaeger.library.StatusBarUtil;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tsinghua.tsinghelper.ui.home.HomeFragment;
 import com.tsinghua.tsinghelper.ui.messages.MessagesFragment;
 import com.tsinghua.tsinghelper.ui.mine.MineFragment;
 import com.tsinghua.tsinghelper.ui.task.NewTaskTypeActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskFragment;
+import com.tsinghua.tsinghelper.util.GlideCacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GlideCacheUtil.setContext(this);
 
         setStatusBarUpperAPI21(true);
 //        StatusBarUtil.setTransparent(this);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-        ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup mContentView = findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, true);
