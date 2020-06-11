@@ -3,15 +3,17 @@ package com.tsinghua.tsinghelper.ui.mine.profile;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tsinghua.tsinghelper.R;
@@ -23,6 +25,7 @@ import com.tsinghua.tsinghelper.util.UserInfoUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +37,10 @@ import okhttp3.Response;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
 
+    @BindView(R.id.relative_layout)
+    RelativeLayout mRelativeLayout;
+    private int AVATAR_REQUEST_CODE = 1;
+    private int BG_REQUEST_CODE = 2;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
 
@@ -47,11 +54,20 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        String userId = UserInfoUtil
+                .getUserInfoSharedPreferences()
+                .getString("userId", "");
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
+        urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
+
+        for (int i = 0; i < urls.size(); i++) {
+            getImage(urls.get(i), i);
+        }
+    }
+
+    private void getImage(String url, int code) {
         try {
-            String userId = UserInfoUtil
-                    .getUserInfoSharedPreferences()
-                    .getString("userId", "");
-            String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId);
             HttpUtil.downloadImage(url, new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -64,8 +80,20 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         byte[] bytes = response.body().bytes();
                         Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        ProfileSettingsActivity.this.runOnUiThread(
-                                () -> mAvatar.setImageBitmap(bm));
+                        if (code == 0) {
+                            // code for getting avatar
+                            ProfileSettingsActivity.this.runOnUiThread(
+                                    () -> mAvatar.setImageBitmap(bm));
+                        } else if (code == 1) {
+                            // code for getting background image
+                            ProfileSettingsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Drawable db = new BitmapDrawable(getResources(), bm);
+                                    mRelativeLayout.setBackground(db);
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -74,6 +102,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
     public void showGallery(View view) {
+        int code = view.getId() == R.id.avatar ? AVATAR_REQUEST_CODE : BG_REQUEST_CODE;
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .imageEngine(GlideEngine.createGlideEngine())
@@ -88,7 +117,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 .cropImageWideHigh(500, 500)
                 .freeStyleCropEnabled(true)
                 .withAspectRatio(1, 1)
-                .forResult(PictureConfig.CHOOSE_REQUEST);
+                .forResult(code);
     }
 
     private String getImagePath(LocalMedia media) {
@@ -107,13 +136,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
-        if (resultCode == RESULT_OK && requestCode == PictureConfig.CHOOSE_REQUEST) {
+        if (resultCode == RESULT_OK &&
+                (requestCode == AVATAR_REQUEST_CODE || requestCode == BG_REQUEST_CODE)) {
             images = PictureSelector.obtainMultipleResult(data);
             if (images.isEmpty()) {
                 return;
             }
             String path = getImagePath(images.get(0));
-            HttpUtil.uploadImage(HttpUtil.AVATAR_UPLOAD, path, new Callback() {
+            String url = requestCode == AVATAR_REQUEST_CODE ?
+                    HttpUtil.AVATAR_UPLOAD : HttpUtil.BACKGROUND_UPLOAD;
+            HttpUtil.uploadImage(url, path, new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.e("error", e.toString());
@@ -125,11 +157,21 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 public void onResponse(@NotNull Call call, @NotNull Response response)
                         throws IOException {
                     if (response.code() == 201) {
-                        ProfileSettingsActivity.this.runOnUiThread(
-                                () -> mAvatar.setImageURI(Uri.parse(path)));
+                        if (requestCode == AVATAR_REQUEST_CODE) {
+                            ProfileSettingsActivity.this.runOnUiThread(
+                                    () -> mAvatar.setImageURI(Uri.parse(path)));
+                        } else if (requestCode == BG_REQUEST_CODE) {
+                            ProfileSettingsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Drawable db = Drawable.createFromPath(path);
+                                    mRelativeLayout.setBackground(db);
+                                }
+                            });
+                        }
                     } else {
                         ToastUtil.showToastOnUIThread(ProfileSettingsActivity.this,
-                                "上传头像失败，请稍后重试");
+                                "上传失败，请稍后重试");
                     }
                 }
             });

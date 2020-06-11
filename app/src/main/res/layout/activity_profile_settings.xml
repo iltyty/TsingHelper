@@ -7,7 +7,7 @@
     tools:context=".ui.mine.profile.ProfileSettingsActivity">
 
     <RelativeLayout
-        android:id="@+id/relative_layout_items"
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:background="@color/dark_gray"

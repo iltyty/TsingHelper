@@ -3,6 +3,8 @@ package com.tsinghua.tsinghelper.ui.mine.profile;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.tsinghua.tsinghelper.util.UserInfoUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +30,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
-    @BindView(R.id.relative_layout_items)
-    RelativeLayout relative_layout_items;
+    @BindView(R.id.relative_layout)
+    RelativeLayout mRelativeLayout;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
     @BindView(R.id.button_info_modify)
@@ -39,18 +42,25 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        String userId = UserInfoUtil
+                .getUserInfoSharedPreferences()
+                .getString("userId", "");
+        ArrayList<String> urls = new ArrayList<>();
+        urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
+        urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
+
+        for (int i = 0; i < urls.size(); i++) {
+            getImage(urls.get(i), i);
+        }
+    }
+
+    private void getImage(String url, int code) {
         try {
-            String userId = UserInfoUtil
-                    .getUserInfoSharedPreferences()
-                    .getString("userId", "");
-            String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId);
             HttpUtil.downloadImage(url, new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -63,8 +73,20 @@ public class ProfileActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         byte[] bytes = response.body().bytes();
                         Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        ProfileActivity.this.runOnUiThread(
-                                () -> mAvatar.setImageBitmap(bm));
+                        if (code == 0) {
+                            // code for getting avatar
+                            ProfileActivity.this.runOnUiThread(
+                                    () -> mAvatar.setImageBitmap(bm));
+                        } else if (code == 1) {
+                            // code for getting background image
+                            ProfileActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Drawable db = new BitmapDrawable(getResources(), bm);
+                                    mRelativeLayout.setBackground(db);
+                                }
+                            });
+                        }
                     }
                 }
             });
