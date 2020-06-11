@@ -54,7 +54,8 @@
 
         <activity
             android:name=".ui.task.TaskDetail"
-            android:label="TaskDetail"></activity>
+            android:label="TaskDetail"
+            android:theme="@style/Theme.bgFullScreen"/>
 
         <!-- mine fragment -->
         <activity

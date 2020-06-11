@@ -31,4 +31,6 @@
 
     <color name="preference_item_title_color">#000000</color>
     <color name="preference_item_value_color">#000000</color>
+
+    <color name="darkblue">#0B0B3B</color>
 </resources>
