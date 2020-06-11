@@ -8,16 +8,13 @@ public class LoginUtil {
     public static boolean isLoggedIn(Context context) {
         SharedPreferences sharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
         String username = sharedPreferences.getString("username", "");
-        if (username.isEmpty()) {
-            // not logged in yet
-            return false;
-        }
+        // not logged in yet
+        return !username.isEmpty();
 
         // TODO: check validity of the user id
-        return true;
     }
 
-    public static void clearUserInfo(Context context) {
+    public static void clearUserInfo() {
         SharedPreferences sharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

@@ -12,7 +12,10 @@
         android:layout_height="400dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/dark_gray">
+        android:background="@color/dark_gray"
+        android:backgroundTint="#80000000"
+        android:backgroundTintMode="src_over"
+        android:theme="@style/Theme.bgFullScreen">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
