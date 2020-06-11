@@ -32,8 +32,10 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/image_cache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="clearImageCache"
             android:layout_marginStart="@dimen/preference_item_margin_start"
             android:layout_marginTop="@dimen/preference_item_margin_top"
             android:layout_marginEnd="@dimen/preference_item_margin_end"
@@ -41,14 +43,38 @@
             app:preference_title="清理图片缓存" />
 
         <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/file_cache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/preference_item_margin_start"
             android:layout_marginTop="@dimen/preference_item_margin_top"
             android:layout_marginEnd="@dimen/preference_item_margin_end"
             android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_value="0.0B"
             app:preference_title="清理文件缓存" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:onClick="logout"
+        android:text="退出账号"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

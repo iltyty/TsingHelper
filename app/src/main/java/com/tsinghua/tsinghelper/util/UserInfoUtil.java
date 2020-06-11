@@ -50,4 +50,11 @@ public class UserInfoUtil {
         SharedPreferences sharedPreferences = getInstance().mSharedPreferences;
         return sharedPreferences.getString(key, defValue);
     }
+
+    public static void clearUserInfo() {
+        SharedPreferences sharedPreferences = getInstance().mSharedPreferences;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

@@ -14,10 +14,4 @@ public class LoginUtil {
         // TODO: check validity of the user id
     }
 
-    public static void clearUserInfo() {
-        SharedPreferences sharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-    }
 }
