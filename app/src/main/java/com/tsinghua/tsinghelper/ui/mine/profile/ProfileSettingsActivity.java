@@ -37,10 +37,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ProfileSettingsActivity extends AppCompatActivity {
+public class ProfileSettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int AVATAR_REQUEST_CODE = 1;
     private int BG_REQUEST_CODE = 2;
+    private int FIELD_MODIFY_CODE = 3;
 
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
@@ -57,18 +58,24 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
 
-        initWidgets();
+        setClickListeners();
     }
 
-    private void initWidgets() {
+    private void initViews() {
         SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
         mUsername.setValue(sp.getString("username", ""));
         mSignature.setValue(sp.getString("signature", "未填写"));
     }
 
+    private void setClickListeners() {
+        mUsername.setOnClickListener(this);
+        mSignature.setOnClickListener(this);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
+        initViews();
         String userId = UserInfoUtil
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
@@ -151,6 +158,12 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
+        if (resultCode == RESULT_OK && requestCode == FIELD_MODIFY_CODE) {
+            String fieldName = data.getStringExtra("fieldName");
+            String fieldValue = data.getStringExtra(fieldName);
+            UserInfoUtil.putPref(fieldName, fieldValue);
+            initViews();
+        }
         if (resultCode == RESULT_OK &&
                 (requestCode == AVATAR_REQUEST_CODE || requestCode == BG_REQUEST_CODE)) {
             images = PictureSelector.obtainMultipleResult(data);
@@ -191,5 +204,23 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent it = new Intent(this, FieldModifyActivity.class);
+        switch (v.getId()) {
+            case R.id.preference_username:
+                it.putExtra("fieldTitle", "昵称");
+                it.putExtra("fieldName", "username");
+                it.putExtra("fieldMaxLen", UserInfoUtil.USERNAME_MAX_LEN);
+                break;
+            case R.id.preference_signature:
+                it.putExtra("fieldTitle", "个性签名");
+                it.putExtra("fieldName", "signature");
+                it.putExtra("fieldMaxLen", UserInfoUtil.SIGNATURE_MAX_LEN);
+                break;
+        }
+        startActivityForResult(it, FIELD_MODIFY_CODE);
     }
 }

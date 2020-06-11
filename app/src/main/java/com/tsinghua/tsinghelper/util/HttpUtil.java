@@ -23,6 +23,7 @@ public class HttpUtil {
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
+    public static final String USER_MODIFY = USER_PREFIX + "modify/";
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
     public static final String TASK_GET_ALL = TASK_PREFIX + "all/";

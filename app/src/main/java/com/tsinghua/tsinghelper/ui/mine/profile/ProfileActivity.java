@@ -46,11 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-
-        initWidgets();
     }
 
-    private void initWidgets() {
+    private void initViews() {
         SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
         mUsername.setText(sp.getString("username", ""));
     }
@@ -58,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        initViews();
         String userId = UserInfoUtil
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");

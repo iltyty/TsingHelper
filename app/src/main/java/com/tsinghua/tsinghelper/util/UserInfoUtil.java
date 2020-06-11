@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 public class UserInfoUtil {
 
+    public static int USERNAME_MAX_LEN = 20;
+    public static int SIGNATURE_MAX_LEN = 40;
+
     private static UserInfoUtil instance = new UserInfoUtil();
     private SharedPreferences mSharedPreferences;
 
