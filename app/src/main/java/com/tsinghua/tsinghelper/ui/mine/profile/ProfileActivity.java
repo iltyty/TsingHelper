@@ -38,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView mAvatar;
     @BindView(R.id.tv_username)
     TextView mUsername;
+    @BindView(R.id.tv_signature)
+    TextView mSignature;
     @BindView(R.id.button_info_modify)
     Button mBtnEdit;
 
@@ -51,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void initViews() {
         SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
         mUsername.setText(sp.getString("username", ""));
+        mSignature.setText(sp.getString("signature", ""));
     }
 
     @Override
