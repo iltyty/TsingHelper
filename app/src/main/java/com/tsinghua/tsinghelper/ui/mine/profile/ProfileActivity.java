@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -64,8 +65,18 @@ public class ProfileActivity extends AppCompatActivity {
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
         try {
-            Glide.with(this).load(urls.get(0)).into(mAvatar);
-            Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
+            Glide.with(this)
+                    .load(urls.get(0))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                    ))
+                    .into(mAvatar);
+            Glide.with(this)
+                    .load(urls.get(1))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                    ))
+                    .into(new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource,
                                             @Nullable Transition<? super Drawable> transition) {

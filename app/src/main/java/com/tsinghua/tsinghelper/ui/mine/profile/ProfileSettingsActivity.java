@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.signature.ObjectKey;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -86,8 +87,18 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
         try {
-            Glide.with(this).load(urls.get(0)).into(mAvatar);
-            Glide.with(this).load(urls.get(1)).into(new CustomTarget<Drawable>() {
+            Glide.with(this)
+                    .load(urls.get(0))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                    ))
+                    .into(mAvatar);
+            Glide.with(this)
+                    .load(urls.get(1))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                    ))
+                    .into(new CustomTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource,
                                             @Nullable Transition<? super Drawable> transition) {
@@ -166,9 +177,13 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                         throws IOException {
                     if (response.code() == 201) {
                         if (requestCode == AVATAR_REQUEST_CODE) {
+                            UserInfoUtil.putPref(UserInfoUtil.AVATAR_SIGN,
+                                    String.valueOf(System.currentTimeMillis()));
                             ProfileSettingsActivity.this.runOnUiThread(
                                     () -> mAvatar.setImageURI(Uri.parse(path)));
                         } else if (requestCode == BG_REQUEST_CODE) {
+                            UserInfoUtil.putPref(UserInfoUtil.BG_SIGN,
+                                    String.valueOf(System.currentTimeMillis()));
                             ProfileSettingsActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

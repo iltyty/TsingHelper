@@ -9,6 +9,9 @@ public class UserInfoUtil {
     public static int USERNAME_MAX_LEN = 20;
     public static int SIGNATURE_MAX_LEN = 40;
 
+    public static String BG_SIGN = "bg_cache_signature";
+    public static String AVATAR_SIGN = "avatar_cache_signature";
+
     private static UserInfoUtil instance = new UserInfoUtil();
     private SharedPreferences mSharedPreferences;
 
@@ -41,5 +44,10 @@ public class UserInfoUtil {
             editor.putString(key, prefs.get(key));
         }
         editor.apply();
+    }
+
+    public static String getPref(String key, String defValue) {
+        SharedPreferences sharedPreferences = getInstance().mSharedPreferences;
+        return sharedPreferences.getString(key, defValue);
     }
 }

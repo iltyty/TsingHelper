@@ -14,11 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetail;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -126,7 +128,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
             String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, task.publisherId);
             try {
-                Glide.with(mContext).load(url).into(mTaskAvatar);
+                Glide.with(mContext)
+                        .load(url)
+                        .signature(new ObjectKey(
+                                UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                        ))
+                        .into(mTaskAvatar);
             } catch (Exception e) {
                 Log.e("error", e.toString());
             }
