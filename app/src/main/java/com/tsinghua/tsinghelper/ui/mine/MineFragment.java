@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
+import com.tsinghua.tsinghelper.ui.mine.settings.SettingsActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -35,16 +37,13 @@ import okhttp3.Response;
 
 public class MineFragment extends Fragment implements View.OnClickListener {
 
-    private static final int TO_PROFILE_CODE = 1;
-    private static final int TO_PUBLISHED_CODE = 2;
-    private static final int TO_DOING_CODE = 3;
-    private static final int TO_OTHERS_CODE = 4;
-
     @BindView(R.id.tv_username)
     TextView mUsername;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
 
+    @BindView(R.id.icon_settings)
+    ImageView mToSettings;
     @BindView(R.id.relative_layout_to_profile)
     RelativeLayout mToProfile;
     @BindView(R.id.relative_layout_to_published)
@@ -71,6 +70,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setClickListeners() {
+        mToSettings.setOnClickListener(this);
         mToProfile.setOnClickListener(this);
         mToPublished.setOnClickListener(this);
         mToDoing.setOnClickListener(this);
@@ -81,13 +81,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.icon_settings:
+                Intent itSettings = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(itSettings);
+                break;
             case R.id.relative_layout_to_profile:
                 Intent itInfo = new Intent(getActivity(), ProfileActivity.class);
-                startActivityForResult(itInfo, TO_PROFILE_CODE);
+                startActivity(itInfo);
                 break;
             case R.id.relative_layout_to_published:
                 Intent itPublished = new Intent(getActivity(), PublishedTasksActivity.class);
-                startActivityForResult(itPublished, TO_PUBLISHED_CODE);
+                startActivity(itPublished);
                 break;
             case R.id.relative_layout_to_doing:
                 Intent itDoing = new Intent(getActivity(), DoingTasksActivity.class);

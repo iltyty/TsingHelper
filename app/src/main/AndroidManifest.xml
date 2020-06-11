@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.mine.profile.FieldModifyActivity"></activity>
+        <activity android:name=".ui.mine.settings.SettingsActivity"></activity>
+        <activity android:name=".ui.mine.profile.FieldModifyActivity" />
         <activity
             android:name=".InitActivity"
             android:launchMode="singleTop">
@@ -27,7 +28,7 @@
         </activity>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/Theme.bgFullScreen"></activity>
+            android:theme="@style/Theme.bgFullScreen" />
         <activity android:name=".MainActivity" /> <!-- home fragment -->
         <activity
             android:name=".ui.home.TasksTypeActivity"
@@ -48,8 +49,7 @@
         <activity
             android:name=".ui.task.TaskDetail"
             android:label="TaskDetail"
-            android:theme="@style/Theme.bgFullScreen"/>
-
+            android:theme="@style/Theme.bgFullScreen" />
         <activity
             android:name=".ui.mine.DoingTasksActivity"
             android:label="DoingTasksActivity"

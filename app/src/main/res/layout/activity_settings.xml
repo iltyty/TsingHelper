@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".ui.mine.settings.SettingsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="设置"
+            android:textColor="#000000"
+            android:textSize="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/preference_item_margin_start"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginEnd="@dimen/preference_item_margin_end"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="清理图片缓存" />
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/preference_item_margin_start"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginEnd="@dimen/preference_item_margin_end"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="清理文件缓存" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
