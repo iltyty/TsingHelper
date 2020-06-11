@@ -59,4 +59,7 @@
     <dimen name="new_task_image_delete_icon_size">30dp</dimen>
     <dimen name="new_task_image_margin_top">15dp</dimen>
     <dimen name="new_task_image_margin_left">15dp</dimen>
+
+    <!-- -->
+    <dimen name="profile_page_edit_btn_height">32dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.tsinghua.tsinghelper.ui.mine;
+package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,9 +32,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ProfileActivity extends AppCompatActivity {
-    @BindView(R.id.relative_layout_items)
-    RelativeLayout relative_layout_items;
+public class ProfileSettingsActivity extends AppCompatActivity {
 
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
@@ -43,14 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mine_info);
+        setContentView(R.layout.activity_profile_settings);
         ButterKnife.bind(this);
-
-        initLayout();
-    }
-
-    private void initLayout() {
-
     }
 
     @Override
@@ -73,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (response.code() == 200) {
                         byte[] bytes = response.body().bytes();
                         Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        ProfileActivity.this.runOnUiThread(
+                        ProfileSettingsActivity.this.runOnUiThread(
                                 () -> mAvatar.setImageBitmap(bm));
                     }
                 }
@@ -96,7 +87,20 @@ public class ProfileActivity extends AppCompatActivity {
                 .isCompress(true)
                 .cropImageWideHigh(500, 500)
                 .freeStyleCropEnabled(true)
+                .withAspectRatio(1, 1)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+    private String getImagePath(LocalMedia media) {
+        if (media.isCut() && !media.isCompressed()) {
+            // was cut
+            return media.getCutPath();
+        } else if (media.isCompressed()) {
+            // was compressed
+            return media.getCompressPath();
+        }
+        // original image
+        return media.getPath();
     }
 
     @Override
@@ -113,7 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.e("error", e.toString());
-                    ToastUtil.showToastOnUIThread(ProfileActivity.this,
+                    ToastUtil.showToastOnUIThread(ProfileSettingsActivity.this,
                             "服务器开了小差，休息一会儿吧");
                 }
 
@@ -121,26 +125,14 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onResponse(@NotNull Call call, @NotNull Response response)
                         throws IOException {
                     if (response.code() == 201) {
-                        ProfileActivity.this.runOnUiThread(
+                        ProfileSettingsActivity.this.runOnUiThread(
                                 () -> mAvatar.setImageURI(Uri.parse(path)));
                     } else {
-                        ToastUtil.showToastOnUIThread(ProfileActivity.this,
+                        ToastUtil.showToastOnUIThread(ProfileSettingsActivity.this,
                                 "上传头像失败，请稍后重试");
                     }
                 }
             });
         }
-    }
-
-    private String getImagePath(LocalMedia media) {
-        if (media.isCut() && !media.isCompressed()) {
-            // was cut
-            return media.getCutPath();
-        } else if (media.isCompressed()) {
-            // was compressed
-            return media.getCompressPath();
-        }
-        // original image
-        return media.getPath();
     }
 }
