@@ -15,25 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.mine.profile.FieldModifyActivity"></activity>
         <activity
             android:name=".InitActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/Theme.bgFullScreen">
-
-        </activity>
-
-        <activity android:name=".MainActivity" />
-
-        <!-- home fragment -->
+            android:theme="@style/Theme.bgFullScreen"></activity>
+        <activity android:name=".MainActivity" /> <!-- home fragment -->
         <activity
             android:name=".ui.home.TasksTypeActivity"
             android:label="TasksTypeActivity"
@@ -42,7 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.mine.PublishedTasksActivity"
             android:label="PublishedTasksActivity"
@@ -51,13 +45,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.task.TaskDetail"
             android:label="TaskDetail"
             android:theme="@style/Theme.bgFullScreen"/>
 
-        <!-- mine fragment -->
         <activity
             android:name=".ui.mine.DoingTasksActivity"
             android:label="DoingTasksActivity"
@@ -66,20 +58,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ui.mine.profile.ProfileActivity"
             android:label="InfoProfileActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.bgFullScreen" />
-
-        <!-- message fragment -->
+            android:theme="@style/Theme.bgFullScreen" /> <!-- message fragment -->
         <activity
             android:name=".ui.messages.MessageDetail"
             android:label="MessageDetail"
-            android:parentActivityName=".MainActivity" />
-
-        <!-- task fragment -->
+            android:parentActivityName=".MainActivity" /> <!-- task fragment -->
         <activity android:name=".ui.task.NewTaskTypeActivity" />
         <activity
             android:name=".ui.task.CommunityTaskActivity"

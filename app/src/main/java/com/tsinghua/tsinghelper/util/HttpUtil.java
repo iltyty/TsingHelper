@@ -14,15 +14,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class HttpUtil {
-
-//    private static final String SERVER_URL = "http://192.168.1.105:3000/";
-    private static final String SERVER_URL = "http://123.56.51.235:3000/";
+    
+    private static final String SERVER_URL = "http://192.168.1.105:3000/";
+//    private static final String SERVER_URL = "http://123.56.51.235:3000/";
     public static final String USER_PREFIX = SERVER_URL + "users/";
     private static final String TASK_PREFIX = SERVER_URL + "tasks/";
     private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
+    public static final String USER_MODIFY = USER_PREFIX + "modify/";
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
     public static final String TASK_GET_ALL = TASK_PREFIX + "all/";

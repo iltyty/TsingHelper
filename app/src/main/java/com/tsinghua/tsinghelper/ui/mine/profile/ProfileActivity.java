@@ -38,6 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView mAvatar;
     @BindView(R.id.tv_username)
     TextView mUsername;
+    @BindView(R.id.tv_signature)
+    TextView mSignature;
     @BindView(R.id.button_info_modify)
     Button mBtnEdit;
 
@@ -46,18 +48,18 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-
-        initWidgets();
     }
 
-    private void initWidgets() {
+    private void initViews() {
         SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
         mUsername.setText(sp.getString("username", ""));
+        mSignature.setText(sp.getString("signature", ""));
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        initViews();
         String userId = UserInfoUtil
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
