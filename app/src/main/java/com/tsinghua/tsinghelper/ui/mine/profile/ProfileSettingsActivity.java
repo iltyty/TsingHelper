@@ -28,6 +28,8 @@ import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,36 +84,69 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         String userId = UserInfoUtil
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
+
+        try {
+            getImages(userId);
+            getUserInfo(userId);
+        } catch (Exception e) {
+            Log.e("error", e.toString());
+        }
+    }
+
+    private void getImages(String userId) {
         ArrayList<String> urls = new ArrayList<>();
         urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
         urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
 
-        try {
-            Glide.with(this)
-                    .load(urls.get(0))
-                    .signature(new ObjectKey(
-                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
-                    ))
-                    .into(mAvatar);
-            Glide.with(this)
-                    .load(urls.get(1))
-                    .signature(new ObjectKey(
-                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
-                    ))
-                    .into(new CustomTarget<Drawable>() {
-                @Override
-                public void onResourceReady(@NonNull Drawable resource,
-                                            @Nullable Transition<? super Drawable> transition) {
-                    mRelativeLayout.setBackground(resource);
-                }
+        Glide.with(this)
+                .load(urls.get(0))
+                .signature(new ObjectKey(
+                        UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                ))
+                .into(mAvatar);
+        Glide.with(this)
+                .load(urls.get(1))
+                .signature(new ObjectKey(
+                        UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                ))
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource,
+                                                @Nullable Transition<? super Drawable> transition) {
+                        mRelativeLayout.setBackground(resource);
+                    }
 
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
+    }
+
+    private void getUserInfo(String userId) {
+        String url = HttpUtil.USER_PREFIX + userId + "/profile";
+        HttpUtil.get(url, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        String signature = resJson.getString("signature");
+                        UserInfoUtil.putPref("signature", signature);
+                        ProfileSettingsActivity.this.runOnUiThread(() ->
+                                mSignature.setValue(signature));
+                    } catch (JSONException e) {
+                        Log.e("error", e.toString());
+                        e.printStackTrace();
+                    }
                 }
-            });
-        } catch (Exception e) {
-            Log.e("error", e.toString());
-        }
+            }
+        });
     }
 
     public void showGallery(View view) {

@@ -40,7 +40,10 @@ public class HttpUtil {
                 httpBuilder.addQueryParameter(key, params.get(key));
             }
         }
-        Request request = new Request.Builder().url(httpBuilder.build()).build();
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("auth", UserInfoUtil.getPref("auth", ""))
+                .build();
         mClient.newCall(request).enqueue(callback);
     }
 
@@ -54,9 +57,7 @@ public class HttpUtil {
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .addHeader("auth", UserInfoUtil
-                        .getUserInfoSharedPreferences()
-                        .getString("auth", ""))
+                .addHeader("auth", UserInfoUtil.getPref("auth", ""))
                 .build();
         mClient.newCall(request).enqueue(callback);
     }
