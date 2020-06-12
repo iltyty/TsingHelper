@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
-import com.tsinghua.tsinghelper.adapters.MessageAdapter;
+import com.tsinghua.tsinghelper.adapters.MessageListAdapter;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 
 import java.sql.Timestamp;
@@ -54,7 +54,7 @@ public class MessagesFragment extends Fragment {
 
 
     private void initRecyclerView() {
-        mAdapter = new MessageAdapter(getActivity(), getMessages());
+        mAdapter = new MessageListAdapter(getActivity(), getMessages());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),
