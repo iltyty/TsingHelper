@@ -38,4 +38,11 @@
         <attr name="preference_title" format="string" />
         <attr name="preference_value" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="UserItem">
+        <attr name="user_avatar_src" format="reference" />
+        <attr name="user_username" format="string" />
+        <attr name="user_id" format="string" />
+    </declare-styleable>
+
 </resources>
