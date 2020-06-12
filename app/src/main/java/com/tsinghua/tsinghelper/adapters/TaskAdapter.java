@@ -126,7 +126,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             // TODO: set task publisher's avatar
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
 
-            String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, task.publisherId);
+            String url = HttpUtil.getUserAvatarUrlById(task.publisherId);
             try {
                 Glide.with(mContext)
                         .load(url)
@@ -144,8 +144,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             TaskDTO task = mTasks.get(getAdapterPosition());
             Intent it = new Intent(mContext, TaskDetail.class);
 
-            it.putExtra("TASK_TITLE", task.title);
-            // TODO: send more information
+            it.putExtra("id", task.id);
+            it.putExtra("publisherId", task.publisherId);
 
             mContext.startActivity(it);
         }

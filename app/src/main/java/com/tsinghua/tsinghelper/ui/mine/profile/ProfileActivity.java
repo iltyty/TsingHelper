@@ -61,8 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
         ArrayList<String> urls = new ArrayList<>();
-        urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
-        urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
+        urls.add(HttpUtil.getUserAvatarUrlById(userId));
+        urls.add(HttpUtil.getUserBgUrlById(userId));
 
         try {
             Glide.with(this)

@@ -3,6 +3,7 @@ package com.tsinghua.tsinghelper.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -17,7 +18,7 @@ public class HttpUtil {
     
     private static final String SERVER_URL = "http://192.168.1.105:3000/";
 //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
-    public static final String USER_PREFIX = SERVER_URL + "users/";
+private static final String USER_PREFIX = SERVER_URL + "users/";
     private static final String TASK_PREFIX = SERVER_URL + "tasks/";
     private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
 
@@ -88,5 +89,29 @@ public class HttpUtil {
                         .getString("auth", ""))
                 .build();
         mClient.newCall(request).enqueue(callback);
+    }
+
+    public static String getUserAvatarUrlById(int userId) {
+        return String.format(Locale.CHINA, "%s%d/avatar", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getUserAvatarUrlById(String userId) {
+        return String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getUserBgUrlById(int userId) {
+        return String.format(Locale.CHINA, "%s%d/background", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getUserBgUrlById(String userId) {
+        return String.format("%s%s/background", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getUserProfileUrlById(int userId) {
+        return String.format(Locale.CHINA, "%s%d/profile", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getUserProfileUrlById(String userId) {
+        return String.format("%s%s/profile", HttpUtil.USER_PREFIX, userId);
     }
 }

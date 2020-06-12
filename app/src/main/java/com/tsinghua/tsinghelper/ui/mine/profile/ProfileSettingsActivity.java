@@ -95,8 +95,8 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     private void getImages(String userId) {
         ArrayList<String> urls = new ArrayList<>();
-        urls.add(String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId));
-        urls.add(String.format("%s%s/background", HttpUtil.USER_PREFIX, userId));
+        urls.add(HttpUtil.getUserAvatarUrlById(userId));
+        urls.add(HttpUtil.getUserBgUrlById(userId));
 
         Glide.with(this)
                 .load(urls.get(0))
@@ -123,7 +123,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     }
 
     private void getUserInfo(String userId) {
-        String url = HttpUtil.USER_PREFIX + userId + "/profile";
+        String url = HttpUtil.getUserProfileUrlById(userId);
         HttpUtil.get(url, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {

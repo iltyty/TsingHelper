@@ -101,7 +101,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         String userId = UserInfoUtil.getPref("userId", "");
-        String url = String.format("%s%s/avatar", HttpUtil.USER_PREFIX, userId);
+        String url = HttpUtil.getUserAvatarUrlById(userId);
         Glide.with(requireContext())
                 .load(url)
                 .signature(new ObjectKey(
