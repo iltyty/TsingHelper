@@ -177,7 +177,7 @@ public class BaseTaskActivity extends AppCompatActivity {
         res.put("title", title);
         res.put("reward", reward);
         res.put("description", description);
-        res.put("review_time", reviewTime + " hours");
+        res.put("review_time", reviewTime);
         return res;
     }
 
