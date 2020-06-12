@@ -64,7 +64,7 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.bgFullScreen" /> <!-- message fragment -->
         <activity
-            android:name=".ui.messages.MessageDetail"
+            android:name=".ui.messages.MessageDetailActivity"
             android:label="MessageDetail"
             android:parentActivityName=".MainActivity" /> <!-- task fragment -->
         <activity android:name=".ui.task.NewTaskTypeActivity" />

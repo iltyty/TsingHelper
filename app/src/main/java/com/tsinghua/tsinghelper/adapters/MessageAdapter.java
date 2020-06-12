@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
-import com.tsinghua.tsinghelper.ui.messages.MessageDetail;
+import com.tsinghua.tsinghelper.ui.messages.MessageDetailActivity;
 
 import java.util.ArrayList;
 
@@ -80,7 +79,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @Override
         public void onClick(View v) {
 //            MessageDTO message = mMessages.get(getAdapterPosition());
-            Intent intent = new Intent(mContext, MessageDetail.class);
+            Intent intent = new Intent(mContext, MessageDetailActivity.class);
 
             intent.putExtra("SENDER_NAME", "消息内容");
             // TODO: send more information
