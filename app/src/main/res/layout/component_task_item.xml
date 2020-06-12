@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/task_item_margin_top"
@@ -24,8 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/task_item_text_margin"
         android:textColor="@color/task_item_title_color"
-        android:textSize="@dimen/task_item_title_size"
-        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
+        android:textSize="@dimen/task_item_title_size" />
 
     <TextView
         android:id="@+id/task_item_reward"
@@ -34,9 +32,7 @@
         android:layout_below="@+id/task_item_title"
         android:layout_marginStart="@dimen/task_item_text_margin"
         android:textColor="@color/task_item_reward_color"
-        android:textSize="@dimen/task_item_reward_size"
-        android:layout_marginLeft="@dimen/task_item_text_margin"
-        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
+        android:textSize="@dimen/task_item_reward_size" />
 
     <TextView
         android:id="@+id/task_item_deadline"
@@ -45,8 +41,6 @@
         android:layout_below="@id/task_item_reward"
         android:layout_marginStart="@dimen/task_item_text_margin"
         android:textColor="@color/task_item_deadline_color"
-        android:textSize="@dimen/task_item_deadline_size"
-        android:layout_marginLeft="@dimen/task_item_text_margin"
-        tools:layout_constraintLeft_toEndOf="@id/task_item_avatar" />
+        android:textSize="@dimen/task_item_deadline_size" />
 
 </RelativeLayout>

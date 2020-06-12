@@ -1,18 +1,23 @@
 package com.tsinghua.tsinghelper.dtos;
 
 import com.tsinghua.tsinghelper.util.DateTimeUtil;
+import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 public class TaskDTO {
 
     // required fields
     public int id;
+    public int reviewTime;
+    public int timesTotal;
+    public int timesFinished;
     public double reward;
     public String type;
     public String title;
     public String startTime;
-    public String reviewTime;
     public String deadlineStr;
     public String description;
     public String publisherId;
@@ -26,35 +31,35 @@ public class TaskDTO {
     public String demands;
     public String endTime;
     public String subjects;
-    public String duration;
     public int foodNum;
-    public int timesTotal;
     public int timesPerPerson;
 
     public TaskDTO(JSONObject task) {
-        this.id = task.optInt("id", 1);
-        this.type = task.optString("type", "");
-        this.title = task.optString("title", "");
-        this.reward = task.optDouble("reward", 0);
-        this.startTime = task.optString("start_time", "");
-        this.reviewTime = task.optString("review_time", "");
-        this.description = task.optString("description", "");
-        this.publisherId = task.optString("publisherId", "");
-        this.isDone = task.optBoolean("is_done", false);
-        this.isPaid = task.optBoolean("is_paid", false);
-        this.isProceeding = task.optBoolean("is_proceeding", true);
+        this.id = task.optInt(TaskInfoUtil.ID, 1);
+        this.reviewTime = task.optInt(TaskInfoUtil.REVIEW_TIME, 24);
+        this.timesTotal = task.optInt(TaskInfoUtil.TIMES_TOTAL, 1);
+        this.timesFinished = task.optInt(TaskInfoUtil.TIMES_FINISHED, 0);
+        this.type = task.optString(TaskInfoUtil.TYPE, "");
+        this.title = task.optString(TaskInfoUtil.TITLE, "");
+        this.reward = task.optDouble(TaskInfoUtil.REWARD, 0);
+        this.startTime = task.optString(TaskInfoUtil.START_TIME, "");
+        this.description = task.optString(TaskInfoUtil.DESC, "");
+        this.publisherId = task.optString(TaskInfoUtil.PUBLISHER_ID, "");
+        this.isDone = task.optBoolean(TaskInfoUtil.IS_DONE, false);
+        this.isPaid = task.optBoolean(TaskInfoUtil.IS_PAID, false);
+        this.isProceeding = task.optBoolean(TaskInfoUtil.IS_PROCEEDING, true);
 
-        this.link = optString(task, "link");
-        this.site = optString(task, "site");
-        this.demands = optString(task, "demands");
-        this.endTime = optString(task, "end_time");
-        this.subjects = optString(task, "subjects");
-        this.duration = optString(task, "duration");
-        this.foodNum = task.optInt("food_num", 1);
-        this.timesTotal = task.optInt("times_total", 1);
-        this.timesPerPerson = task.optInt("times_per_person", 1);
+        this.link = optString(task, TaskInfoUtil.LINK);
+        this.site = optString(task, TaskInfoUtil.SITE);
+        this.demands = optString(task, TaskInfoUtil.DEMANDS);
+        this.endTime = optString(task, TaskInfoUtil.END_TIME);
+        this.subjects = optString(task, TaskInfoUtil.SUBJECTS);
+        this.foodNum = task.optInt(TaskInfoUtil.FOOD_NUM, 1);
+        this.timesPerPerson = task.optInt(TaskInfoUtil.TIMES_PER_PERSON, 1);
 
-        this.deadlineStr = DateTimeUtil.getDeadlineStr(Long.parseLong(endTime));
+        int timesLeft = Math.max(timesTotal - timesFinished, 0);
+        String timeLeft = DateTimeUtil.getDeadlineStr(Long.parseLong(endTime));
+        this.deadlineStr = String.format(Locale.CHINA, "%d人后截止 · %s", timesLeft, timeLeft);
     }
 
     private String optString(JSONObject json, String key) {
