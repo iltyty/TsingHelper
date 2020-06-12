@@ -122,7 +122,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskReward.setText(String.format(Locale.CHINA,
                     "%s%.2f元", String.valueOf(rmb), task.reward));
 
-            mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
+            mTaskAvatar.setImageResource(R.drawable.not_logged_in);
 
             String url = HttpUtil.getUserAvatarUrlById(task.publisherId);
             Glide.with(mContext)
@@ -130,7 +130,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     .signature(new ObjectKey(
                             UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
                     ))
-                    .error(R.drawable.not_logged_in)
                     .into(mTaskAvatar);
         }
 
