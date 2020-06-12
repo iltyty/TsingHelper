@@ -22,11 +22,19 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.relative_layout)
@@ -60,40 +68,74 @@ public class ProfileActivity extends AppCompatActivity {
         String userId = UserInfoUtil
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
+
+        try {
+            getImages(userId);
+            getUserInfo(userId);
+        } catch (Exception e) {
+            Log.e("error", e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    private void getImages(String userId) {
         ArrayList<String> urls = new ArrayList<>();
         urls.add(HttpUtil.getUserAvatarUrlById(userId));
         urls.add(HttpUtil.getUserBgUrlById(userId));
+        Glide.with(this)
+                .load(urls.get(0))
+                .signature(new ObjectKey(
+                        UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                ))
+                .into(mAvatar);
+        Glide.with(this)
+                .load(urls.get(1))
+                .signature(new ObjectKey(
+                        UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                ))
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource,
+                                                @Nullable Transition<? super Drawable> transition) {
+                        mRelativeLayout.setBackground(resource);
+                    }
 
-        try {
-            Glide.with(this)
-                    .load(urls.get(0))
-                    .signature(new ObjectKey(
-                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
-                    ))
-                    .into(mAvatar);
-            Glide.with(this)
-                    .load(urls.get(1))
-                    .signature(new ObjectKey(
-                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
-                    ))
-                    .into(new CustomTarget<Drawable>() {
-                @Override
-                public void onResourceReady(@NonNull Drawable resource,
-                                            @Nullable Transition<? super Drawable> transition) {
-                    mRelativeLayout.setBackground(resource);
-                }
-
-                @Override
-                public void onLoadCleared(@Nullable Drawable placeholder) {
-                }
-            });
-        } catch (Exception e) {
-            Log.e("error", e.toString());
-        }
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
     }
 
     public void editBtnClicked(View view) {
         Intent it = new Intent(this, ProfileSettingsActivity.class);
         startActivityForResult(it, 1);
+    }
+
+    private void getUserInfo(String userId) {
+        String url = HttpUtil.getUserProfileUrlById(userId);
+        HttpUtil.get(url, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        String signature = resJson.isNull("signature") ?
+                                "" : resJson.getString("signature");
+                        UserInfoUtil.putPref("signature", signature);
+                        ProfileActivity.this.runOnUiThread(() ->
+                                mSignature.setText(signature));
+                    } catch (JSONException e) {
+                        Log.e("error", e.toString());
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

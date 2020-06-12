@@ -28,8 +28,6 @@ import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,31 +120,9 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 });
     }
 
-    private void getUserInfo(String userId) {
-        String url = HttpUtil.getUserProfileUrlById(userId);
-        HttpUtil.get(url, null, new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.code() == 200) {
-                    try {
-                        JSONObject resJson = new JSONObject(response.body().string());
-                        String signature = resJson.getString("signature");
-                        UserInfoUtil.putPref("signature", signature);
-                        ProfileSettingsActivity.this.runOnUiThread(() ->
-                                mSignature.setValue(signature));
-                    } catch (JSONException e) {
-                        Log.e("error", e.toString());
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+    public void getUserInfo(String userId) {
+        String signature = UserInfoUtil.getPref("signature", "未填写");
+        mSignature.setValue(signature.isEmpty() ? "未填写" : signature);
     }
 
     public void showGallery(View view) {
