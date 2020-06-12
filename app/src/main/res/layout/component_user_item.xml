@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/task_item_margin_top"
-    android:layout_marginBottom="@dimen/task_item_margin_bottom"
+    android:layout_marginStart="@dimen/user_item_margin_start"
+    android:layout_marginTop="@dimen/user_item_margin_top"
+    android:layout_marginBottom="@dimen/user_item_margin_bottom"
     android:background="#00000000">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/avatar"
         android:layout_marginStart="@dimen/user_item_text_margin"
         android:textColor="@color/user_item_username_color"
         android:textSize="@dimen/user_item_username_size" />
@@ -30,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
+        android:layout_toEndOf="@+id/avatar"
         android:layout_marginStart="@dimen/user_item_text_margin"
         android:textColor="@color/user_item_id_color"
         android:textSize="@dimen/user_item_id_size" />
@@ -37,8 +40,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="7dp"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/user_item_margin_end"
         android:contentDescription="@null"
         android:src="@drawable/ic_right_arrow_8dp" />
