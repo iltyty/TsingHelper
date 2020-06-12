@@ -123,7 +123,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskReward.setText(String.format(Locale.CHINA,
                     "%s%.2f元", String.valueOf(rmb), task.reward));
 
-            // TODO: set task publisher's avatar
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
 
             String url = HttpUtil.getUserAvatarUrlById(task.publisherId);

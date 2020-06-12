@@ -11,6 +11,7 @@ public class TaskDTO {
 
     // required fields
     public int id;
+    public int publisherId;
     public int reviewTime;
     public int timesTotal;
     public int timesFinished;
@@ -20,7 +21,6 @@ public class TaskDTO {
     public String startTime;
     public String deadlineStr;
     public String description;
-    public String publisherId;
     public boolean isDone;
     public boolean isPaid;
     public boolean isProceeding;
@@ -35,7 +35,8 @@ public class TaskDTO {
     public int timesPerPerson;
 
     public TaskDTO(JSONObject task) {
-        this.id = task.optInt(TaskInfoUtil.ID, 1);
+        this.id = task.optInt(TaskInfoUtil.ID, 0);
+        this.publisherId = task.optInt(TaskInfoUtil.PUBLISHER_ID, 0);
         this.reviewTime = task.optInt(TaskInfoUtil.REVIEW_TIME, 24);
         this.timesTotal = task.optInt(TaskInfoUtil.TIMES_TOTAL, 1);
         this.timesFinished = task.optInt(TaskInfoUtil.TIMES_FINISHED, 0);
@@ -44,7 +45,6 @@ public class TaskDTO {
         this.reward = task.optDouble(TaskInfoUtil.REWARD, 0);
         this.startTime = task.optString(TaskInfoUtil.START_TIME, "");
         this.description = task.optString(TaskInfoUtil.DESC, "");
-        this.publisherId = task.optString(TaskInfoUtil.PUBLISHER_ID, "");
         this.isDone = task.optBoolean(TaskInfoUtil.IS_DONE, false);
         this.isPaid = task.optBoolean(TaskInfoUtil.IS_PAID, false);
         this.isProceeding = task.optBoolean(TaskInfoUtil.IS_PROCEEDING, true);
