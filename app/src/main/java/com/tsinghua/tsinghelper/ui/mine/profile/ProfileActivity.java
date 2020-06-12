@@ -45,29 +45,54 @@ public class ProfileActivity extends AppCompatActivity {
     TextView mUsername;
     @BindView(R.id.tv_signature)
     TextView mSignature;
+    @Nullable
     @BindView(R.id.button_info_modify)
     Button mBtnEdit;
+
+    private boolean isMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView();
         ButterKnife.bind(this);
     }
 
+    private void setContentView() {
+        Intent it = getIntent();
+        String userId = it.getStringExtra("userId");
+        assert userId != null;
+        isMe = userId.equals(UserInfoUtil.getPref("userId", ""));
+
+        if (isMe) {
+            setContentView(R.layout.activity_profile_me);
+        } else {
+            setContentView(R.layout.activity_profile_others);
+        }
+    }
+
     private void initViews() {
-        SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
-        mUsername.setText(sp.getString("username", ""));
-        mSignature.setText(sp.getString("signature", ""));
+        if (isMe) {
+            SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
+            mUsername.setText(sp.getString("username", ""));
+            mSignature.setText(sp.getString("signature", ""));
+        } else {
+
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
         initViews();
-        String userId = UserInfoUtil
-                .getUserInfoSharedPreferences()
-                .getString("userId", "");
+        String userId;
+        if (isMe) {
+            userId = UserInfoUtil
+                    .getUserInfoSharedPreferences()
+                    .getString("userId", "");
+        } else {
+            userId = getIntent().getStringExtra("userId");
+        }
 
         getImages(userId);
         getUserInfo(userId);
@@ -123,9 +148,20 @@ public class ProfileActivity extends AppCompatActivity {
                         JSONObject resJson = new JSONObject(response.body().string());
                         String signature = resJson.isNull("signature") ?
                                 "" : resJson.getString("signature");
-                        UserInfoUtil.putPref("signature", signature);
-                        ProfileActivity.this.runOnUiThread(() ->
-                                mSignature.setText(signature));
+                        if (isMe) {
+                            UserInfoUtil.putPref("signature", signature);
+                            ProfileActivity.this.runOnUiThread(() ->
+                                    mSignature.setText(signature));
+                        } else {
+                            String username = resJson.getString("username");
+                            ProfileActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUsername.setText(username);
+                                    mSignature.setText(signature);
+                                }
+                            });
+                        }
                     } catch (JSONException e) {
                         Log.e("error", e.toString());
                         e.printStackTrace();
@@ -133,5 +169,13 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void follow(View view) {
+
+    }
+
+    public void sendMessage(View view) {
+
     }
 }

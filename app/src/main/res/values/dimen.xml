@@ -71,6 +71,7 @@
 
     <!-- profile -->
     <dimen name="profile_page_edit_btn_height">32dp</dimen>
+    <dimen name="profile_others_page_btn_width">90dp</dimen>
 
     <dimen name="preference_item_title_size">14sp</dimen>
     <dimen name="preference_item_value_size">13sp</dimen>

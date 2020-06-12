@@ -25,6 +25,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.UserItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -66,6 +67,9 @@ public class TaskDetailActivity extends AppCompatActivity {
     @BindView(R.id.publisher)
     UserItem mPublisher;
 
+    private int taskId;
+    private int publisherId;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -97,22 +101,23 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     private void initViews() {
         Intent it = getIntent();
-        int taskId = it.getIntExtra("id", -1);
-        int publisherId = it.getIntExtra("publisherId", -1);
+        taskId = it.getIntExtra("id", -1);
+        publisherId = it.getIntExtra("publisherId", -1);
         if (taskId == -1 || publisherId == -1) {
             return;
         }
 
-        getPublisherAvatar(publisherId);
-        getTaskInfo(taskId);
+        getPublisherAvatar();
+        getTaskInfo();
     }
 
-    private void getPublisherAvatar(int publisherId) {
+    private void getPublisherAvatar() {
         mPublisher.setId(publisherId);
         String avatarUrl = HttpUtil.getUserAvatarUrlById(publisherId);
         String profileUrl = HttpUtil.getUserProfileUrlById(publisherId);
         Glide.with(this)
                 .load(avatarUrl)
+                .error(R.drawable.not_logged_in)
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource,
@@ -145,7 +150,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getTaskInfo(int taskId) {
+    private void getTaskInfo() {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(taskId));
 
@@ -196,5 +201,11 @@ public class TaskDetailActivity extends AppCompatActivity {
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, true);
         }
+    }
+
+    public void toProfileActivity(View view) {
+        Intent it = new Intent(TaskDetailActivity.this, ProfileActivity.class);
+        it.putExtra("userId", String.valueOf(publisherId));
+        startActivity(it);
     }
 }

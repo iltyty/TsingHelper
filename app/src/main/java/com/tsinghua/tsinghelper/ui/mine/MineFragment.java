@@ -78,6 +78,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.relative_layout_to_profile:
                 Intent itInfo = new Intent(getActivity(), ProfileActivity.class);
+                itInfo.putExtra("userId", UserInfoUtil.getPref("userId", ""));
                 startActivity(itInfo);
                 break;
             case R.id.relative_layout_to_published:
