@@ -47,7 +47,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ui.task.TaskDetail"
+            android:name=".ui.task.TaskDetailActivity"
             android:label="TaskDetail"
             android:theme="@style/Theme.bgFullScreen" />
         <activity

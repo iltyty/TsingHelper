@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
-import com.tsinghua.tsinghelper.ui.task.TaskDetail;
+import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -141,7 +141,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             TaskDTO task = mTasks.get(getAdapterPosition());
-            Intent it = new Intent(mContext, TaskDetail.class);
+            Intent it = new Intent(mContext, TaskDetailActivity.class);
 
             it.putExtra("id", task.id);
             it.putExtra("publisherId", task.publisherId);
