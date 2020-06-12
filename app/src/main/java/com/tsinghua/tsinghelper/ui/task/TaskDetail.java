@@ -1,7 +1,9 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,35 @@ import android.view.WindowManager;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.components.UserItem;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class TaskDetail extends AppCompatActivity {
     @BindView(R.id.toolbar_task)
@@ -40,9 +61,10 @@ public class TaskDetail extends AppCompatActivity {
     TextView mTaskDescription;
     @BindView(R.id.requirements)
     TextView mTaskRequirement;
-
-
-    Intent mIntent;
+    @BindView(R.id.number_finished)
+    TextView mTimesFinished;
+    @BindView(R.id.publisher)
+    UserItem mPublisher;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -61,10 +83,8 @@ public class TaskDetail extends AppCompatActivity {
         setStatusBarUpperAPI21();
         ButterKnife.bind(this);
 
-        mIntent = getIntent();
-
         initToolbar();
-        initLayout();
+        initViews();
     }
 
     private void initToolbar() {
@@ -75,9 +95,95 @@ public class TaskDetail extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
     }
 
-    private void initLayout() {
-        // TODO: 2020/6/11 get task detail from backend
-        mScrollView.setFillViewport(true);
+    private void initViews() {
+        Intent it = getIntent();
+        int taskId = it.getIntExtra("id", -1);
+        int publisherId = it.getIntExtra("publisherId", -1);
+        if (taskId == -1 || publisherId == -1) {
+            return;
+        }
+
+        getPublisherAvatar(publisherId);
+        getTaskInfo(taskId);
+    }
+
+    private void getPublisherAvatar(int publisherId) {
+        mPublisher.setId(publisherId);
+        String avatarUrl = HttpUtil.getUserAvatarUrlById(publisherId);
+        String profileUrl = HttpUtil.getUserProfileUrlById(publisherId);
+        Glide.with(this)
+                .load(avatarUrl)
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource,
+                                                @Nullable Transition<? super Drawable> transition) {
+                        TaskDetail.this.runOnUiThread(() -> mPublisher.setAvatar(resource));
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
+        HttpUtil.get(profileUrl, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                try {
+                    JSONObject resJson = new JSONObject(response.body().string());
+                    String username = resJson.getString("username");
+                    TaskDetail.this.runOnUiThread(() -> mPublisher.setUsername(username));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getTaskInfo(int taskId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(taskId));
+
+        HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                ResponseBody resBody = response.body();
+                assert resBody != null;
+                String resStr = resBody.string();
+                TaskDetail.this.runOnUiThread(() -> setTaskInfo(resStr));
+            }
+        });
+    }
+
+    private void setTaskInfo(String resStr) {
+        try {
+            JSONObject resJson = new JSONObject(resStr);
+            JSONObject taskInfo = resJson.getJSONObject("task");
+            TaskDTO taskDTO = new TaskDTO(taskInfo);
+
+            mTaskTitle.setText(taskDTO.title);
+            mTaskDeadline.setText(taskDTO.deadlineStr);
+            mTaskDescription.setText(taskDTO.description);
+            mTaskReward.setText(String.valueOf(taskDTO.reward));
+            mTimeCheck.setText(String.format(Locale.CHINA, "奖励%d小时内审核", taskDTO.reviewTime));
+            mTimesPerPerson.setText(String.format(Locale.CHINA, "每人可做%d次", taskDTO.timesPerPerson));
+            mTimesFinished.setText(String.format(Locale.CHINA, "已有%d人完成", taskDTO.timesFinished));
+        } catch (JSONException e) {
+            Log.e("error", e.toString());
+            e.printStackTrace();
+        }
     }
 
     private void setStatusBarUpperAPI21(){
@@ -85,7 +191,7 @@ public class TaskDetail extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getResources().getColor(R.color.darkblue));
-        ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        ViewGroup mContentView = findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, true);

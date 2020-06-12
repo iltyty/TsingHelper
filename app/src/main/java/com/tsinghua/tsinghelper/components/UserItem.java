@@ -60,7 +60,11 @@ public class UserItem extends RelativeLayout {
     }
 
     public void setId(String id) {
-        mId.setText(id);
+        mId.setText("ID: " + id);
+    }
+
+    public void setId(int id) {
+        setId(String.valueOf(id));
     }
 }
 
