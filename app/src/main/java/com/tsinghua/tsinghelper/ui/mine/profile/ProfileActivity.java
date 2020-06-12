@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,29 +104,59 @@ public class ProfileActivity extends AppCompatActivity {
         ArrayList<String> urls = new ArrayList<>();
         urls.add(HttpUtil.getUserAvatarUrlById(userId));
         urls.add(HttpUtil.getUserBgUrlById(userId));
-        Glide.with(this)
-                .load(urls.get(0))
-                .signature(new ObjectKey(
-                        UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
-                ))
-                .error(R.drawable.not_logged_in)
-                .into(mAvatar);
-        Glide.with(this)
-                .load(urls.get(1))
-                .signature(new ObjectKey(
-                        UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
-                ))
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource,
-                                                @Nullable Transition<? super Drawable> transition) {
-                        mRelativeLayout.setBackground(resource);
-                    }
+        if (isMe) {
+            Glide.with(this)
+                    .load(urls.get(0))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                    ))
+                    .error(R.drawable.not_logged_in)
+                    .into(mAvatar);
+            Glide.with(this)
+                    .load(urls.get(1))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                    ))
+                    .into(new CustomTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource,
+                                                    @Nullable Transition<? super Drawable> transition) {
+                            mRelativeLayout.setBackground(resource);
+                        }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                    }
-                });
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                        }
+                    });
+        } else {
+            Glide.with(this)
+                    .load(urls.get(0))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                    ))
+                    .error(R.drawable.not_logged_in)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(mAvatar);
+            Glide.with(this)
+                    .load(urls.get(1))
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.BG_SIGN, "")
+                    ))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(new CustomTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource,
+                                                    @Nullable Transition<? super Drawable> transition) {
+                            mRelativeLayout.setBackground(resource);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                        }
+                    });
+        }
     }
 
     public void editBtnClicked(View view) {
@@ -133,8 +165,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUserInfo(String userId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("username", "");
+        params.put("signature", "");
         String url = HttpUtil.getUserProfileUrlById(userId);
-        HttpUtil.get(url, null, new Callback() {
+        HttpUtil.get(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());

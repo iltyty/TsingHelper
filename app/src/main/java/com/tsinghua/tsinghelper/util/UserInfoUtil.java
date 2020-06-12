@@ -1,6 +1,10 @@
 package com.tsinghua.tsinghelper.util;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -57,4 +61,30 @@ public class UserInfoUtil {
         editor.clear();
         editor.apply();
     }
+
+    public static String[] getPublisherTS(int userId) {
+        return getPublisherTS(String.valueOf(userId));
+    }
+
+    public static String[] getPublisherTS(String userId) {
+        String url = HttpUtil.getUserProfileUrlById(userId);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("avatar_ts", "");
+        params.put("bg_ts", "");
+        String[] avatarTs = new String[2];
+        avatarTs[0] = "";
+        avatarTs[1] = "";
+        String resStr = HttpUtil.getSync(url, params);
+        try {
+            JSONObject resJson = new JSONObject(resStr);
+            System.out.println(resJson);
+            avatarTs[0] = resJson.getString("avatar_ts");
+            avatarTs[1] = resJson.getString("bg_ts");
+        } catch (JSONException e) {
+            Log.e("error", e.toString());
+            e.printStackTrace();
+        }
+        return avatarTs;
+    }
+
 }

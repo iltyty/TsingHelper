@@ -13,13 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.ObjectKey;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
-import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -121,15 +120,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskDeadline.setText(task.deadlineStr);
             mTaskReward.setText(String.format(Locale.CHINA,
                     "%s%.2f元", String.valueOf(rmb), task.reward));
-
             mTaskAvatar.setImageResource(R.drawable.not_logged_in);
 
             String url = HttpUtil.getUserAvatarUrlById(task.publisherId);
+            // do not cache
             Glide.with(mContext)
                     .load(url)
-                    .signature(new ObjectKey(
-                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
-                    ))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .error(R.drawable.not_logged_in)
                     .into(mTaskAvatar);
         }
 

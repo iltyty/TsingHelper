@@ -1,5 +1,7 @@
 package com.tsinghua.tsinghelper.util;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HttpUtil {
     
@@ -46,6 +49,27 @@ private static final String USER_PREFIX = SERVER_URL + "users/";
                 .addHeader("auth", UserInfoUtil.getPref("auth", ""))
                 .build();
         mClient.newCall(request).enqueue(callback);
+    }
+
+    public static String getSync(String url, HashMap<String, String> params) {
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
+        if (params != null) {
+            for (String key : params.keySet()) {
+                httpBuilder.addQueryParameter(key, params.get(key));
+            }
+        }
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("auth", UserInfoUtil.getPref("auth", ""))
+                .build();
+        try {
+            Response response = mClient.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            Log.e("error", e.toString());
+            e.printStackTrace();
+        }
+        return "";
     }
 
     // Initiate an asynchronous post request

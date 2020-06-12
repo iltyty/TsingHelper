@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.tsinghua.tsinghelper.R;
@@ -107,17 +108,19 @@ public class TaskDetailActivity extends AppCompatActivity {
             return;
         }
 
-        getPublisherAvatar();
+        getPublisherInfo();
         getTaskInfo();
     }
 
-    private void getPublisherAvatar() {
+    private void getPublisherInfo() {
         mPublisher.setId(publisherId);
         String avatarUrl = HttpUtil.getUserAvatarUrlById(publisherId);
         String profileUrl = HttpUtil.getUserProfileUrlById(publisherId);
         Glide.with(this)
                 .load(avatarUrl)
                 .error(R.drawable.not_logged_in)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource,
