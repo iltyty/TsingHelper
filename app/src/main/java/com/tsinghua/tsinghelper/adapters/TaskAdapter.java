@@ -3,7 +3,6 @@ package com.tsinghua.tsinghelper.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,16 +125,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             mTaskAvatar.setImageResource(R.drawable.ic_community_item_32dp);
 
             String url = HttpUtil.getUserAvatarUrlById(task.publisherId);
-            try {
-                Glide.with(mContext)
-                        .load(url)
-                        .signature(new ObjectKey(
-                                UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
-                        ))
-                        .into(mTaskAvatar);
-            } catch (Exception e) {
-                Log.e("error", e.toString());
-            }
+            Glide.with(mContext)
+                    .load(url)
+                    .signature(new ObjectKey(
+                            UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
+                    ))
+                    .error(R.drawable.not_logged_in)
+                    .into(mTaskAvatar);
         }
 
         @Override

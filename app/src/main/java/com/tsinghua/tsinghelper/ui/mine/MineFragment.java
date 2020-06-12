@@ -107,6 +107,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 .signature(new ObjectKey(
                         UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
                 ))
+                .error(R.drawable.not_logged_in)
                 .into(mAvatar);
     }
 }

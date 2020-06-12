@@ -83,12 +83,8 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 .getUserInfoSharedPreferences()
                 .getString("userId", "");
 
-        try {
-            getImages(userId);
-            getUserInfo(userId);
-        } catch (Exception e) {
-            Log.e("error", e.toString());
-        }
+        getImages(userId);
+        getUserInfo(userId);
     }
 
     private void getImages(String userId) {
@@ -101,6 +97,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 .signature(new ObjectKey(
                         UserInfoUtil.getPref(UserInfoUtil.AVATAR_SIGN, "")
                 ))
+                .error(R.drawable.not_logged_in)
                 .into(mAvatar);
         Glide.with(this)
                 .load(urls.get(1))
