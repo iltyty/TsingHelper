@@ -1,53 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.messages.MessageDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_message"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="（发布者名称）"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+            android:text="用户名"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/message_recycler"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/light_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/message_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_message"
-        app:layout_constraintBottom_toTopOf="@id/input_text"
+        app:incomingBubblePaddingBottom="@dimen/msg_bubble_padding"
+        app:incomingBubblePaddingLeft="@dimen/msg_bubble_padding"
+        app:incomingBubblePaddingRight="@dimen/msg_bubble_padding"
+        app:incomingBubblePaddingTop="@dimen/msg_bubble_padding"
+        app:incomingTimeTextColor="@color/msg_time_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:outcomingBubblePaddingBottom="@dimen/msg_bubble_padding"
+        app:outcomingBubblePaddingLeft="@dimen/msg_bubble_padding"
+        app:outcomingBubblePaddingRight="@dimen/msg_bubble_padding"
+        app:outcomingBubblePaddingTop="@dimen/msg_bubble_padding"
+        app:outcomingDefaultBubbleColor="@color/colorPrimary"
+        app:outcomingTimeTextColor="@color/msg_time_text_color"
         />
 
-    <EditText
-        android:id="@+id/input_text"
-        android:layout_width="0dp"
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@id/input"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/input"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/send_button"
+        app:attachmentButtonDefaultIconColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:maxLines="2"
-        android:hint="请输入内容" />
-        <Button
-            android:id="@+id/send_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            app:layout_constraintLeft_toRightOf="@id/input_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        app:attachmentButtonMargin="@dimen/msg_btn_margin"
+        app:inputBackground="@drawable/rounded_rectangle_white"
+        app:inputButtonMargin="@dimen/msg_btn_margin"
+        app:showAttachmentButton="true" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

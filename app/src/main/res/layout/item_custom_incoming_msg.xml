@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/msg_root_layout_margin_start"
+    android:layout_marginTop="@dimen/msg_root_layout_margin_top"
+    android:layout_marginEnd="@dimen/msg_root_layout_margin_end"
+    android:layout_marginBottom="@dimen/msg_root_layout_margin_bottom">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/messageUserAvatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/incoming_msg_avatar_margin_end" />
+
+    <ImageView
+        android:id="@+id/onlineIndicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignTop="@+id/messageUserAvatar"
+        android:layout_alignEnd="@id/messageUserAvatar"
+        android:layout_marginEnd="5dp" />
+
+    <LinearLayout
+        android:id="@+id/bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/incoming_msg_bubble_margin_end"
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:dividerPadding="0dp"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bubble"
+        android:layout_alignEnd="@id/bubble"
+        android:layout_marginStart="@dimen/incoming_msg_time_margin_start" />
+
+</RelativeLayout>

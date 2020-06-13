@@ -9,8 +9,6 @@ import java.util.Date;
 
 public class MessageDTO implements IMessage,
         MessageContentType.Image, MessageContentType {
-    public static final int TYPE_RECEIVED = 0;
-    public static final int TYPE_SENT = 1;
 
     private String id;
     private String content;
@@ -21,6 +19,8 @@ public class MessageDTO implements IMessage,
         this.id = id;
         this.content = content;
         this.timestamp = timestamp;
+
+        id = String.valueOf(Integer.parseInt(id) % 3 + 1);
         this.sender = new UserDTO(id, "用户" + id);
     }
 

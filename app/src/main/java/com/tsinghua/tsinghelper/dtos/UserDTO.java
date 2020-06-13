@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.dtos;
 
 import com.stfalcon.chatkit.commons.models.IUser;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 public class UserDTO implements IUser {
 
@@ -11,7 +12,7 @@ public class UserDTO implements IUser {
     UserDTO(String id, String username) {
         this.id = id;
         this.username = username;
-        this.avatar = "http://i.imgur.com/pv1tBmT.png";
+        this.avatar = HttpUtil.getUserAvatarUrlById(id);
     }
 
     @Override

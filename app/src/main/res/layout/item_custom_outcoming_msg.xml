@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/msg_root_layout_margin_start"
+    android:layout_marginTop="@dimen/msg_root_layout_margin_top"
+    android:layout_marginEnd="@dimen/msg_root_layout_margin_end"
+    android:layout_marginBottom="@dimen/msg_root_layout_margin_bottom">
+
+    <LinearLayout
+        android:id="@id/bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/outcoming_msg_bubble_margin_start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bubble"
+        android:layout_alignEnd="@id/bubble" />
+
+</RelativeLayout>

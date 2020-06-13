@@ -39,4 +39,6 @@
     <color name="dialog_unread_color">@color/red</color>
     <color name="dialog_title_color">@color/black</color>
 
+    <color name="msg_time_text_color">#979797</color>
+
 </resources>

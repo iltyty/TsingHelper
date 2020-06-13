@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.messages;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,7 @@ public class MessagesFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         initSpinner();
-
-        mAdapter = new DialogsListAdapter<>(R.layout.item_custom_dialog,
-                (imageView, url, payload) ->
-                        Glide.with(requireActivity()).load(url).into(imageView));
-
+        initAdapter();
         initDialogs();
 
         mDialogsList.setAdapter(mAdapter);
@@ -52,6 +49,16 @@ public class MessagesFragment extends Fragment {
     private void initSpinner() {
         spinner.setAdapter(new AccountStateAdapter(getContext()));
         spinner.setSelection(0, true);
+    }
+
+    private void initAdapter() {
+        mAdapter = new DialogsListAdapter<>(R.layout.item_custom_dialog,
+                (imageView, url, payload) ->
+                        Glide.with(requireActivity()).load(url).into(imageView));
+        mAdapter.setOnDialogClickListener(dialog -> {
+            Intent it = new Intent(requireActivity(), MessageDetailActivity.class);
+            startActivity(it);
+        });
     }
 
     private void initDialogs() {

@@ -99,4 +99,23 @@
     <dimen name="dialog_unread_bubble_margin_top">6dp</dimen>
     <dimen name="dialog_unread_bubble_margin_end">16dp</dimen>
     <dimen name="dialog_divider_margin_top">16dp</dimen>
+
+    <dimen name="msg_user_avatar_size">35dp</dimen>
+    <dimen name="msg_bubble_padding">10dp</dimen>
+    <dimen name="msg_root_layout_margin_top">8dp</dimen>
+    <dimen name="msg_root_layout_margin_bottom">8dp</dimen>
+    <dimen name="msg_root_layout_margin_start">8dp</dimen>
+    <dimen name="msg_root_layout_margin_end">8dp</dimen>
+
+    <dimen name="incoming_msg_avatar_margin_end">8dp</dimen>
+    <dimen name="incoming_msg_bubble_margin_end">30dp</dimen>
+    <dimen name="incoming_msg_text_margin_start">8dp</dimen>
+    <dimen name="incoming_msg_text_margin_end">4dp</dimen>
+    <dimen name="incoming_msg_time_margin_start">8dp</dimen>
+
+    <dimen name="outcoming_msg_bubble_margin_start">30dp</dimen>
+    <dimen name="outcoming_msg_time_margin_end">8dp</dimen>
+
+    <dimen name="msg_btn_margin">4dp</dimen>
+
 </resources>
