@@ -2,11 +2,16 @@ package com.tsinghua.tsinghelper.ui.messages;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 
 import com.bumptech.glide.Glide;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -46,7 +51,7 @@ public class MessageDetailActivity extends AppCompatActivity {
 
         initToolbar();
         initAdapter();
-
+        setStatusBarUpperAPI21();
         genMessages();
     }
 
@@ -75,6 +80,18 @@ public class MessageDetailActivity extends AppCompatActivity {
         String ts = String.valueOf(System.currentTimeMillis());
         for (int i = 0; i < 10; i++) {
             mAdapter.addToStart(new MessageDTO(String.valueOf(i), ts, String.valueOf(i)), true);
+        }
+    }
+
+    private void setStatusBarUpperAPI21() {
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getResources().getColor(R.color.transparent));
+        ViewGroup mContentView = findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, true);
         }
     }
 }
