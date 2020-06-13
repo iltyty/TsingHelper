@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/dialogContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/dialogAvatar"
+            android:layout_width="@dimen/dialog_avatar_size"
+            android:layout_height="@dimen/dialog_avatar_size"
+            android:layout_marginStart="@dimen/dialog_avatar_margin"
+            android:layout_marginTop="@dimen/dialog_avatar_margin"
+            android:layout_marginEnd="@dimen/dialog_avatar_margin"
+            android:layout_marginBottom="@dimen/dialog_avatar_margin_bottom" />
+
+        <TextView
+            android:id="@+id/dialogName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_name_margin_top"
+            android:layout_marginEnd="@dimen/dialog_name_margin_end"
+            android:layout_toStartOf="@id/dialogDate"
+            android:layout_toEndOf="@id/dialogAvatar"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/dialogDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dialog_date_margin_top"
+            android:layout_marginEnd="@dimen/dialog_date_margin_end"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialogName"
+            android:layout_marginTop="@dimen/dialog_unread_msg_margin_top"
+            android:layout_marginEnd="@dimen/dialog_unread_msg_margin_end"
+            android:layout_toEndOf="@id/dialogAvatar">
+
+            <com.stfalcon.chatkit.utils.ShapeImageView
+                android:id="@+id/dialogLastMessageUserAvatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="7dp" />
+
+            <TextView
+                android:id="@+id/dialogLastMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/dialogUnreadBubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialogDate"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dialog_unread_bubble_margin_top"
+            android:layout_marginEnd="@dimen/dialog_unread_bubble_margin_end"
+            android:background="@drawable/bubble_circle"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1" />
+
+        <FrameLayout
+            android:id="@+id/dialogDividerContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/dialog_divider_margin_top">
+
+            <View
+                android:id="@+id/dialogDivider"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

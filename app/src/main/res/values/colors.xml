@@ -9,6 +9,7 @@
     <color name="mine_page_icon_text_item_text_color">#696969</color>
 
     <color name="colorWhite">#ffffff</color>
+    <color name="red">#ff0000</color>
 
     <!-- login page -->
     <color name="login_line_color">#dededf</color>
@@ -26,7 +27,7 @@
     <color name="new_task_image_bg_color">#f6f6f6</color>
 
     <color name="task_item_title_color">#000000</color>
-    <color name="task_item_reward_color">#ff0000</color>
+    <color name="task_item_reward_color">@color/red</color>
     <color name="task_item_deadline_color">#696969</color>
 
     <color name="user_item_username_color">#000000</color>
@@ -35,5 +36,7 @@
     <color name="preference_item_title_color">#000000</color>
     <color name="preference_item_value_color">#000000</color>
 
-    <color name="darkblue">#0B0B3B</color>
+    <color name="dialog_unread_color">@color/red</color>
+    <color name="dialog_title_color">@color/black</color>
+
 </resources>

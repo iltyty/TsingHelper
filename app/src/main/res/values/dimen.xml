@@ -84,4 +84,19 @@
     <dimen name="task_detail_page_margin_left">20dp</dimen>
     <dimen name="task_detail_page_margin_right">20dp</dimen>
     <dimen name="task_detail_task_tag_text_size">11sp</dimen>
+
+    <dimen name="dialog_msg_text_size">14sp</dimen>
+    <dimen name="dialog_title_text_size">15sp</dimen>
+    <dimen name="dialog_avatar_size">35dp</dimen>
+    <dimen name="dialog_avatar_margin">12dp</dimen>
+    <dimen name="dialog_avatar_margin_bottom">20dp</dimen>
+    <dimen name="dialog_name_margin_top">9dp</dimen>
+    <dimen name="dialog_name_margin_end">16dp</dimen>
+    <dimen name="dialog_date_margin_top">9dp</dimen>
+    <dimen name="dialog_date_margin_end">16dp</dimen>
+    <dimen name="dialog_unread_msg_margin_top">6dp</dimen>
+    <dimen name="dialog_unread_msg_margin_end">16dp</dimen>
+    <dimen name="dialog_unread_bubble_margin_top">6dp</dimen>
+    <dimen name="dialog_unread_bubble_margin_end">16dp</dimen>
+    <dimen name="dialog_divider_margin_top">16dp</dimen>
 </resources>
