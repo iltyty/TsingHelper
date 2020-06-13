@@ -1,54 +1,60 @@
 package com.tsinghua.tsinghelper.dtos;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.UUID;
+import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.MessageContentType;
 
-public class MessageDTO {
+import java.util.Date;
+
+public class MessageDTO implements IMessage,
+        MessageContentType.Image, MessageContentType {
     public static final int TYPE_RECEIVED = 0;
     public static final int TYPE_SENT = 1;
 
-    private UUID mSender;
-    private UUID mReceiver;
-    private String mContent;
-    private Timestamp mTime;
-    private int mType;
+    private String id;
+    private String content;
+    private String timestamp;
+    private UserDTO sender;
 
-    public MessageDTO(@NonNull UUID sender, @NonNull UUID receiver,
-                      @NonNull Timestamp time, String content, int type) {
-        mTime = time;
-        mSender = sender;
-        mContent = content;
-        mReceiver = receiver;
-        mType = type;
+    public MessageDTO(String id, String timestamp, String content) {
+        this.id = id;
+        this.content = content;
+        this.timestamp = timestamp;
+        this.sender = new UserDTO(id, "用户" + id);
     }
 
     public String getContent() {
-        return mContent;
+        return content;
     }
 
-    public Timestamp getTime() {
-        return mTime;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public String getTimeString() {
-        SimpleDateFormat formatter = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-        return formatter.format(mTime);
+    @Override
+    public String getId() {
+        return id;
     }
 
-    public UUID getSender() {
-        return mSender;
+    @Override
+    public String getText() {
+        return content;
     }
 
-    public UUID getReceiver() {
-        return mReceiver;
+    @Override
+    public UserDTO getUser() {
+        return sender;
     }
 
-    public int getType() {
-        return mType;
+    @Override
+    public Date getCreatedAt() {
+        return new Date(Long.parseLong(timestamp));
+    }
+
+    @Nullable
+    @Override
+    public String getImageUrl() {
+        return null;
     }
 }
