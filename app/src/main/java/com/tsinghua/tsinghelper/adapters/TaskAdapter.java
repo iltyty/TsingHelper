@@ -19,6 +19,7 @@ import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -70,7 +71,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void getAllTasks(HashMap<String, String> params) {
-        HttpUtil.get(HttpUtil.TASK_GET_ALL, params, new Callback() {
+        String userId = UserInfoUtil.getPref("userId", "");
+        String url = HttpUtil.getAllOthersActivityUrlById(userId);
+        HttpUtil.get(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 ToastUtil.showToastOnUIThread((Activity) mContext,

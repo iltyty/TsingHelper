@@ -24,13 +24,13 @@ public class HttpUtil {
 private static final String USER_PREFIX = SERVER_URL + "users/";
     private static final String TASK_PREFIX = SERVER_URL + "tasks/";
     private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
+    public static final String TASK_GET_OTHERS = TASK_PREFIX + "others/";
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
     public static final String USER_MODIFY = USER_PREFIX + "modify/";
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
-    public static final String TASK_GET_ALL = TASK_PREFIX + "all/";
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";
     public static final String BACKGROUND_UPLOAD = PROFILE_PREFIX + "background/";
 
@@ -137,5 +137,13 @@ private static final String USER_PREFIX = SERVER_URL + "users/";
 
     public static String getUserProfileUrlById(String userId) {
         return String.format("%s%s/profile", HttpUtil.USER_PREFIX, userId);
+    }
+
+    public static String getAllOthersActivityUrlById(int userId) {
+        return String.format(Locale.CHINA, "%s%d", HttpUtil.TASK_GET_OTHERS, userId);
+    }
+
+    public static String getAllOthersActivityUrlById(String userId) {
+        return String.format("%s%s", HttpUtil.TASK_GET_OTHERS, userId);
     }
 }
