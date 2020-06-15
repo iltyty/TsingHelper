@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    @BindView(R.id.btn_back)
+    ImageView mBtnBack;
     @BindView(R.id.relative_layout)
     RelativeLayout mRelativeLayout;
     @BindView(R.id.avatar)
@@ -212,5 +216,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void sendMessage(View view) {
 
+    }
+
+    public void back(View view) {
+        onBackPressed();
     }
 }

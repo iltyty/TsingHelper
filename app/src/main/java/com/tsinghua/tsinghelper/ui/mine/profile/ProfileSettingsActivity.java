@@ -226,4 +226,8 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         }
         startActivityForResult(it, FIELD_MODIFY_CODE);
     }
+
+    public void back(View view) {
+        onBackPressed();
+    }
 }

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.mine.profile.ProfileActivity">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:background="@color/dark_gray"
         android:backgroundTint="#80000000"
-        android:backgroundTintMode="src_over">
+        android:backgroundTintMode="src_over"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="60dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/not_logged_in"
+            android:layout_marginTop="60dp"
             android:clickable="true"
             android:focusable="true"
+            android:src="@drawable/not_logged_in"
             app:civ_border_color="@color/colorWhite"
             app:civ_border_width="@dimen/avatar_border_size" />
 
@@ -32,23 +32,23 @@
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/avatar"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="我的名字"
             android:textColor="@color/colorWhite"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/avatar"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_signature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_username"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:text="个性签名"
             android:textColor="@color/colorWhite"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv_username"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/button_info_modify"
@@ -76,13 +76,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/button_info_modify"
             android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_width="0dp">
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/total_follow"
@@ -92,18 +92,18 @@
                     android:layout_marginTop="15dp"
                     android:text="1"
                     android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_follow"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@+id/total_follow"
-                    android:textColor="@color/colorWhite"
                     android:text="关注"
                     android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
             </RelativeLayout>
@@ -127,19 +127,19 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
                     android:text="0"
-                    android:textSize="14sp"
                     android:textAlignment="center"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/total_followed"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@+id/total_followed"
-                    android:textColor="@color/colorWhite"
                     android:text="被关注"
                     android:textAlignment="center"
+                    android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
             </RelativeLayout>
@@ -148,11 +148,23 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@null"
+        android:onClick="back"
+        android:src="@drawable/ic_back_arrow_white_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/relative_layout"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
