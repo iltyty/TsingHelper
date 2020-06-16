@@ -62,4 +62,7 @@ public class IconTextItem extends RelativeLayout {
                 .densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
+    public void setItemText(String text) {
+        itemText.setText(text);
+    }
 }

@@ -305,7 +305,7 @@
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/published_in_progress"
+                        android:id="@+id/published_doing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -406,7 +406,7 @@
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/received_in_progress"
+                        android:id="@+id/taken_doing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -426,7 +426,7 @@
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/received_done"
+                        android:id="@+id/taken_done"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"

@@ -3,6 +3,7 @@ package com.tsinghua.tsinghelper.ui.mine;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,26 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.components.IconTextItem;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.ui.mine.settings.SettingsActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MineFragment extends Fragment implements View.OnClickListener {
 
@@ -51,6 +64,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout mToTakenDoing;
     @BindView(R.id.rl_taken_done)
     RelativeLayout mToTakenDone;
+    @BindView(R.id.taken_done)
+    IconTextItem mTakenDone;
+    @BindView(R.id.taken_doing)
+    IconTextItem mTakenDoing;
+    @BindView(R.id.published_done)
+    IconTextItem mPublishedDone;
+    @BindView(R.id.published_doing)
+    IconTextItem mPublishedDoing;
 
     private SharedPreferences mSharedPreferences;
 
@@ -143,5 +164,39 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 ))
                 .error(R.drawable.not_logged_in)
                 .into(mAvatar);
+        HttpUtil.get(HttpUtil.USER_TASK_STATES, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        int takenDone = resJson.optInt(TaskInfoUtil.TAKEN_DONE, 0);
+                        int takenDoing = resJson.optInt(TaskInfoUtil.TAKEN_DOING, 0);
+                        int publishedDone = resJson.optInt(TaskInfoUtil.PUBLISHED_DONE, 0);
+                        int publishedDoing = resJson.optInt(TaskInfoUtil.PUBLISHED_DOING, 0);
+
+                        getActivity().runOnUiThread(() -> {
+                            mTakenDone.setItemText(String.format(
+                                    Locale.CHINA, "已完成（%d）", takenDone));
+                            mTakenDoing.setItemText(String.format(
+                                    Locale.CHINA, "进行中（%d）", takenDoing));
+                            mPublishedDone.setItemText(String.format(
+                                    Locale.CHINA, "已完成（%d）", publishedDone));
+                            mPublishedDoing.setItemText(String.format(
+                                    Locale.CHINA, "进行中（%d）", publishedDoing));
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }
