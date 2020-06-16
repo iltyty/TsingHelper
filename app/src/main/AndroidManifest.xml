@@ -73,10 +73,18 @@
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".ui.task.CommunityTaskActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.task.MealTaskActivity" />
-        <activity android:name=".ui.task.StudyTaskActivity" />
-        <activity android:name=".ui.task.QuestionnaireTaskActivity" />
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+        <activity
+            android:name=".ui.task.MealTaskActivity"
+            android:label="MealTaskActivity"
+            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+        <activity
+            android:name=".ui.task.StudyTaskActivity"
+            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+        <activity
+            android:name=".ui.task.QuestionnaireTaskActivity"
+            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
         <activity
             android:name=".ui.mine.profile.ProfileSettingsActivity"
             android:theme="@style/Theme.bgFullScreen" />
