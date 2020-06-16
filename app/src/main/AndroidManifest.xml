@@ -67,7 +67,10 @@
             android:name=".ui.messages.MessageDetailActivity"
             android:label="MessageDetail"
             android:parentActivityName=".MainActivity" /> <!-- task fragment -->
-        <activity android:name=".ui.task.NewTaskTypeActivity" />
+        <activity
+            android:name=".ui.task.NewTaskTypeActivity"
+            android:label="NewTaskTypeActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".ui.task.CommunityTaskActivity"
             android:windowSoftInputMode="adjustResize" />
