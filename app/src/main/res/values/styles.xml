@@ -12,7 +12,7 @@
     </style>
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Theme.bgFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
