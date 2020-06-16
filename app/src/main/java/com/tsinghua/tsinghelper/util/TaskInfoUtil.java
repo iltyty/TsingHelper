@@ -9,9 +9,6 @@ public class TaskInfoUtil {
     public static String TITLE = "title";
     public static String DESC = "description";
     public static String REWARD = "reward";
-    public static String IS_PROCEEDING = "is_proceeding";
-    public static String IS_DONE = "is_done";
-    public static String IS_PAID = "is_paid";
     public static String START_TIME = "start_time";
     public static String END_TIME = "end_time";
     public static String TIMES_PER_PERSON = "times_per_person";
@@ -19,6 +16,9 @@ public class TaskInfoUtil {
     public static String TIMES_FINISHED = "times_finished";
     public static String REVIEW_TIME = "review_time";
     public static String PUBLISHER_ID = "publisherId";
+    public static String DOING_USERS = "doing_users";
+    public static String FAILED_USERS = "failed_users";
+    public static String REWARDED_USERS = "rewarded_users";
 
     // optional fields's name for task of type meal
     public static String SITE = "site";

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import com.tsinghua.tsinghelper.components.UserItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -67,9 +69,14 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView mTimesFinished;
     @BindView(R.id.publisher)
     UserItem mPublisher;
+    @BindView(R.id.task_take)
+    Button mTaskTake;
 
     private int taskId;
     private int publisherId;
+    private boolean isDoing;
+    private boolean isFailed;
+    private boolean isRewarded;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,6 +187,14 @@ public class TaskDetailActivity extends AppCompatActivity {
             JSONObject resJson = new JSONObject(resStr);
             JSONObject taskInfo = resJson.getJSONObject("task");
             TaskDTO taskDTO = new TaskDTO(taskInfo);
+            String userId = UserInfoUtil.getPref("userId", "-1");
+
+            isDoing = taskDTO.doingUsers.contains(userId);
+            isFailed = taskDTO.failedUsers.contains(userId);
+            isRewarded = taskDTO.rewardedUsers.contains(userId);
+            if (isDoing) {
+                setTakeButtonAsTaken();
+            }
 
             mTaskTitle.setText(taskDTO.title);
             mTaskDeadline.setText(taskDTO.deadlineStr);
@@ -210,5 +225,35 @@ public class TaskDetailActivity extends AppCompatActivity {
         Intent it = new Intent(TaskDetailActivity.this, ProfileActivity.class);
         it.putExtra("userId", String.valueOf(publisherId));
         startActivity(it);
+    }
+
+    public void takeTask(View view) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(taskId));
+        HttpUtil.post(HttpUtil.TASK_TAKE, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    TaskDetailActivity.this.runOnUiThread(() -> setTakeButtonAsTaken());
+                }
+            }
+        });
+    }
+
+    private void setTakeButtonAsTaken() {
+        mTaskTake.setBackgroundColor(getColor(R.color.green));
+        mTaskTake.setText("提交任务");
+    }
+
+    private void setTakeButtonAsNotTaken() {
+        mTaskTake.setBackgroundColor(getColor(R.color.colorPrimary));
+        mTaskTake.setText("接受任务");
     }
 }

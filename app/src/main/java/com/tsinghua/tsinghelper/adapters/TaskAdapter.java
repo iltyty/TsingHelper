@@ -19,7 +19,6 @@ import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
-import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -71,9 +70,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void getAllTasks(HashMap<String, String> params) {
-        String userId = UserInfoUtil.getPref("userId", "");
-        String url = HttpUtil.getAllOthersActivityUrlById(userId);
-        HttpUtil.get(url, params, new Callback() {
+        HttpUtil.get(HttpUtil.TASK_GET_OTHERS, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 ToastUtil.showToastOnUIThread((Activity) mContext,
@@ -83,18 +80,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
-                String resStr = response.body().string();
-                try {
-                    JSONObject resJson = new JSONObject(resStr);
-                    JSONArray tasks = resJson.getJSONArray("tasks");
-                    mTasks.clear();
-                    for (int i = 0; i < tasks.length(); i++) {
-                        JSONObject task = (JSONObject) tasks.get(i);
-                        mTasks.add(new TaskDTO(task));
+                if (response.code() == 200) {
+                    String resStr = response.body().string();
+                    try {
+                        JSONObject resJson = new JSONObject(resStr);
+                        JSONArray tasks = resJson.getJSONArray("tasks");
+                        mTasks.clear();
+                        for (int i = 0; i < tasks.length(); i++) {
+                            JSONObject task = (JSONObject) tasks.get(i);
+                            mTasks.add(new TaskDTO(task));
+                        }
+                        ((Activity) mContext).runOnUiThread(() -> notifyDataSetChanged());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    ((Activity) mContext).runOnUiThread(() -> notifyDataSetChanged());
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         });

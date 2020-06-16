@@ -3,8 +3,11 @@ package com.tsinghua.tsinghelper.dtos;
 import com.tsinghua.tsinghelper.util.DateTimeUtil;
 import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class TaskDTO {
@@ -21,9 +24,9 @@ public class TaskDTO {
     public String startTime;
     public String deadlineStr;
     public String description;
-    public boolean isDone;
-    public boolean isPaid;
-    public boolean isProceeding;
+    public ArrayList<String> doingUsers = new ArrayList<>();
+    public ArrayList<String> failedUsers = new ArrayList<>();
+    public ArrayList<String> rewardedUsers = new ArrayList<>();
 
     // optional fields
     public String link;
@@ -45,9 +48,40 @@ public class TaskDTO {
         this.reward = task.optDouble(TaskInfoUtil.REWARD, 0);
         this.startTime = task.optString(TaskInfoUtil.START_TIME, "");
         this.description = task.optString(TaskInfoUtil.DESC, "");
-        this.isDone = task.optBoolean(TaskInfoUtil.IS_DONE, false);
-        this.isPaid = task.optBoolean(TaskInfoUtil.IS_PAID, false);
-        this.isProceeding = task.optBoolean(TaskInfoUtil.IS_PROCEEDING, true);
+
+        JSONArray doing = task.optJSONArray(TaskInfoUtil.DOING_USERS);
+        JSONArray failed = task.optJSONArray(TaskInfoUtil.FAILED_USERS);
+        JSONArray rewarded = task.optJSONArray(TaskInfoUtil.REWARDED_USERS);
+        if (doing != null) {
+            int length = doing.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    doingUsers.add(doing.get(i).toString());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (failed != null) {
+            int length = failed.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    failedUsers.add(failed.get(i).toString());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (rewarded != null) {
+            int length = rewarded.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    rewardedUsers.add(rewarded.get(i).toString());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         this.link = optString(task, TaskInfoUtil.LINK);
         this.site = optString(task, TaskInfoUtil.SITE);
