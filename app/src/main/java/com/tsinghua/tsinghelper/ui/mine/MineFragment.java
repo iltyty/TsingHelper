@@ -43,6 +43,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout mToDoing;
     @BindView(R.id.relative_layout_to_others)
     RelativeLayout mToOthers;
+    @BindView(R.id.rl_published_doing)
+    RelativeLayout mToPublishedDoing;
+    @BindView(R.id.rl_published_done)
+    RelativeLayout mToPublishedDone;
+    @BindView(R.id.rl_taken_doing)
+    RelativeLayout mToTakenDoing;
+    @BindView(R.id.rl_taken_done)
+    RelativeLayout mToTakenDone;
+
     private SharedPreferences mSharedPreferences;
 
     @Nullable
@@ -66,6 +75,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mToPublished.setOnClickListener(this);
         mToDoing.setOnClickListener(this);
         mToOthers.setOnClickListener(this);
+        mToPublishedDoing.setOnClickListener(this);
+        mToPublishedDone.setOnClickListener(this);
+        mToTakenDoing.setOnClickListener(this);
+        mToTakenDone.setOnClickListener(this);
     }
 
 
@@ -90,6 +103,26 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(itDoing);
                 break;
             case R.id.relative_layout_to_others:
+                break;
+            case R.id.rl_published_doing:
+                Intent itPublishedDoing = new Intent(getActivity(), PublishedTasksActivity.class);
+                itPublishedDoing.putExtra("pos", 1);
+                startActivity(itPublishedDoing);
+                break;
+            case R.id.rl_published_done:
+                Intent itPublishedDone = new Intent(getActivity(), PublishedTasksActivity.class);
+                itPublishedDone.putExtra("pos", 2);
+                startActivity(itPublishedDone);
+                break;
+            case R.id.rl_taken_doing:
+                Intent itTakenDoing = new Intent(getActivity(), DoingTasksActivity.class);
+                itTakenDoing.putExtra("pos", 0);
+                startActivity(itTakenDoing);
+                break;
+            case R.id.rl_taken_done:
+                Intent itTakenDone = new Intent(getActivity(), DoingTasksActivity.class);
+                itTakenDone.putExtra("pos", 2);
+                startActivity(itTakenDone);
                 break;
         }
     }

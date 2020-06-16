@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.mine;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,9 @@ public class DoingTasksActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        Intent it = getIntent();
+        mTabLayout.getTabAt(it.getIntExtra("pos", 0)).select();
     }
 
     public static class Adapter extends FragmentPagerAdapter {

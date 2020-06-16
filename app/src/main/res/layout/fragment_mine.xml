@@ -319,6 +319,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_published_done"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_column="1"
@@ -399,6 +400,7 @@
                 app:rowCount="1">
 
                 <RelativeLayout
+                    android:id="@+id/rl_taken_doing"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_columnWeight="1">
@@ -418,6 +420,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_taken_done"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_columnWeight="1">
