@@ -3,6 +3,8 @@ package com.tsinghua.tsinghelper.ui.mine;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.ui.task.NewTaskTypeActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
@@ -32,6 +35,8 @@ public class PublishedTasksActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     @BindView(R.id.pager_tasks)
     ViewPager mViewPager;
+    @BindView(R.id.btn_publish)
+    TextView mPublish;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +63,12 @@ public class PublishedTasksActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         mTabLayout.getTabAt(it.getIntExtra("pos", 0)).select();
+    }
+
+    public void publish(View view) {
+        Intent it = new Intent(PublishedTasksActivity.this, NewTaskTypeActivity.class);
+        startActivity(it);
+        finish();
     }
 
     public static class Adapter extends FragmentPagerAdapter {
