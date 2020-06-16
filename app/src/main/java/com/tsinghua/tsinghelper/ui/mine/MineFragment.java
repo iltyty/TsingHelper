@@ -99,7 +99,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(itPublished);
                 break;
             case R.id.relative_layout_to_doing:
-                Intent itDoing = new Intent(getActivity(), DoingTasksActivity.class);
+                Intent itDoing = new Intent(getActivity(), TakenTasksActivity.class);
                 startActivity(itDoing);
                 break;
             case R.id.relative_layout_to_others:
@@ -115,12 +115,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(itPublishedDone);
                 break;
             case R.id.rl_taken_doing:
-                Intent itTakenDoing = new Intent(getActivity(), DoingTasksActivity.class);
+                Intent itTakenDoing = new Intent(getActivity(), TakenTasksActivity.class);
                 itTakenDoing.putExtra("pos", 0);
                 startActivity(itTakenDoing);
                 break;
             case R.id.rl_taken_done:
-                Intent itTakenDone = new Intent(getActivity(), DoingTasksActivity.class);
+                Intent itTakenDone = new Intent(getActivity(), TakenTasksActivity.class);
                 itTakenDone.putExtra("pos", 2);
                 startActivity(itTakenDone);
                 break;
