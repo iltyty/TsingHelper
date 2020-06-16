@@ -23,8 +23,6 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private static final int REQ_CODE = 1;
-
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.community)
@@ -99,6 +97,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
         Intent it = new Intent(getActivity(), TasksTypeActivity.class);
         it.putExtra("pos", pos);
-        startActivityForResult(it, REQ_CODE);
+        startActivity(it);
     }
 }
