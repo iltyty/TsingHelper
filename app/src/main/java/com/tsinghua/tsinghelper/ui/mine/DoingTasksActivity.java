@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,12 @@ public class DoingTasksActivity extends AppCompatActivity {
     public static class Adapter extends FragmentPagerAdapter {
 
         private final int TAB_CNT = 4;
-        private final String[] TITLE = {"待提交", "待审核", "已领赏", "任务失败"};
+        private final String[] TYPE = {
+                "doing", "moderating", "rewarded", "failed"
+        };
+        private final String[] TITLE = {
+                "待提交", "待审核", "已领赏", "任务失败"
+        };
         private final ArrayList<Fragment> mFragments = new ArrayList<>();
         private Context mContext;
 
@@ -67,7 +73,7 @@ public class DoingTasksActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment());
+                mFragments.add(new TaskListFragment(TYPE[i], HttpUtil.TASK_GET_OTHERS));
             }
         }
 
