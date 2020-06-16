@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.components.IconTextItem;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.getAllTasks(null);
+        mAdapter.getTasks(null, HttpUtil.TASK_GET_OTHERS);
     }
 
     private void setClickListeners() {

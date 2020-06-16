@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    private HashMap<String, String> queryParams = new HashMap<>();
+    private HashMap<String, String> queryParams;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -30,17 +32,20 @@ public class TaskListFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private DividerItemDecoration mDivider;
 
-    public TaskListFragment() {
+    private String url;
+
+    public TaskListFragment(String url) {
+        this.url = url;
     }
 
-    public TaskListFragment(String taskType) {
+    public TaskListFragment(String taskType, String url) {
+        this.url = url;
+        queryParams = new HashMap<>();
         queryParams.put("type", taskType);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAdapter.getAllTasks(queryParams);
+    public TaskListFragment(ArrayList<TaskDTO> tasks) {
+        mAdapter.setTasks(tasks);
     }
 
     @Nullable
@@ -51,6 +56,10 @@ public class TaskListFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_task_list, container, false);
         ButterKnife.bind(this, root);
         initRecyclerView();
+
+        if (queryParams != null) {
+            mAdapter.getTasks(queryParams, url);
+        }
         return root;
     }
 

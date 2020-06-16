@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
 
@@ -72,7 +73,7 @@ public class TasksTypeActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment(TYPES[i]));
+                mFragments.add(new TaskListFragment(TYPES[i], HttpUtil.TASK_GET_OTHERS));
             }
         }
 

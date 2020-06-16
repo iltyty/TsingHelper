@@ -69,8 +69,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.setTaskData(mTasks.get(position));
     }
 
-    public void getAllTasks(HashMap<String, String> params) {
-        HttpUtil.get(HttpUtil.TASK_GET_OTHERS, null, new Callback() {
+    public void getTasks(HashMap<String, String> params, String url) {
+        HttpUtil.get(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 ToastUtil.showToastOnUIThread((Activity) mContext,

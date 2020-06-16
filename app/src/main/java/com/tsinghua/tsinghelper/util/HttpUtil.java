@@ -30,6 +30,7 @@ private static final String USER_PREFIX = SERVER_URL + "users/";
     public static final String USER_MODIFY = USER_PREFIX + "modify/";
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
+    public static final String TASK_GET_MINE = TASK_PREFIX + "mine/";
     public static final String TASK_GET_OTHERS = TASK_PREFIX + "others/";
     public static final String TASK_TAKE = TASK_PREFIX + "take/";
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";

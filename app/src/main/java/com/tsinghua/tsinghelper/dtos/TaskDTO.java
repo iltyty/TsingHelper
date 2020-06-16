@@ -93,7 +93,11 @@ public class TaskDTO {
 
         int timesLeft = Math.max(timesTotal - timesFinished, 0);
         String timeLeft = DateTimeUtil.getDeadlineStr(Long.parseLong(endTime));
-        this.deadlineStr = String.format(Locale.CHINA, "%d人后截止 · %s", timesLeft, timeLeft);
+        if (timesLeft == 0 || timeLeft.equals("已截止")) {
+            this.deadlineStr = "已截止";
+        } else {
+            this.deadlineStr = String.format(Locale.CHINA, "%d人后截止 · %s", timesLeft, timeLeft);
+        }
     }
 
     private String optString(JSONObject json, String key) {
