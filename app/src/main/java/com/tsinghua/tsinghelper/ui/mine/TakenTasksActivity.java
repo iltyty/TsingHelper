@@ -36,7 +36,7 @@ public class TakenTasksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doing_tasks);
+        setContentView(R.layout.activity_taken_tasks);
         ButterKnife.bind(this);
 
         initToolbar();
