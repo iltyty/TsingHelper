@@ -113,6 +113,7 @@ public class UserItemAdapter extends RecyclerView.Adapter {
         void setUserData(UserDTO user) {
             mUsername.setText(user.username);
             mId.setText(String.format("ID: %s", String.valueOf(user.id)));
+            mImage.setImageResource(R.drawable.ic_right_arrow_8dp);
 
             Glide.with(mContext)
                     .load(user.avatar)
