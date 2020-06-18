@@ -71,4 +71,9 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(it);
         finish();
     }
+
+    public void passwordChange(View view) {
+        Intent it = new Intent(SettingsActivity.this, PswChangeActivity.class);
+        startActivityForResult(it, 1);
+    }
 }
