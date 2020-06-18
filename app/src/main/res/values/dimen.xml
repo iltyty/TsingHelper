@@ -120,5 +120,7 @@
 
     <dimen name="task_review_page_task_view_count_text_size">20sp</dimen>
     <dimen name="task_review_page_task_info_text_size">11sp</dimen>
+    <dimen name="task_review_page_margin_left">15dp</dimen>
+    <dimen name="task_review_page_margin_top">10dp</dimen>
 
 </resources>

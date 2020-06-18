@@ -1,27 +1,61 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class TaskReviewActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_task)
     Toolbar mToolbar;
+    @BindView(R.id.task_title)
+    TextView mTitle;
+    @BindView(R.id.doing_list)
+    RecyclerView mDoingList;
+    @BindView(R.id.failed_list)
+    RecyclerView mFailedList;
+    @BindView(R.id.rewarded_list)
+    RecyclerView mRewardedList;
+    @BindView(R.id.moderating_list)
+    RecyclerView mModeratingList;
+
+    private ArrayList<UserDTO> doingUsers = new ArrayList<>();
+    private ArrayList<UserDTO> failedUsers = new ArrayList<>();
+    private ArrayList<UserDTO> rewardedUsers = new ArrayList<>();
+    private ArrayList<UserDTO> moderatingUsers = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +65,7 @@ public class TaskReviewActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         initToolbar();
+        initViews();
     }
 
     @Override
@@ -48,6 +83,93 @@ public class TaskReviewActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+    private void initRecyclerViews() {
+        RecyclerView.LayoutManager lmDoing = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        RecyclerView.LayoutManager lmFailed = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        RecyclerView.LayoutManager lmRewarded = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        RecyclerView.LayoutManager lmModerating = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        DividerItemDecoration divider = new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL);
+        UserItemAdapter doingAdapter = new UserItemAdapter(this, doingUsers, true);
+        UserItemAdapter failedAdapter = new UserItemAdapter(this, failedUsers, false);
+        UserItemAdapter rewardedAdapter = new UserItemAdapter(this, rewardedUsers, false);
+        UserItemAdapter moderatingAdapter = new UserItemAdapter(this, moderatingUsers, false);
+
+        mDoingList.setLayoutManager(lmDoing);
+        mFailedList.setLayoutManager(lmFailed);
+        mRewardedList.setLayoutManager(lmRewarded);
+        mModeratingList.setLayoutManager(lmModerating);
+        mDoingList.setAdapter(doingAdapter);
+        mFailedList.setAdapter(failedAdapter);
+        mRewardedList.setAdapter(rewardedAdapter);
+        mModeratingList.setAdapter(moderatingAdapter);
+        mDoingList.addItemDecoration(divider);
+        mFailedList.addItemDecoration(divider);
+        mRewardedList.addItemDecoration(divider);
+        mModeratingList.addItemDecoration(divider);
+        mDoingList.setNestedScrollingEnabled(false);
+        mFailedList.setNestedScrollingEnabled(false);
+        mRewardedList.setNestedScrollingEnabled(false);
+        mModeratingList.setNestedScrollingEnabled(false);
+    }
+
+    private void initViews() {
+        HttpUtil.get(HttpUtil.TASK_GET, null, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        JSONObject taskInfo = resJson.getJSONObject("task");
+                        TaskDTO task = new TaskDTO(taskInfo);
+                        doingUsers = task.doingUsers;
+                        failedUsers = task.failedUsers;
+                        rewardedUsers = task.rewardedUsers;
+                        moderatingUsers = task.moderatingUsers;
+
+                        TaskReviewActivity.this.runOnUiThread(() -> {
+                            mTitle.setText(task.title);
+                            initRecyclerViews();
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void setStatusBarUpperAPI21() {
