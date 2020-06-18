@@ -167,6 +167,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     private void getTaskInfo() {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(taskId));
+        params.put("browsing", "");
 
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
