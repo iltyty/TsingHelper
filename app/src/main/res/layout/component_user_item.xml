@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/avatar"
         android:layout_marginStart="@dimen/user_item_text_margin"
+        android:layout_toEndOf="@+id/avatar"
         android:textColor="@color/user_item_username_color"
         android:textSize="@dimen/user_item_username_size" />
 
@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_toEndOf="@+id/avatar"
         android:layout_marginStart="@dimen/user_item_text_margin"
+        android:layout_toEndOf="@+id/avatar"
         android:textColor="@color/user_item_id_color"
         android:textSize="@dimen/user_item_id_size" />
 
@@ -49,14 +49,23 @@
 
     <Button
         android:id="@+id/btn_moderation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/user_item_margin_end"
+        android:layout_marginTop="13dp"
         android:contentDescription="@null"
         android:text="通过"
+        android:background="@drawable/rounded_rectangle_color_primary"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="2dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/gray"
         android:visibility="invisible" />
 
 </RelativeLayout>
