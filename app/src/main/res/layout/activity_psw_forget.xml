@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/bg_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/lay_psw_forget_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bg_login_input_ok"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:contentDescription="@null"
+                app:srcCompat="@mipmap/ic_login_password" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="22dp"
+                android:background="@color/login_line_color" />
+
+            <EditText
+                android:id="@+id/psw_new_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="新密码(5到16位)"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/login_line_color"
+                android:textCursorDrawable="@null"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@mipmap/ic_clear" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bg_login_input_ok"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:contentDescription="@null"
+                app:srcCompat="@mipmap/ic_login_password" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="22dp"
+                android:background="@color/login_line_color" />
+
+            <EditText
+                android:id="@+id/psw_new_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="密码确认"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/login_line_color"
+                android:textCursorDrawable="@null"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                app:srcCompat="@mipmap/ic_clear" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_psw_change"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/bg_login_submit"
+            android:elevation="0dp"
+            android:onClick="pswChange"
+            android:outlineProvider="none"
+            android:text="确认修改"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:targetApi="lollipop" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+</FrameLayout>

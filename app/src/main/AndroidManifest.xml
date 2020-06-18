@@ -34,6 +34,9 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/Theme.bgFullScreen" />
+        <activity android:name=".ui.login.PswForgetActivity"
+            android:parentActivityName=".ui.login.LoginActivity"
+            android:theme="@style/Theme.bgFullScreen"/>
         <activity android:name=".MainActivity" /> <!-- home fragment -->
         <activity
             android:name=".ui.home.TasksTypeActivity"
