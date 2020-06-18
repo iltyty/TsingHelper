@@ -36,4 +36,9 @@ public class TaskInfoUtil {
 
     // optional fields' name for task of type questionnaire
     public static String LINK = "link";
+
+    public static final String TYPE_MEAL = "meal";
+    public static final String TYPE_STUDY = "study";
+    public static final String TYPE_COMMUNITY = "community";
+    public static final String TYPE_QUESTIONNAIRE = "questionnaire";
 }

@@ -90,6 +90,7 @@
                             android:textColor="@color/task_review_page_task_info_text_color"
                             android:textSize="@dimen/task_review_page_task_info_text_size"
                             app:layout_column="0"
+                            android:onClick="toTaskInfoPage"
                             app:layout_columnWeight="1" />
 
                     </RelativeLayout>

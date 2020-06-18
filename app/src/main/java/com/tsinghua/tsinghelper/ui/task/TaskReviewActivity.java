@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,6 +58,8 @@ public class TaskReviewActivity extends AppCompatActivity {
     RecyclerView mModeratingList;
     @BindView(R.id.task_view_count)
     TextView mViewCount;
+
+    private TaskDTO mTask;
 
     private UserItemAdapter mDoingAdapter;
     private UserItemAdapter mFailedAdapter;
@@ -167,15 +171,15 @@ public class TaskReviewActivity extends AppCompatActivity {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
                         JSONObject taskInfo = resJson.getJSONObject("task");
-                        TaskDTO task = new TaskDTO(taskInfo);
-                        doingUsers = task.doingUsers;
-                        failedUsers = task.failedUsers;
-                        rewardedUsers = task.rewardedUsers;
-                        moderatingUsers = task.moderatingUsers;
+                        mTask = new TaskDTO(taskInfo);
+                        doingUsers = mTask.doingUsers;
+                        failedUsers = mTask.failedUsers;
+                        rewardedUsers = mTask.rewardedUsers;
+                        moderatingUsers = mTask.moderatingUsers;
 
                         TaskReviewActivity.this.runOnUiThread(() -> {
-                            mTitle.setText(task.title);
-                            mViewCount.setText(String.valueOf(task.viewCount));
+                            mTitle.setText(mTask.title);
+                            mViewCount.setText(String.valueOf(mTask.viewCount));
                             initRecyclerViews();
                         });
                     } catch (JSONException e) {
@@ -232,6 +236,29 @@ public class TaskReviewActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void toTaskInfoPage(View view) {
+        String type = mTask.type;
+        Intent it;
+        switch (type) {
+            case TaskInfoUtil.TYPE_COMMUNITY:
+                it = new Intent(TaskReviewActivity.this, CommunityTaskActivity.class);
+                break;
+            case TaskInfoUtil.TYPE_MEAL:
+                it = new Intent(TaskReviewActivity.this, MealTaskActivity.class);
+                break;
+            case TaskInfoUtil.TYPE_STUDY:
+                it = new Intent(TaskReviewActivity.this, StudyTaskActivity.class);
+                break;
+            case TaskInfoUtil.TYPE_QUESTIONNAIRE:
+                it = new Intent(TaskReviewActivity.this, QuestionnaireTaskActivity.class);
+                break;
+            default:
+                return;
+        }
+        it.putExtra("taskId", mTask.id);
+        startActivity(it);
     }
 
     class DividerItemDecrator extends RecyclerView.ItemDecoration {

@@ -49,6 +49,13 @@ public class DateTimeUtil {
         return minutes + "分钟后截止";
     }
 
+    public static int getDuration(String startTime, String endTime) {
+        long start = Long.parseLong(startTime);
+        long end = Long.parseLong(endTime);
+        long delta = end - start;
+        return (int) (delta / (1000 * 3600 * 24));
+    }
+
     public enum TemporalUnit {
         SECOND, MINUTE, HOUR, DAY, MONTH
     }

@@ -22,6 +22,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.GridImageAdapter;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
 import com.tsinghua.tsinghelper.managers.ImageGridLayoutManager;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -208,5 +209,12 @@ public class BaseTaskActivity extends AppCompatActivity {
                 activity.finish();
             }
         });
+    }
+
+    protected void setTaskInfo(TaskDTO task) {
+        mTitle.setText(task.title);
+        mDescription.setText(task.description);
+        mReward.setText(String.valueOf(task.reward));
+        mReviewTime.setText(String.valueOf(task.reviewTime));
     }
 }

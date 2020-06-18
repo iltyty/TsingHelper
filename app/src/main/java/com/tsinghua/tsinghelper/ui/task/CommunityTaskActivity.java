@@ -1,25 +1,34 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.util.DateTimeUtil;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class CommunityTaskActivity extends BaseTaskActivity {
 
     @BindView(R.id.duration)
     EditText mDuration;
-    @BindView(R.id.times_per_person)
-    EditText mTimesPerPerson;
     @BindView(R.id.times_total)
     EditText mTimesTotal;
 
@@ -30,6 +39,38 @@ public class CommunityTaskActivity extends BaseTaskActivity {
         ButterKnife.bind(this);
 
         initWidgets(this);
+
+        int taskId = getIntent().getIntExtra("taskId", -1);
+        if (taskId != -1) {
+            getTaskInfo(taskId);
+        }
+    }
+
+    private void getTaskInfo(int taskId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(taskId));
+        HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        JSONObject taskInfo = resJson.getJSONObject("task");
+                        TaskDTO task = new TaskDTO(taskInfo);
+                        CommunityTaskActivity.this.runOnUiThread(() -> setTaskInfo(task));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private HashMap<String, String> checkFields() {
@@ -44,12 +85,7 @@ public class CommunityTaskActivity extends BaseTaskActivity {
         }
         String duration = mDuration.getText().toString();
         String timesTotal = mTimesTotal.getText().toString();
-        String timesPerPerson = mTimesPerPerson.getText().toString();
 
-        if (timesPerPerson.isEmpty() || Integer.parseInt(timesPerPerson) < 1) {
-            ToastUtil.showToast(this, "可完成次数必须大于0");
-            return null;
-        }
         if (timesTotal.isEmpty() || Integer.parseInt(timesTotal) < 1) {
             ToastUtil.showToast(this, "预计完成次数必须大于0");
             return null;
@@ -66,7 +102,6 @@ public class CommunityTaskActivity extends BaseTaskActivity {
 
         params.put("type", "community");
         params.put("times_total", timesTotal);
-        params.put("time_per_person", timesPerPerson);
         params.put("start_time", Long.toString(startTimestamp));
         params.put("end_time", Long.toString(endTimestamp));
         return params;
@@ -78,5 +113,12 @@ public class CommunityTaskActivity extends BaseTaskActivity {
             return;
         }
         super.createTask(params, this);
+    }
+
+    @Override
+    protected void setTaskInfo(TaskDTO task) {
+        super.setTaskInfo(task);
+        mTimesTotal.setText(String.valueOf(task.timesTotal));
+        mDuration.setText(String.valueOf(DateTimeUtil.getDuration(task.startTime, task.endTime)));
     }
 }
