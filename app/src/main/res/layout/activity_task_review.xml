@@ -158,48 +158,61 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/task_review_page_margin_left"
                     android:layout_marginTop="@dimen/task_review_page_margin_top"
-                    android:text="待审核的人" />
+                    android:text="待审核的人"
+                    android:textColor="@color/black" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/moderating_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/task_review_page_margin_left"
                     android:layout_marginTop="@dimen/task_review_page_margin_top"
-                    android:text="正在做的人" />
+                    android:text="正在做的人"
+                    android:textColor="@color/black" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/doing_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/task_review_page_margin_left"
                     android:layout_marginTop="@dimen/task_review_page_margin_top"
-                    android:text="已获赏的人" />
+                    android:text="已获赏的人"
+                    android:textColor="@color/black" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rewarded_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/task_review_page_margin_left"
                     android:layout_marginTop="@dimen/task_review_page_margin_top"
-                    android:text="已失败的人" />
+                    android:text="已失败的人"
+                    android:textColor="@color/black" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/failed_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left" />
 
             </LinearLayout>
 

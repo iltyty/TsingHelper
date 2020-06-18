@@ -24,11 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ViewHolder> {
+public class UserItemAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private ArrayList<UserDTO> mUsers;
     private boolean showModerationBtn;
+    private static final int SHOW_MODERATION_BTN_VIEW_TYPE = -1;
 
     public UserItemAdapter(Context cxt, boolean show) {
         mContext = cxt;
@@ -42,28 +43,52 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ViewHo
         showModerationBtn = show;
     }
 
+    @Override
+    public int getItemViewType(int pos) {
+        if (mUsers == null || mUsers.size() <= 0) {
+            return SHOW_MODERATION_BTN_VIEW_TYPE;
+        }
+        return super.getItemViewType(pos);
+    }
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.component_user_item, parent, false);
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        if (viewType == SHOW_MODERATION_BTN_VIEW_TYPE) {
+            System.out.println("--------------------------------");
+            view = inflater.inflate(R.layout.component_empty_recycler_view, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        view = inflater.inflate(R.layout.component_user_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        return mUsers == null ? 0 : mUsers.size();
+        return mUsers.size() > 0 ? mUsers.size() : 1;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setUserData(mUsers.get(position));
-        if (showModerationBtn) {
-            holder.setBtnVisibility(View.VISIBLE);
-            holder.setImageVisibility(View.INVISIBLE);
-        } else {
-            holder.setBtnVisibility(View.INVISIBLE);
-            holder.setImageVisibility(View.VISIBLE);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolder) {
+            ViewHolder newHolder = (ViewHolder) holder;
+            newHolder.setUserData(mUsers.get(position));
+            if (showModerationBtn) {
+                newHolder.setBtnVisibility(View.VISIBLE);
+                newHolder.setImageVisibility(View.INVISIBLE);
+            } else {
+                newHolder.setBtnVisibility(View.INVISIBLE);
+                newHolder.setImageVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+
+        EmptyViewHolder(@NonNull View view) {
+            super(view);
         }
     }
 
@@ -79,12 +104,9 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.ViewHo
         @BindView(R.id.btn_moderation)
         Button mBtnModeration;
 
-        private int viewType;
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            this.viewType = viewType;
             view.setOnClickListener(this);
         }
 

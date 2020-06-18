@@ -31,4 +31,6 @@
     <string name="study_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
     <string name="questionnaire_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
     <string name="meal_task_description">为了防止多份代餐，任务一旦被某用户接取就不能再被别人接取。直到任务失败或接取方取消接取，任务可重新被接取。您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+
+    <string name="empty_recycler_view_text_prompt">暂无数据</string>
 </resources>
