@@ -57,10 +57,15 @@ public class TaskListFragment extends Fragment {
         ButterKnife.bind(this, root);
         initRecyclerView();
 
+        return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         if (queryParams != null) {
             mAdapter.getTasks(queryParams, url);
         }
-        return root;
     }
 
     private void initRecyclerView() {

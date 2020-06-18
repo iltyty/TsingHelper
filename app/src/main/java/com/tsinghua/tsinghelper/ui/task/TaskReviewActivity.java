@@ -79,6 +79,11 @@ public class TaskReviewActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         initToolbar();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         initViews();
     }
 
