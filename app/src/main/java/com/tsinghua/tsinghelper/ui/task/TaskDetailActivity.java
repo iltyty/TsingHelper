@@ -27,6 +27,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.UserItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -151,8 +152,9 @@ public class TaskDetailActivity extends AppCompatActivity {
                     throws IOException {
                 try {
                     JSONObject resJson = new JSONObject(response.body().string());
-                    String username = resJson.getString("username");
-                    TaskDetailActivity.this.runOnUiThread(() -> mPublisher.setUsername(username));
+                    UserDTO user = new UserDTO(resJson);
+                    TaskDetailActivity.this.runOnUiThread(() ->
+                            mPublisher.setUsername(user.username));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -189,9 +191,24 @@ public class TaskDetailActivity extends AppCompatActivity {
             TaskDTO taskDTO = new TaskDTO(taskInfo);
             String userId = UserInfoUtil.getPref("userId", "-1");
 
-            isDoing = taskDTO.doingUsers.contains(userId);
-            isFailed = taskDTO.failedUsers.contains(userId);
-            isRewarded = taskDTO.rewardedUsers.contains(userId);
+            for (UserDTO user : taskDTO.doingUsers) {
+                if (userId.equals(String.valueOf(user.id))) {
+                    isDoing = true;
+                    break;
+                }
+            }
+            for (UserDTO user : taskDTO.failedUsers) {
+                if (userId.equals(String.valueOf(user.id))) {
+                    isFailed = true;
+                    break;
+                }
+            }
+            for (UserDTO user : taskDTO.rewardedUsers) {
+                if (userId.equals(String.valueOf(user.id))) {
+                    isRewarded = true;
+                    break;
+                }
+            }
             if (isDoing) {
                 setTakeButtonAsTaken();
             }

@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
@@ -185,19 +186,17 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
-                        String signature = resJson.isNull("signature") ?
-                                "" : resJson.getString("signature");
+                        UserDTO user = new UserDTO(resJson);
                         if (isMe) {
-                            UserInfoUtil.putPref("signature", signature);
+                            UserInfoUtil.putPref("signature", user.signature);
                             ProfileActivity.this.runOnUiThread(() ->
-                                    mSignature.setText(signature));
+                                    mSignature.setText(user.signature));
                         } else {
-                            String username = resJson.getString("username");
                             ProfileActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mUsername.setText(username);
-                                    mSignature.setText(signature);
+                                    mUsername.setText(user.username);
+                                    mSignature.setText(user.signature);
                                 }
                             });
                         }

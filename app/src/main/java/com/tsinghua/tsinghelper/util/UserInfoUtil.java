@@ -16,6 +16,23 @@ public class UserInfoUtil {
     public static String BG_SIGN = "bg_cache_signature";
     public static String AVATAR_SIGN = "avatar_cache_signature";
 
+    public static String ID = "id";
+    public static String EMAIL = "email";
+    public static String GRADE = "grade";
+    public static String PHONE = "phone";
+    public static String AVATAR = "avatar";
+    public static String WECHAT = "wechat";
+    public static String REALNAME = "realname";
+    public static String USERNAME = "username";
+    public static String DORMITORY = "dormitory";
+    public static String SIGNATURE = "signature";
+    public static String DEPARTMENT = "department";
+    public static String DOING_TASKS = "doing_tasks";
+    public static String FAILED_TASKS = "failed_tasks";
+    public static String REWARDED_TASKS = "rewarded_tasks";
+    public static String MODERATING_TASKS = "moderating_tasks";
+
+
     private static UserInfoUtil instance = new UserInfoUtil();
     private SharedPreferences mSharedPreferences;
 
