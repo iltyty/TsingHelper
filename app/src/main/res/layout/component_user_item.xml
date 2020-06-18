@@ -47,4 +47,16 @@
         android:layout_marginEnd="@dimen/user_item_margin_end"
         android:contentDescription="@null" />
 
+    <Button
+        android:id="@+id/btn_moderation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/user_item_margin_end"
+        android:contentDescription="@null"
+        android:text="通过"
+        android:visibility="invisible" />
+
 </RelativeLayout>
