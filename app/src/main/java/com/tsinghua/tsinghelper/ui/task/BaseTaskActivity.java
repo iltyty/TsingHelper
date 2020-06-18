@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,8 @@ import okhttp3.Response;
 public class BaseTaskActivity extends AppCompatActivity {
     protected int maxSelectNum = 4;
 
+    @BindView(R.id.page_title)
+    protected TextView mPageTitle;
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
     @BindView(R.id.scroll_view)

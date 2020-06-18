@@ -42,6 +42,7 @@ public class CommunityTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            mPageTitle.setText("修改任务-社区互助");
             getTaskInfo(taskId);
         }
     }

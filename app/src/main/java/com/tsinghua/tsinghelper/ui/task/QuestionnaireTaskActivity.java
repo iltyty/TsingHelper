@@ -44,6 +44,7 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            mPageTitle.setText("修改任务-个人问卷");
             getTaskInfo(taskId);
         }
     }

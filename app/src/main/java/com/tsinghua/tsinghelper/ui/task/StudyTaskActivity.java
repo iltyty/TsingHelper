@@ -44,6 +44,7 @@ public class StudyTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            mPageTitle.setText("修改任务-学习解惑");
             getTaskInfo(taskId);
         }
     }

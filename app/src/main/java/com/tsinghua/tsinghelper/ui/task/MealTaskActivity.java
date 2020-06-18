@@ -45,6 +45,7 @@ public class MealTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            mPageTitle.setText("修改任务-代餐跑腿");
             getTaskInfo(taskId);
         }
     }
