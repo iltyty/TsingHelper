@@ -1,5 +1,7 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,7 +16,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -114,12 +115,13 @@ public class TaskReviewActivity extends AppCompatActivity {
                 return false;
             }
         };
-        DividerItemDecoration divider = new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL);
-        UserItemAdapter doingAdapter = new UserItemAdapter(this, doingUsers, true);
+        DividerItemDecrator divider = new DividerItemDecrator(
+                getDrawable(R.drawable.shape_list_divider));
+
+        UserItemAdapter doingAdapter = new UserItemAdapter(this, doingUsers, false);
         UserItemAdapter failedAdapter = new UserItemAdapter(this, failedUsers, false);
         UserItemAdapter rewardedAdapter = new UserItemAdapter(this, rewardedUsers, false);
-        UserItemAdapter moderatingAdapter = new UserItemAdapter(this, moderatingUsers, false);
+        UserItemAdapter moderatingAdapter = new UserItemAdapter(this, moderatingUsers, true);
 
         mDoingList.setLayoutManager(lmDoing);
         mFailedList.setLayoutManager(lmFailed);
@@ -181,6 +183,34 @@ public class TaskReviewActivity extends AppCompatActivity {
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, true);
+        }
+    }
+
+    class DividerItemDecrator extends RecyclerView.ItemDecoration {
+        private Drawable mDivider;
+
+        public DividerItemDecrator(Drawable divider) {
+            mDivider = divider;
+        }
+
+        @Override
+        public void onDraw(@NotNull Canvas canvas, RecyclerView parent,
+                           @NotNull RecyclerView.State state) {
+            int dividerLeft = parent.getPaddingLeft();
+            int dividerRight = parent.getWidth() - parent.getPaddingRight();
+
+            int childCount = parent.getChildCount();
+            for (int i = 0; i <= childCount - 2; i++) {
+                View child = parent.getChildAt(i);
+
+                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+
+                int dividerTop = child.getBottom() + params.bottomMargin;
+                int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
+
+                mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
+                mDivider.draw(canvas);
+            }
         }
     }
 }
