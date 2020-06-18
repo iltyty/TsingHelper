@@ -54,6 +54,8 @@ public class TaskReviewActivity extends AppCompatActivity {
     RecyclerView mRewardedList;
     @BindView(R.id.moderating_list)
     RecyclerView mModeratingList;
+    @BindView(R.id.task_view_count)
+    TextView mViewCount;
 
     private UserItemAdapter mDoingAdapter;
     private UserItemAdapter mFailedAdapter;
@@ -173,6 +175,7 @@ public class TaskReviewActivity extends AppCompatActivity {
 
                         TaskReviewActivity.this.runOnUiThread(() -> {
                             mTitle.setText(task.title);
+                            mViewCount.setText(String.valueOf(task.viewCount));
                             initRecyclerViews();
                         });
                     } catch (JSONException e) {

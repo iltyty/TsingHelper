@@ -15,6 +15,7 @@ public class TaskInfoUtil {
     public static String TIMES_TOTAL = "times_total";
     public static String TIMES_FINISHED = "times_finished";
     public static String REVIEW_TIME = "review_time";
+    public static String VIEW_COUNT = "view_count";
     public static String PUBLISHER_ID = "publisherId";
     public static String DOING_USERS = "doing_users";
     public static String FAILED_USERS = "failed_users";

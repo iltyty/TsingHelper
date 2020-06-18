@@ -14,9 +14,10 @@ public class TaskDTO {
 
     // required fields
     public int id;
-    public int publisherId;
+    public int viewCount;
     public int reviewTime;
     public int timesTotal;
+    public int publisherId;
     public int timesFinished;
     public double reward;
     public String type;
@@ -40,6 +41,7 @@ public class TaskDTO {
 
     public TaskDTO(JSONObject task) {
         this.id = task.optInt(TaskInfoUtil.ID, 0);
+        this.viewCount = task.optInt(TaskInfoUtil.VIEW_COUNT, 0);
         this.publisherId = task.optInt(TaskInfoUtil.PUBLISHER_ID, 0);
         this.reviewTime = task.optInt(TaskInfoUtil.REVIEW_TIME, 24);
         this.timesTotal = task.optInt(TaskInfoUtil.TIMES_TOTAL, 1);
