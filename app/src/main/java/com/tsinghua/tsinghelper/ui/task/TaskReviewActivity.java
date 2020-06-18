@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -142,7 +143,9 @@ public class TaskReviewActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        HttpUtil.get(HttpUtil.TASK_GET, null, new Callback() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(getIntent().getIntExtra("id", -1)));
+        HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());

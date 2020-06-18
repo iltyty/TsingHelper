@@ -142,6 +142,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             String id = UserInfoUtil.getPref("userId", "-1");
             if (id.equals(String.valueOf(task.publisherId))) {
                 Intent it = new Intent(mContext, TaskReviewActivity.class);
+                it.putExtra("id", task.id);
                 mContext.startActivity(it);
             } else {
                 Intent it = new Intent(mContext, TaskDetailActivity.class);
