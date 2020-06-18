@@ -35,7 +35,7 @@
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
                 android:contentDescription="@null"
-                app:srcCompat="@mipmap/ic_login_password" />
+                app:srcCompat="@mipmap/ic_mobile" />
 
             <View
                 android:layout_width="1px"
@@ -43,15 +43,19 @@
                 android:background="@color/login_line_color" />
 
             <EditText
-                android:id="@+id/psw_new_1"
+                android:id="@+id/pswForget_phone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="新密码(5到16位)"
-                android:inputType="textPassword"
+                android:ems="15"
+                android:focusable="true"
+                android:hint="手机号"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:lines="1"
                 android:maxLines="1"
                 android:minLines="1"
                 android:paddingLeft="4dp"
@@ -97,14 +101,14 @@
                 android:background="@color/login_line_color" />
 
             <EditText
-                android:id="@+id/psw_new_2"
+                android:id="@+id/pswForget_newPsw"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="密码确认"
+                android:hint="新密码"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:minLines="1"

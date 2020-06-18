@@ -12,10 +12,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PswForgetActivity extends AppCompatActivity {
-    @BindView(R.id.psw_new_1)
-    EditText mPswNew1;
-    @BindView(R.id.psw_new_2)
-    EditText mPswNew2;
+    @BindView(R.id.pswForget_phone)
+    EditText mPhone;
+    @BindView(R.id.pswForget_newPsw)
+    EditText mNewPsw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
