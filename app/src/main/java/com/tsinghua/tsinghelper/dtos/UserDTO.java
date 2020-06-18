@@ -45,13 +45,13 @@ public class UserDTO implements IUser {
         this.username = user.optString(UserInfoUtil.USERNAME);
 
         // optional fields
-        this.email = user.optString(UserInfoUtil.EMAIL);
-        this.grade = user.optString(UserInfoUtil.GRADE);
-        this.wechat = user.optString(UserInfoUtil.WECHAT);
-        this.realname = user.optString(UserInfoUtil.REALNAME);
-        this.signature = user.optString(UserInfoUtil.SIGNATURE);
-        this.dormitory = user.optString(UserInfoUtil.DORMITORY);
-        this.department = user.optString(UserInfoUtil.DEPARTMENT);
+        this.email = optString(user, UserInfoUtil.EMAIL);
+        this.grade = optString(user, UserInfoUtil.GRADE);
+        this.wechat = optString(user, UserInfoUtil.WECHAT);
+        this.realname = optString(user, UserInfoUtil.REALNAME);
+        this.signature = optString(user, UserInfoUtil.SIGNATURE);
+        this.dormitory = optString(user, UserInfoUtil.DORMITORY);
+        this.department = optString(user, UserInfoUtil.DEPARTMENT);
 
         JSONArray doing = user.optJSONArray(UserInfoUtil.DOING_TASKS);
         JSONArray failed = user.optJSONArray(UserInfoUtil.FAILED_TASKS);

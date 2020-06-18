@@ -84,7 +84,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
         mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
 
-        setUserInfo();
         setClickListeners();
 
         return root;
@@ -155,6 +154,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        setUserInfo();
         String userId = UserInfoUtil.getPref("userId", "");
         String url = HttpUtil.getUserAvatarUrlById(userId);
         Glide.with(requireContext())
