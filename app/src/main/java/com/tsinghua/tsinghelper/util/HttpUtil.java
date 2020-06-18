@@ -35,6 +35,7 @@ private static final String USER_PREFIX = SERVER_URL + "users/";
     public static final String TASK_GET_MINE = TASK_PREFIX + "mine/";
     public static final String TASK_GET_OTHERS = TASK_PREFIX + "others/";
     public static final String TASK_TAKE = TASK_PREFIX + "take/";
+    public static final String TASK_SUBMIT = TASK_PREFIX + "submit/";
 
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";
     public static final String BACKGROUND_UPLOAD = PROFILE_PREFIX + "background/";

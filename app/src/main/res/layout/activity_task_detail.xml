@@ -273,7 +273,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:onClick="takeTask"
+        android:onClick="btnTakeClicked"
         android:text="接受任务"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

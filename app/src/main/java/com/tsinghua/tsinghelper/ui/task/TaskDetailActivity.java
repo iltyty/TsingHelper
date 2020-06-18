@@ -30,6 +30,7 @@ import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,6 +79,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     private boolean isDoing;
     private boolean isFailed;
     private boolean isRewarded;
+    private boolean isUnderModeration;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -209,8 +211,18 @@ public class TaskDetailActivity extends AppCompatActivity {
                     break;
                 }
             }
+            for (UserDTO user : taskDTO.moderatingUsers) {
+                if (userId.equals(String.valueOf(user.id))) {
+                    isUnderModeration = true;
+                    break;
+                }
+            }
             if (isDoing) {
                 setTakeButtonAsTaken();
+            } else if (isFailed || isRewarded) {
+                setTakeButtonAsDone();
+            } else if (isUnderModeration) {
+                setTakeButtonAsUnderModeration();
             }
 
             mTaskTitle.setText(taskDTO.title);
@@ -258,7 +270,44 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 201) {
-                    TaskDetailActivity.this.runOnUiThread(() -> setTakeButtonAsTaken());
+                    TaskDetailActivity.this.runOnUiThread(() -> {
+                        ToastUtil.showToast(TaskDetailActivity.this, "任务接取成功");
+                        setTakeButtonAsTaken();
+                    });
+                }
+            }
+        });
+    }
+
+    public void btnTakeClicked(View view) {
+        if (isFailed || isRewarded || isUnderModeration) {
+            return;
+        }
+        if (isDoing) {
+            submitTask(view);
+            return;
+        }
+        takeTask(view);
+    }
+
+    public void submitTask(View view) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(taskId));
+        HttpUtil.post(HttpUtil.TASK_SUBMIT, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    TaskDetailActivity.this.runOnUiThread(() -> {
+                        ToastUtil.showToast(TaskDetailActivity.this, "提交成功");
+                        setTakeButtonAsUnderModeration();
+                    });
                 }
             }
         });
@@ -269,8 +318,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         mTaskTake.setText("提交任务");
     }
 
-    private void setTakeButtonAsNotTaken() {
-        mTaskTake.setBackgroundColor(getColor(R.color.colorPrimary));
-        mTaskTake.setText("接受任务");
+    private void setTakeButtonAsUnderModeration() {
+        mTaskTake.setBackgroundColor(getColor(R.color.light_gray));
+        mTaskTake.setText("等待审核");
+    }
+
+    private void setTakeButtonAsDone() {
+        mTaskTake.setBackgroundColor(getColor(R.color.light_gray));
+        mTaskTake.setText("已完成");
     }
 }
