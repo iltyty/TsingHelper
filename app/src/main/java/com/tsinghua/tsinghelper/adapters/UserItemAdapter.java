@@ -57,7 +57,6 @@ public class UserItemAdapter extends RecyclerView.Adapter {
         View view;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         if (viewType == SHOW_MODERATION_BTN_VIEW_TYPE) {
-            System.out.println("--------------------------------");
             view = inflater.inflate(R.layout.component_empty_recycler_view, parent, false);
             return new EmptyViewHolder(view);
         }
@@ -76,10 +75,10 @@ public class UserItemAdapter extends RecyclerView.Adapter {
             ViewHolder newHolder = (ViewHolder) holder;
             newHolder.setUserData(mUsers.get(position));
             if (showModerationBtn) {
-                newHolder.setBtnVisibility(View.VISIBLE);
+                newHolder.setBtnPassedVisibility(View.VISIBLE);
                 newHolder.setImageVisibility(View.INVISIBLE);
             } else {
-                newHolder.setBtnVisibility(View.INVISIBLE);
+                newHolder.setBtnPassedVisibility(View.INVISIBLE);
                 newHolder.setImageVisibility(View.VISIBLE);
             }
         }
@@ -101,8 +100,10 @@ public class UserItemAdapter extends RecyclerView.Adapter {
         TextView mId;
         @BindView(R.id.image)
         ImageView mImage;
-        @BindView(R.id.btn_moderation)
-        Button mBtnModeration;
+        @BindView(R.id.btn_passed)
+        Button mBtnPassed;
+        @BindView(R.id.btn_failed)
+        Button mBtnFailed;
 
         ViewHolder(View view) {
             super(view);
@@ -135,8 +136,12 @@ public class UserItemAdapter extends RecyclerView.Adapter {
             mImage.setVisibility(visibility);
         }
 
-        public void setBtnVisibility(int visibility) {
-            mBtnModeration.setVisibility(visibility);
+        public void setBtnPassedVisibility(int visibility) {
+            mBtnPassed.setVisibility(visibility);
+        }
+
+        public void setBtnFailedVisibility(int visibility) {
+            mBtnFailed.setVisibility(visibility);
         }
     }
 }

@@ -27,7 +27,7 @@ public class UserItem extends RelativeLayout {
     TextView mId;
     @BindView(R.id.image)
     ImageView mImage;
-    @BindView(R.id.btn_moderation)
+    @BindView(R.id.btn_passed)
     Button mBtn;
 
     private View mView;
