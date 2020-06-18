@@ -21,7 +21,9 @@ public class HttpUtil {
     
     private static final String SERVER_URL = "http://192.168.1.105:3000/";
 //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
-private static final String USER_PREFIX = SERVER_URL + "users/";
+
+//    private static final String SERVER_URL = "http://47.94.16.255:3000/";
+    private static final String USER_PREFIX = SERVER_URL + "users/";
     private static final String TASK_PREFIX = SERVER_URL + "tasks/";
     private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
 
@@ -32,6 +34,7 @@ private static final String USER_PREFIX = SERVER_URL + "users/";
 
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
+    public static final String TASK_MODIFY = TASK_PREFIX + "modify/";
     public static final String TASK_GET_MINE = TASK_PREFIX + "mine/";
     public static final String TASK_GET_OTHERS = TASK_PREFIX + "others/";
     public static final String TASK_TAKE = TASK_PREFIX + "take/";

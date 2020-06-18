@@ -44,6 +44,7 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            isNewTask = false;
             mPageTitle.setText("修改任务-个人问卷");
             getTaskInfo(taskId);
         }
@@ -66,8 +67,8 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
                         JSONObject taskInfo = resJson.getJSONObject("task");
-                        TaskDTO task = new TaskDTO(taskInfo);
-                        QuestionnaireTaskActivity.this.runOnUiThread(() -> setTaskInfo(task));
+                        mTask = new TaskDTO(taskInfo);
+                        QuestionnaireTaskActivity.this.runOnUiThread(() -> setTaskInfo(mTask));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -44,6 +44,7 @@ public class StudyTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            isNewTask = false;
             mPageTitle.setText("修改任务-学习解惑");
             getTaskInfo(taskId);
         }
@@ -66,8 +67,8 @@ public class StudyTaskActivity extends BaseTaskActivity {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
                         JSONObject taskInfo = resJson.getJSONObject("task");
-                        TaskDTO task = new TaskDTO(taskInfo);
-                        StudyTaskActivity.this.runOnUiThread(() -> setTaskInfo(task));
+                        mTask = new TaskDTO(taskInfo);
+                        StudyTaskActivity.this.runOnUiThread(() -> setTaskInfo(mTask));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

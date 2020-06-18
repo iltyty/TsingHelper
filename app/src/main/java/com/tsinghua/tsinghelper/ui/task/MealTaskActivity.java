@@ -45,6 +45,7 @@ public class MealTaskActivity extends BaseTaskActivity {
 
         int taskId = getIntent().getIntExtra("taskId", -1);
         if (taskId != -1) {
+            isNewTask = false;
             mPageTitle.setText("修改任务-代餐跑腿");
             getTaskInfo(taskId);
         }
@@ -67,8 +68,8 @@ public class MealTaskActivity extends BaseTaskActivity {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
                         JSONObject taskInfo = resJson.getJSONObject("task");
-                        TaskDTO task = new TaskDTO(taskInfo);
-                        MealTaskActivity.this.runOnUiThread(() -> setTaskInfo(task));
+                        mTask = new TaskDTO(taskInfo);
+                        MealTaskActivity.this.runOnUiThread(() -> setTaskInfo(mTask));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

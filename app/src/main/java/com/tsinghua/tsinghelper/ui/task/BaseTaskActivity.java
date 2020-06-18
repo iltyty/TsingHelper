@@ -45,6 +45,8 @@ import okhttp3.Response;
 @SuppressLint("Registered")
 public class BaseTaskActivity extends AppCompatActivity {
     protected int maxSelectNum = 4;
+    protected boolean isNewTask = true;
+    protected TaskDTO mTask;
 
     @BindView(R.id.page_title)
     protected TextView mPageTitle;
@@ -186,8 +188,11 @@ public class BaseTaskActivity extends AppCompatActivity {
     }
 
     protected void createTask(HashMap<String, String> params, Activity activity) {
-        System.out.println(params);
-        HttpUtil.post(HttpUtil.TASK_ADD, params, new Callback() {
+        String url = isNewTask ? HttpUtil.TASK_ADD : HttpUtil.TASK_MODIFY;
+        if (!isNewTask) {
+            params.put("taskId", String.valueOf(mTask.id));
+        }
+        HttpUtil.post(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());
@@ -200,7 +205,8 @@ public class BaseTaskActivity extends AppCompatActivity {
                 String resStr = response.body().string();
                 switch (response.code()) {
                     case 201:
-                        ToastUtil.showToastOnUIThread(activity, "任务创建成功");
+                        String prompt = isNewTask ? "任务创建成功" : "任务信息修改成功";
+                        ToastUtil.showToastOnUIThread(activity, prompt);
                         break;
                     case 400:
                         ToastUtil.showToastOnUIThread(activity, "请求参数不合法");
