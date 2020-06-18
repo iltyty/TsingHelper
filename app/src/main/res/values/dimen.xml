@@ -118,4 +118,7 @@
 
     <dimen name="msg_btn_margin">4dp</dimen>
 
+    <dimen name="task_review_page_task_view_count_text_size">20sp</dimen>
+    <dimen name="task_review_page_task_info_text_size">11sp</dimen>
+
 </resources>

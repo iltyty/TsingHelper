@@ -51,6 +51,10 @@
             android:label="TaskDetail"
             android:theme="@style/Theme.bgFullScreen" />
         <activity
+            android:name=".ui.task.TaskReviewActivity"
+            android:label="TaskReview"
+            android:theme="@style/Theme.bgFullScreen" />
+        <activity
             android:name=".ui.mine.TakenTasksActivity"
             android:label="DoingTasksActivity"
             android:parentActivityName=".MainActivity">

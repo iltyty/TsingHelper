@@ -17,8 +17,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
+import com.tsinghua.tsinghelper.ui.task.TaskReviewActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -137,12 +139,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             TaskDTO task = mTasks.get(getAdapterPosition());
-            Intent it = new Intent(mContext, TaskDetailActivity.class);
-
-            it.putExtra("id", task.id);
-            it.putExtra("publisherId", task.publisherId);
-
-            mContext.startActivity(it);
+            String id = UserInfoUtil.getPref("userId", "-1");
+            if (id.equals(String.valueOf(task.publisherId))) {
+                Intent it = new Intent(mContext, TaskReviewActivity.class);
+                mContext.startActivity(it);
+            } else {
+                Intent it = new Intent(mContext, TaskDetailActivity.class);
+                it.putExtra("id", task.id);
+                it.putExtra("publisherId", task.publisherId);
+                mContext.startActivity(it);
+            }
         }
     }
 }
