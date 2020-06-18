@@ -24,6 +24,7 @@ import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -53,6 +54,11 @@ public class TaskReviewActivity extends AppCompatActivity {
     RecyclerView mRewardedList;
     @BindView(R.id.moderating_list)
     RecyclerView mModeratingList;
+
+    private UserItemAdapter mDoingAdapter;
+    private UserItemAdapter mFailedAdapter;
+    private UserItemAdapter mRewardedAdapter;
+    private UserItemAdapter mModeratingAdapter;
 
     private ArrayList<UserDTO> doingUsers = new ArrayList<>();
     private ArrayList<UserDTO> failedUsers = new ArrayList<>();
@@ -119,19 +125,19 @@ public class TaskReviewActivity extends AppCompatActivity {
         DividerItemDecrator divider = new DividerItemDecrator(
                 getDrawable(R.drawable.shape_list_divider));
 
-        UserItemAdapter doingAdapter = new UserItemAdapter(this, doingUsers, false);
-        UserItemAdapter failedAdapter = new UserItemAdapter(this, failedUsers, false);
-        UserItemAdapter rewardedAdapter = new UserItemAdapter(this, rewardedUsers, false);
-        UserItemAdapter moderatingAdapter = new UserItemAdapter(this, moderatingUsers, true);
+        mDoingAdapter = new UserItemAdapter(this, doingUsers, false);
+        mFailedAdapter = new UserItemAdapter(this, failedUsers, false);
+        mRewardedAdapter = new UserItemAdapter(this, rewardedUsers, false);
+        mModeratingAdapter = new UserItemAdapter(this, moderatingUsers, true);
 
         mDoingList.setLayoutManager(lmDoing);
         mFailedList.setLayoutManager(lmFailed);
         mRewardedList.setLayoutManager(lmRewarded);
         mModeratingList.setLayoutManager(lmModerating);
-        mDoingList.setAdapter(doingAdapter);
-        mFailedList.setAdapter(failedAdapter);
-        mRewardedList.setAdapter(rewardedAdapter);
-        mModeratingList.setAdapter(moderatingAdapter);
+        mDoingList.setAdapter(mDoingAdapter);
+        mFailedList.setAdapter(mFailedAdapter);
+        mRewardedList.setAdapter(mRewardedAdapter);
+        mModeratingList.setAdapter(mModeratingAdapter);
         mDoingList.addItemDecoration(divider);
         mFailedList.addItemDecoration(divider);
         mRewardedList.addItemDecoration(divider);
@@ -187,6 +193,42 @@ public class TaskReviewActivity extends AppCompatActivity {
         if (mChildView != null) {
             ViewCompat.setFitsSystemWindows(mChildView, true);
         }
+    }
+
+    public void moderateTask(UserDTO user, boolean passed) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("passed", String.valueOf(passed));
+        params.put("takerId", String.valueOf(user.id));
+        params.put("taskId", String.valueOf(getIntent().getIntExtra("id", -1)));
+        HttpUtil.post(HttpUtil.TASK_MODERATE, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    ToastUtil.showToastOnUIThread(TaskReviewActivity.this, "审核成功");
+                    doingUsers.remove(user);
+                    if (passed) {
+                        rewardedUsers.add(user);
+                        TaskReviewActivity.this.runOnUiThread(() -> {
+                            mDoingAdapter.notifyDataSetChanged();
+                            mRewardedAdapter.notifyDataSetChanged();
+                        });
+                    } else {
+                        failedUsers.add(user);
+                        TaskReviewActivity.this.runOnUiThread(() -> {
+                            mDoingAdapter.notifyDataSetChanged();
+                            mModeratingAdapter.notifyDataSetChanged();
+                        });
+                    }
+                }
+            }
+        });
     }
 
     class DividerItemDecrator extends RecyclerView.ItemDecoration {

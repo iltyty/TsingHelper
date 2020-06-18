@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
+import com.tsinghua.tsinghelper.ui.task.TaskReviewActivity;
 
 import java.util.ArrayList;
 
@@ -111,6 +113,8 @@ public class UserItemAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);
+            mBtnPassed.setOnClickListener(this);
+            mBtnFailed.setOnClickListener(this);
         }
 
         void setUserData(UserDTO user) {
@@ -129,6 +133,19 @@ public class UserItemAdapter extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             UserDTO user = mUsers.get(getAdapterPosition());
+            if (v.getId() == R.id.btn_passed) {
+                Activity activity = (Activity) mContext;
+                if (activity instanceof TaskReviewActivity) {
+                    ((TaskReviewActivity) activity).moderateTask(user, true);
+                }
+                return;
+            } else if (v.getId() == R.id.btn_failed) {
+                Activity activity = (Activity) mContext;
+                if (activity instanceof TaskReviewActivity) {
+                    ((TaskReviewActivity) activity).moderateTask(user, false);
+                }
+                return;
+            }
             Intent it = new Intent(mContext, ProfileActivity.class);
             it.putExtra("userId", String.valueOf(user.id));
             mContext.startActivity(it);
