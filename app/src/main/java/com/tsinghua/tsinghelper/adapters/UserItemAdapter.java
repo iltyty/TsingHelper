@@ -75,11 +75,13 @@ public class UserItemAdapter extends RecyclerView.Adapter {
             ViewHolder newHolder = (ViewHolder) holder;
             newHolder.setUserData(mUsers.get(position));
             if (showModerationBtn) {
-                newHolder.setBtnPassedVisibility(View.VISIBLE);
                 newHolder.setImageVisibility(View.INVISIBLE);
+                newHolder.setBtnPassedVisibility(View.VISIBLE);
+                newHolder.setBtnFailedVisibility(View.VISIBLE);
             } else {
-                newHolder.setBtnPassedVisibility(View.INVISIBLE);
                 newHolder.setImageVisibility(View.VISIBLE);
+                newHolder.setBtnPassedVisibility(View.INVISIBLE);
+                newHolder.setBtnFailedVisibility(View.INVISIBLE);
             }
         }
     }
