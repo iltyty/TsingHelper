@@ -35,8 +35,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     IconTextItem mQuestItem;
 
     private TaskAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private DividerItemDecoration mDivider;
 
     @Nullable
     @Override
@@ -66,18 +64,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void initRecyclerView() {
         mAdapter = new TaskAdapter(getContext());
-        mLayoutManager = new LinearLayoutManager(getContext(),
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-        mDivider = new DividerItemDecoration(getContext(),
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addItemDecoration(mDivider);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(divider);
+        mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setNestedScrollingEnabled(false);
     }
 
