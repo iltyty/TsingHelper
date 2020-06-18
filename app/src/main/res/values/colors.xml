@@ -43,4 +43,8 @@
 
     <color name="msg_time_text_color">#979797</color>
 
+    <color name="task_detail_bg_color">#202530</color>
+
+    <color name="task_review_page_task_info_text_color">#979797</color>
+
 </resources>
