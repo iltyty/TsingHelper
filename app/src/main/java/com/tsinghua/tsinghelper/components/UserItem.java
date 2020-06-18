@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class UserItem extends RelativeLayout {
     TextView mUsername;
     @BindView(R.id.id)
     TextView mId;
+    @BindView(R.id.image)
+    ImageView mImage;
 
     private View mView;
 
@@ -46,9 +49,11 @@ public class UserItem extends RelativeLayout {
         ButterKnife.bind(mView);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.UserItem);
         mAvatar.setImageResource(a.getResourceId(R.styleable.UserItem_user_avatar_src,
-                R.drawable.ic_community_item_32dp));
+                R.drawable.not_logged_in));
         mUsername.setText(a.getString(R.styleable.UserItem_user_username));
         mId.setText(a.getString(R.styleable.UserItem_user_id));
+        mImage.setImageResource(a.getResourceId(R.styleable.UserItem_android_src,
+                R.drawable.ic_right_arrow_8dp));
     }
 
     public void setAvatar(Drawable db) {

@@ -43,6 +43,7 @@
         <attr name="user_avatar_src" format="reference" />
         <attr name="user_username" format="string" />
         <attr name="user_id" format="string" />
+        <attr name="android:src" />
     </declare-styleable>
 
 </resources>
