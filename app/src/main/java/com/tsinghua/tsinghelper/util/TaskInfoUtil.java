@@ -19,6 +19,7 @@ public class TaskInfoUtil {
     public static String DOING_USERS = "doing_users";
     public static String FAILED_USERS = "failed_users";
     public static String REWARDED_USERS = "rewarded_users";
+    public static String MODERATING_USERS = "moderating_users";
     public static String TAKEN_DONE = "taken_done";
     public static String TAKEN_DOING = "taken_doing";
     public static String PUBLISHED_DONE = "published_done";

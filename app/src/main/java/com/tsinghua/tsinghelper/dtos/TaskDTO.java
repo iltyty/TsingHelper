@@ -24,9 +24,10 @@ public class TaskDTO {
     public String startTime;
     public String deadlineStr;
     public String description;
-    public ArrayList<String> doingUsers = new ArrayList<>();
-    public ArrayList<String> failedUsers = new ArrayList<>();
-    public ArrayList<String> rewardedUsers = new ArrayList<>();
+    public ArrayList<UserDTO> doingUsers = new ArrayList<>();
+    public ArrayList<UserDTO> failedUsers = new ArrayList<>();
+    public ArrayList<UserDTO> rewardedUsers = new ArrayList<>();
+    public ArrayList<UserDTO> moderatingUsers = new ArrayList<>();
 
     // optional fields
     public String link;
@@ -52,11 +53,12 @@ public class TaskDTO {
         JSONArray doing = task.optJSONArray(TaskInfoUtil.DOING_USERS);
         JSONArray failed = task.optJSONArray(TaskInfoUtil.FAILED_USERS);
         JSONArray rewarded = task.optJSONArray(TaskInfoUtil.REWARDED_USERS);
+        JSONArray moderating = task.optJSONArray(TaskInfoUtil.MODERATING_USERS);
         if (doing != null) {
             int length = doing.length();
             try {
                 for (int i = 0; i < length; i++) {
-                    doingUsers.add(doing.get(i).toString());
+                    doingUsers.add(new UserDTO(doing.getJSONObject(i)));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -66,7 +68,7 @@ public class TaskDTO {
             int length = failed.length();
             try {
                 for (int i = 0; i < length; i++) {
-                    failedUsers.add(failed.get(i).toString());
+                    failedUsers.add(new UserDTO(failed.getJSONObject(i)));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -76,7 +78,17 @@ public class TaskDTO {
             int length = rewarded.length();
             try {
                 for (int i = 0; i < length; i++) {
-                    rewardedUsers.add(rewarded.get(i).toString());
+                    rewardedUsers.add(new UserDTO(rewarded.getJSONObject(i)));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (moderating != null) {
+            int length = moderating.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    moderatingUsers.add(new UserDTO(moderating.getJSONObject(i)));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
