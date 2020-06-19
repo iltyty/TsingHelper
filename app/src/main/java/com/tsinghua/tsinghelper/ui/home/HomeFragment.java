@@ -18,6 +18,8 @@ import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.components.IconTextItem;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     IconTextItem mQuestItem;
 
     private TaskAdapter mAdapter;
+    private static final String TASK_NUMBER_LIMIT = "20";
 
     @Nullable
     @Override
@@ -52,7 +55,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.getTasks(null, HttpUtil.TASK_GET_OTHERS);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("limit", TASK_NUMBER_LIMIT);
+        mAdapter.getTasks(params, HttpUtil.TASK_GET_OTHERS);
     }
 
     private void setClickListeners() {
