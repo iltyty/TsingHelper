@@ -68,8 +68,8 @@ public class SettingsActivity extends AppCompatActivity {
     public void logout(View view) {
         UserInfoUtil.clearUserInfo();
         Intent it = new Intent(this, LoginActivity.class);
+        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(it);
-        finish();
     }
 
     public void passwordChange(View view) {
