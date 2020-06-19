@@ -50,8 +50,8 @@ public class TaskAdapter extends RecyclerView.Adapter {
     }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
-        this.mTasks = tasks;
-        notifyDataSetChanged();
+        mTasks = tasks;
+        ((Activity) mContext).runOnUiThread(this::notifyDataSetChanged);
     }
 
     @Override
@@ -66,6 +66,9 @@ public class TaskAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
+        if (mContext == null) {
+            System.out.println("----------------------");
+        }
         LayoutInflater inflater = LayoutInflater.from(mContext);
         if (viewType == EMPTY_VIEW_TYPE) {
             view = inflater.inflate(R.layout.component_empty_task_list, parent, false);

@@ -33,10 +33,7 @@ public class TaskListFragment extends Fragment {
     private DividerItemDecrator mDivider;
 
     private String url;
-
-    public TaskListFragment(String url) {
-        this.url = url;
-    }
+    private ArrayList<TaskDTO> mTasks;
 
     public TaskListFragment(HashMap<String, String> params, String url) {
         this.url = url;
@@ -44,7 +41,13 @@ public class TaskListFragment extends Fragment {
     }
 
     public TaskListFragment(ArrayList<TaskDTO> tasks) {
-        mAdapter.setTasks(tasks);
+        mTasks = tasks;
+    }
+
+    public void setTasks(ArrayList<TaskDTO> tasks) {
+        if (mAdapter != null) {
+            mAdapter.setTasks(tasks);
+        }
     }
 
     @Nullable
@@ -69,6 +72,9 @@ public class TaskListFragment extends Fragment {
 
     private void initRecyclerView() {
         mAdapter = new TaskAdapter(getContext());
+        if (mTasks != null) {
+            mAdapter.setTasks(mTasks);
+        }
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecrator(
