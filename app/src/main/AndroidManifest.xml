@@ -99,6 +99,7 @@
             android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
         <activity
             android:name=".ui.mine.profile.ProfileSettingsActivity"
+            android:parentActivityName=".ui.login.LoginActivity"
             android:theme="@style/Theme.bgFullScreen" />
     </application>
 
