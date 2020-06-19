@@ -3,8 +3,12 @@ package com.tsinghua.tsinghelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.next.easynavigation.view.EasyNavigationBar;
@@ -13,6 +17,7 @@ import com.tsinghua.tsinghelper.ui.messages.MessagesFragment;
 import com.tsinghua.tsinghelper.ui.mine.MineFragment;
 import com.tsinghua.tsinghelper.ui.task.NewTaskTypeActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskFragment;
+import com.tsinghua.tsinghelper.util.GlideCacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        GlideCacheUtil.setContext(this);
+
+        setStatusBarUpperAPI21(true);
+//        StatusBarUtil.setTransparent(this);
+//        StatusBarUtil.setColor(MainActivity.this, 16777215);
+
         ButterKnife.bind(this);
 
         mTabText = new String[]{getString(R.string.title_home), getString(R.string.title_task),
@@ -64,12 +75,33 @@ public class MainActivity extends AppCompatActivity {
                         if (position == 2) {
                             Intent it = new Intent(MainActivity.this, NewTaskTypeActivity.class);
                             startActivityForResult(it, 1);
-
                             return true;
+                        } else if (position == 4) {
+//                            StatusBarUtil.setColor(MainActivity.this, 16768570);
+                            setStatusBarUpperAPI21(false);
+                        } else if (position <= 4) {
+//                            StatusBarUtil.setColor(MainActivity.this, 16777215);
+                            setStatusBarUpperAPI21(true);
                         }
                         return false;
                     }
                 })
                 .build();
+    }
+
+    private void setStatusBarUpperAPI21(boolean colorPrimary){
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if(!colorPrimary) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+        ViewGroup mContentView = findViewById(Window.ID_ANDROID_CONTENT);
+        View mChildView = mContentView.getChildAt(0);
+        if (mChildView != null) {
+            ViewCompat.setFitsSystemWindows(mChildView, true);
+        }
     }
 }

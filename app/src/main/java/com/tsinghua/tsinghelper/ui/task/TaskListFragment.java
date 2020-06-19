@@ -17,19 +17,36 @@ import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TaskListFragment extends Fragment {
 
-    private final int INIT_TASKS_CNT = 20;
+    private HashMap<String, String> queryParams;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DividerItemDecoration mDivider;
+
+    private String url;
+
+    public TaskListFragment(String url) {
+        this.url = url;
+    }
+
+    public TaskListFragment(String taskType, String url) {
+        this.url = url;
+        queryParams = new HashMap<>();
+        queryParams.put("type", taskType);
+    }
+
+    public TaskListFragment(ArrayList<TaskDTO> tasks) {
+        mAdapter.setTasks(tasks);
+    }
 
     @Nullable
     @Override
@@ -39,11 +56,20 @@ public class TaskListFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_task_list, container, false);
         ButterKnife.bind(this, root);
         initRecyclerView();
+
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (queryParams != null) {
+            mAdapter.getTasks(queryParams, url);
+        }
+    }
+
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext(), genTasks());
+        mAdapter = new TaskAdapter(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecoration(getContext(),
@@ -52,15 +78,5 @@ public class TaskListFragment extends Fragment {
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
-    }
-
-    private ArrayList<TaskDTO> genTasks() {
-        ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for (int i = 0; i < INIT_TASKS_CNT; i++) {
-            String s = String.valueOf(i + 1);
-            tasks.add(new TaskDTO("所有任务" + s,
-                    "报酬" + s, "截止日期" + s));
-        }
-        return tasks;
     }
 }

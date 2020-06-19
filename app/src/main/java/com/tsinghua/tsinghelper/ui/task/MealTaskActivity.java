@@ -1,19 +1,31 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MealTaskActivity extends BaseTaskActivity {
 
@@ -29,7 +41,46 @@ public class MealTaskActivity extends BaseTaskActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_meal);
 
-        initWidgets(this);
+        initWidgets();
+
+        int taskId = getIntent().getIntExtra("taskId", -1);
+        if (taskId != -1) {
+            isNewTask = false;
+            mPageTitle.setText("修改任务-代餐跑腿");
+            getTaskInfo(taskId);
+        }
+    }
+
+    private void getTaskInfo(int taskId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(taskId));
+        HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        JSONObject taskInfo = resJson.getJSONObject("task");
+                        mTask = new TaskDTO(taskInfo);
+                        MealTaskActivity.this.runOnUiThread(() -> setTaskInfo(mTask));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void initWidgets() {
+        super.initWidgets(this);
+        mEndTime.setIs24HourView(true);
     }
 
     private HashMap<String, String> checkFields() {
@@ -55,9 +106,9 @@ public class MealTaskActivity extends BaseTaskActivity {
 
         params.put("site", site);
         params.put("type", "meal");
-        params.put("foodNum", foodNum);
-        params.put("endTime", String.valueOf(cal.getTimeInMillis()));
-
+        params.put("food_num", foodNum);
+        params.put("end_time", Long.toString(cal.getTimeInMillis()));
+        params.put("start_time", Long.toString(new Date().getTime()));
         return params;
     }
 
@@ -67,5 +118,12 @@ public class MealTaskActivity extends BaseTaskActivity {
             return;
         }
         super.createTask(params, this);
+    }
+
+    @Override
+    protected void setTaskInfo(TaskDTO task) {
+        super.setTaskInfo(task);
+        mSite.setText(task.site);
+        mFoodNum.setText(String.valueOf(task.foodNum));
     }
 }

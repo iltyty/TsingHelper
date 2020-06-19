@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.tsinghua.tsinghelper"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -50,4 +50,8 @@ dependencies {
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    implementation 'com.jaeger.statusbarutil:library:+'
+    implementation "androidx.preference:preference:1.1.1"
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
 }

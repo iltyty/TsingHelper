@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mine.profile.ProfileSettingsActivity">
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@color/dark_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#80000000"
+        android:backgroundTintMode="src_over"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="showGallery"
+            android:src="@drawable/not_logged_in"
+            app:civ_border_color="@color/colorWhite"
+            app:civ_border_width="@dimen/avatar_border_size" />
+
+        <Button
+            android:id="@+id/button_info_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/profile_page_edit_btn_height"
+            android:layout_below="@id/avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_bg_transparent"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:onClick="showGallery"
+            android:paddingLeft="20dp"
+            android:paddingTop="2dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="2dp"
+            android:text="设置背景"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@null"
+        android:onClick="back"
+        android:src="@drawable/ic_back_arrow_white_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout">
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/preference_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="昵称"
+            app:preference_value="" />
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/preference_signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="个性签名"
+            app:preference_value="" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

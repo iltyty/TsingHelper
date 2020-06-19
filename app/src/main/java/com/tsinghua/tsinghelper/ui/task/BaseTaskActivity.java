@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +23,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.GridImageAdapter;
+import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
 import com.tsinghua.tsinghelper.managers.ImageGridLayoutManager;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -44,7 +45,11 @@ import okhttp3.Response;
 @SuppressLint("Registered")
 public class BaseTaskActivity extends AppCompatActivity {
     protected int maxSelectNum = 4;
+    protected boolean isNewTask = true;
+    protected TaskDTO mTask;
 
+    @BindView(R.id.page_title)
+    protected TextView mPageTitle;
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
     @BindView(R.id.scroll_view)
@@ -106,17 +111,14 @@ public class BaseTaskActivity extends AppCompatActivity {
         mAdapter.setData(mSelectList);
         mAdapter.setSelectMax(maxSelectNum);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setItemClickListener(new GridImageAdapter.onItemClickListener() {
-            @Override
-            public void onItemClick(int pos, View v) {
-                if (mSelectList.size() > 0) {
-                    LocalMedia media = mSelectList.get(pos);
-                    String pictureType = media.getMimeType();
-                    int mediaType = PictureMimeType.getMimeType(pictureType);
-                    if (mediaType == 1) { // image preview
-                        PictureSelector.create(activity).externalPicturePreview(
-                                pos, mSelectList, AnimationType.DEFAULT_ANIMATION);
-                    }
+        mAdapter.setItemClickListener((pos, v) -> {
+            if (mSelectList.size() > 0) {
+                LocalMedia media = mSelectList.get(pos);
+                String pictureType = media.getMimeType();
+                int mediaType = PictureMimeType.getMimeType(pictureType);
+                if (mediaType == 1) { // image preview
+                    PictureSelector.create(activity).externalPicturePreview(
+                            pos, mSelectList, AnimationType.DEFAULT_ANIMATION);
                 }
             }
         });
@@ -179,15 +181,18 @@ public class BaseTaskActivity extends AppCompatActivity {
 
         HashMap<String, String> res = new HashMap<>();
         res.put("title", title);
-        res.put("description", description);
         res.put("reward", reward);
-        res.put("review_time", reviewTime + " hours");
+        res.put("description", description);
+        res.put("review_time", reviewTime);
         return res;
     }
 
     protected void createTask(HashMap<String, String> params, Activity activity) {
-        System.out.println(params);
-        HttpUtil.post(HttpUtil.TASK_ADD, params, new Callback() {
+        String url = isNewTask ? HttpUtil.TASK_ADD : HttpUtil.TASK_MODIFY;
+        if (!isNewTask) {
+            params.put("taskId", String.valueOf(mTask.id));
+        }
+        HttpUtil.post(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.e("error", e.toString());
@@ -200,7 +205,8 @@ public class BaseTaskActivity extends AppCompatActivity {
                 String resStr = response.body().string();
                 switch (response.code()) {
                     case 201:
-                        ToastUtil.showToastOnUIThread(activity, "任务创建成功");
+                        String prompt = isNewTask ? "任务创建成功" : "任务信息修改成功";
+                        ToastUtil.showToastOnUIThread(activity, prompt);
                         break;
                     case 400:
                         ToastUtil.showToastOnUIThread(activity, "请求参数不合法");
@@ -212,5 +218,12 @@ public class BaseTaskActivity extends AppCompatActivity {
                 activity.finish();
             }
         });
+    }
+
+    protected void setTaskInfo(TaskDTO task) {
+        mTitle.setText(task.title);
+        mDescription.setText(task.description);
+        mReward.setText(String.valueOf(task.reward));
+        mReviewTime.setText(String.valueOf(task.reviewTime));
     }
 }

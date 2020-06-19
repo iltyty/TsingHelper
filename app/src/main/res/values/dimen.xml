@@ -14,10 +14,22 @@
     <dimen name="item_icon_padding">5dp</dimen>
     <dimen name="item_text_margin">5dp</dimen>
 
-    <dimen name="task_item_avatar_size">32dp</dimen>
-    <dimen name="task_item_text_margin">40dp</dimen>
+    <dimen name="task_item_avatar_size">40dp</dimen>
+    <dimen name="task_item_text_margin">50dp</dimen>
     <dimen name="task_item_margin_top">8dp</dimen>
     <dimen name="task_item_margin_bottom">12dp</dimen>
+    <dimen name="task_item_title_size">14sp</dimen>
+    <dimen name="task_item_reward_size">13sp</dimen>
+    <dimen name="task_item_deadline_size">12sp</dimen>
+
+    <dimen name="user_item_avatar_size">40dp</dimen>
+    <dimen name="user_item_text_margin">10dp</dimen>
+    <dimen name="user_item_margin_top">15dp</dimen>
+    <dimen name="user_item_margin_bottom">15dp</dimen>
+    <dimen name="user_item_margin_start">20dp</dimen>
+    <dimen name="user_item_margin_end">15dp</dimen>
+    <dimen name="user_item_username_size">14sp</dimen>
+    <dimen name="user_item_id_size">12sp</dimen>
 
     <dimen name="state_dropdown_vertical_offset">34dp</dimen>
     <dimen name="state_item_text_size">12sp</dimen>
@@ -56,4 +68,59 @@
     <dimen name="new_task_image_delete_icon_size">30dp</dimen>
     <dimen name="new_task_image_margin_top">15dp</dimen>
     <dimen name="new_task_image_margin_left">15dp</dimen>
+
+    <!-- profile -->
+    <dimen name="profile_page_edit_btn_height">32dp</dimen>
+    <dimen name="profile_others_page_btn_width">90dp</dimen>
+
+    <dimen name="preference_item_title_size">14sp</dimen>
+    <dimen name="preference_item_value_size">13sp</dimen>
+    <dimen name="preference_item_margin_top">15dp</dimen>
+    <dimen name="preference_item_margin_bottom">15dp</dimen>
+    <dimen name="preference_item_margin_start">15dp</dimen>
+    <dimen name="preference_item_margin_end">15dp</dimen>
+
+    <!-- task detail page -->
+    <dimen name="task_detail_page_margin_left">20dp</dimen>
+    <dimen name="task_detail_page_margin_right">20dp</dimen>
+    <dimen name="task_detail_task_tag_text_size">11sp</dimen>
+
+    <dimen name="dialog_msg_text_size">14sp</dimen>
+    <dimen name="dialog_title_text_size">15sp</dimen>
+    <dimen name="dialog_avatar_size">35dp</dimen>
+    <dimen name="dialog_avatar_margin">12dp</dimen>
+    <dimen name="dialog_avatar_margin_bottom">20dp</dimen>
+    <dimen name="dialog_name_margin_top">9dp</dimen>
+    <dimen name="dialog_name_margin_end">16dp</dimen>
+    <dimen name="dialog_date_margin_top">9dp</dimen>
+    <dimen name="dialog_date_margin_end">16dp</dimen>
+    <dimen name="dialog_unread_msg_margin_top">6dp</dimen>
+    <dimen name="dialog_unread_msg_margin_end">16dp</dimen>
+    <dimen name="dialog_unread_bubble_margin_top">6dp</dimen>
+    <dimen name="dialog_unread_bubble_margin_end">16dp</dimen>
+    <dimen name="dialog_divider_margin_top">16dp</dimen>
+
+    <dimen name="msg_user_avatar_size">35dp</dimen>
+    <dimen name="msg_bubble_padding">10dp</dimen>
+    <dimen name="msg_root_layout_margin_top">8dp</dimen>
+    <dimen name="msg_root_layout_margin_bottom">8dp</dimen>
+    <dimen name="msg_root_layout_margin_start">8dp</dimen>
+    <dimen name="msg_root_layout_margin_end">8dp</dimen>
+
+    <dimen name="incoming_msg_avatar_margin_end">8dp</dimen>
+    <dimen name="incoming_msg_bubble_margin_end">30dp</dimen>
+    <dimen name="incoming_msg_text_margin_start">8dp</dimen>
+    <dimen name="incoming_msg_text_margin_end">4dp</dimen>
+    <dimen name="incoming_msg_time_margin_start">8dp</dimen>
+
+    <dimen name="outcoming_msg_bubble_margin_start">30dp</dimen>
+    <dimen name="outcoming_msg_time_margin_end">8dp</dimen>
+
+    <dimen name="msg_btn_margin">4dp</dimen>
+
+    <dimen name="task_review_page_task_view_count_text_size">20sp</dimen>
+    <dimen name="task_review_page_task_info_text_size">11sp</dimen>
+    <dimen name="task_review_page_margin_left">15dp</dimen>
+    <dimen name="task_review_page_margin_top">10dp</dimen>
+
 </resources>

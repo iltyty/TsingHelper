@@ -23,13 +23,14 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/btn_publish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
             android:text="发任务"
             android:textColor="#000000"
+            android:onClick="publish"
             android:textSize="13sp" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -47,7 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:tabMode="scrollable"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="fixed"
         app:tabRippleColor="@color/transparent" />
 
     <RelativeLayout

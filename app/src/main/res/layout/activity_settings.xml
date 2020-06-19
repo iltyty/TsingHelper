@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".ui.mine.settings.SettingsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="设置"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/image_cache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="clearImageCache"
+            android:layout_marginStart="@dimen/preference_item_margin_start"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginEnd="@dimen/preference_item_margin_end"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_title="清理图片缓存" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:background="@color/light_gray" />
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/file_cache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/preference_item_margin_start"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginEnd="@dimen/preference_item_margin_end"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            app:preference_value="0.0B"
+            app:preference_title="清理文件缓存" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/new_task_divider_height"
+            android:layout_marginTop="@dimen/new_task_short_divider_margin_ver"
+            android:background="@color/light_gray" />
+
+        <com.tsinghua.tsinghelper.components.PreferenceItem
+            android:id="@+id/psw_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/preference_item_margin_start"
+            android:layout_marginTop="@dimen/preference_item_margin_top"
+            android:layout_marginEnd="@dimen/preference_item_margin_end"
+            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            android:onClick="passwordChange"
+            app:preference_title="修改密码" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:onClick="logout"
+        android:text="退出账号"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

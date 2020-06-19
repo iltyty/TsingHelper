@@ -64,11 +64,10 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/icon_avatar"
+                android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:src="@drawable/not_logged_in"
                 app:civ_border_color="@color/colorWhite"
                 app:civ_border_width="@dimen/avatar_border_size" />
@@ -80,7 +79,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/icon_avatar"
+                android:layout_toRightOf="@id/avatar"
                 android:gravity="center_vertical"
                 android:text="我的名字"
                 android:textColor="#000000"
@@ -289,22 +288,24 @@
 
             <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/grid_layout_1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:columnCount="3"
+                app:columnCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/relative_layout_to_published"
-                app:orientation="horizontal">
+                app:orientation="horizontal"
+                app:rowCount="1">
 
                 <RelativeLayout
+                    android:id="@+id/rl_published_doing"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_column="0"
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/published_in_progress"
+                        android:id="@+id/published_doing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -318,30 +319,10 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_published_done"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_column="1"
-                    app:layout_columnWeight="1">
-
-                    <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/published_to_be_paid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="@dimen/mine_page_icon_margin_top"
-                        android:gravity="center"
-                        android:src="@drawable/ic_to_be_paid_24dp"
-                        android:text="待付款（0）"
-                        android:textColor="@color/mine_page_icon_text_item_text_color"
-                        android:textSize="@dimen/mine_page_icon_text_item_text_size" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_column="2"
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
@@ -358,9 +339,7 @@
 
                 </RelativeLayout>
 
-
             </androidx.gridlayout.widget.GridLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -413,7 +392,7 @@
                 android:id="@+id/grid_layout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:columnCount="3"
+                app:columnCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/relative_layout_to_doing"
@@ -421,12 +400,13 @@
                 app:rowCount="1">
 
                 <RelativeLayout
+                    android:id="@+id/rl_taken_doing"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/received_in_progress"
+                        android:id="@+id/taken_doing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -440,12 +420,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_taken_done"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_columnWeight="1">
 
                     <com.tsinghua.tsinghelper.components.IconTextItem
-                        android:id="@+id/received_done"
+                        android:id="@+id/taken_done"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -460,14 +441,14 @@
                     </com.tsinghua.tsinghelper.components.IconTextItem>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    tools:layout_editor_absoluteX="578dp"
-                    tools:layout_editor_absoluteY="41dp">
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    app:layout_columnWeight="1"-->
+                <!--                    tools:layout_editor_absoluteX="578dp"-->
+                <!--                    tools:layout_editor_absoluteY="41dp">-->
 
-                </RelativeLayout>
+                <!--                </RelativeLayout>-->
 
             </androidx.gridlayout.widget.GridLayout>
 
@@ -508,7 +489,7 @@
                 android:id="@+id/grid_layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:columnCount="3"
+                app:columnCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/relative_layout_to_others"
@@ -543,14 +524,14 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    tools:layout_editor_absoluteX="578dp"
-                    tools:layout_editor_absoluteY="41dp">
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    app:layout_columnWeight="1"-->
+                <!--                    tools:layout_editor_absoluteX="578dp"-->
+                <!--                    tools:layout_editor_absoluteY="41dp">-->
 
-                </RelativeLayout>
+                <!--                </RelativeLayout>-->
 
             </androidx.gridlayout.widget.GridLayout>
 

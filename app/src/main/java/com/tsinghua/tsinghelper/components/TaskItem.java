@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,11 +12,12 @@ import com.tsinghua.tsinghelper.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TaskItem extends RelativeLayout {
 
     @BindView(R.id.task_item_avatar)
-    ImageView mAvatar;
+    CircleImageView mAvatar;
     @BindView(R.id.task_item_title)
     TextView mTitle;
     @BindView(R.id.task_item_reward)
@@ -47,7 +47,7 @@ public class TaskItem extends RelativeLayout {
         ButterKnife.bind(mView);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TaskItem);
         mAvatar.setImageResource(a.getResourceId(R.styleable.TaskItem_task_avatar_src,
-                R.drawable.ic_community_item_32dp));
+                R.drawable.not_logged_in));
         mTitle.setText(a.getString(R.styleable.TaskItem_task_title));
         mReward.setText(a.getString(R.styleable.TaskItem_task_reward));
         mDeadline.setText(a.getString(R.styleable.TaskItem_task_deadline));

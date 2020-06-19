@@ -16,16 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.components.IconTextItem;
-import com.tsinghua.tsinghelper.dtos.TaskDTO;
-
-import java.util.ArrayList;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
-    private static final int REQ_CODE = 1;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -39,8 +35,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     IconTextItem mQuestItem;
 
     private TaskAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private DividerItemDecoration mDivider;
 
     @Nullable
     @Override
@@ -55,6 +49,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.getTasks(null, HttpUtil.TASK_GET_OTHERS);
+    }
+
     private void setClickListeners() {
         mCommunityItem.setOnClickListener(this);
         mMealItem.setOnClickListener(this);
@@ -63,42 +63,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext(), genTasks());
-        mLayoutManager = new LinearLayoutManager(getContext(),
+        mAdapter = new TaskAdapter(getContext());
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-        mDivider = new DividerItemDecoration(getContext(),
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addItemDecoration(mDivider);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(divider);
+        mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setNestedScrollingEnabled(false);
-    }
-
-    private ArrayList<TaskDTO> genTasks() {
-        ArrayList<TaskDTO> tasks = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            String s = String.valueOf(i + 1);
-            tasks.add(new TaskDTO("任务" + s,
-                    "报酬" + s, "截止日期" + s));
-        }
-        return tasks;
     }
 
     @Override
     public void onClick(View v) {
+        int pos = 0;
         switch (v.getId()) {
-            case R.id.community:
             case R.id.meal:
+                pos = 1;
+                break;
             case R.id.study:
+                pos = 2;
+                break;
             case R.id.questionnaire:
-                Intent it = new Intent(getActivity(), TasksTypeActivity.class);
-                startActivityForResult(it, REQ_CODE);
+                pos = 3;
                 break;
         }
+        Intent it = new Intent(getActivity(), TasksTypeActivity.class);
+        it.putExtra("pos", pos);
+        startActivity(it);
     }
 }

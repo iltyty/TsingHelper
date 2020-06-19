@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.mine;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +17,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DoingTasksActivity extends AppCompatActivity {
+public class TakenTasksActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -34,7 +36,7 @@ public class DoingTasksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doing_tasks);
+        setContentView(R.layout.activity_taken_tasks);
         ButterKnife.bind(this);
 
         initToolbar();
@@ -53,12 +55,20 @@ public class DoingTasksActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        Intent it = getIntent();
+        mTabLayout.getTabAt(it.getIntExtra("pos", 0)).select();
     }
 
     public static class Adapter extends FragmentPagerAdapter {
 
         private final int TAB_CNT = 4;
-        private final String[] TITLE = {"待提交", "待审核", "已领赏", "任务失败"};
+        private final String[] TYPE = {
+                "doing", "moderating", "rewarded", "failed"
+        };
+        private final String[] TITLE = {
+                "待提交", "待审核", "已领赏", "任务失败"
+        };
         private final ArrayList<Fragment> mFragments = new ArrayList<>();
         private Context mContext;
 
@@ -67,7 +77,7 @@ public class DoingTasksActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment());
+                mFragments.add(new TaskListFragment(TYPE[i], HttpUtil.TASK_GET_OTHERS));
             }
         }
 

@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
 
@@ -83,7 +84,7 @@ public class TaskFragment extends Fragment {
             TITLES.add(mContext.getResources().getString(R.string.task_tab_reward));
 
             for (int i = 0; i < numOfTabs; i++) {
-                mFragments.add(new TaskListFragment());
+                mFragments.add(new TaskListFragment(HttpUtil.TASK_GET_OTHERS));
             }
         }
 
