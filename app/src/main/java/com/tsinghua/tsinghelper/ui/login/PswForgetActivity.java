@@ -95,8 +95,8 @@ public class PswForgetActivity extends AppCompatActivity {
                         params.remove("password");
                         saveUserInfo(resStr, params);
                         Intent it = new Intent(PswForgetActivity.this, MainActivity.class);
+                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(it);
-                        finish();
                         break;
                     case 404:
                         ToastUtil.showToastOnUIThread(
