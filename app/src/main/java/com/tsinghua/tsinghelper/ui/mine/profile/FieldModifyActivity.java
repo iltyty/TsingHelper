@@ -71,7 +71,8 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
         mEditText.addTextChangedListener(this);
         mEditText.setText(UserInfoUtil.getUserInfoSharedPreferences()
                 .getString(fieldName, ""));
-        mLenHint.setText(String.format(Locale.CHINA, "0/%d", fieldMaxLen));
+        mLenHint.setText(String.format(Locale.CHINA, "%d/%d",
+                mEditText.getText().toString().length(), fieldMaxLen));
     }
 
     @Override
