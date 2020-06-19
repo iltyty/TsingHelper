@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -128,7 +129,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
+                ErrorHandlingUtil.handleNetworkError(
+                        LoginActivity.this, "网络错误，登录失败", e);
             }
         });
     }
@@ -142,7 +144,8 @@ public class LoginActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.USER_REGISTER, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
+                ErrorHandlingUtil.handleNetworkError(
+                        LoginActivity.this, "网络错误，注册失败", e);
             }
 
             @Override

@@ -2,7 +2,6 @@ package com.tsinghua.tsinghelper.ui.task;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
 import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -164,8 +164,8 @@ public class TaskReviewActivity extends AppCompatActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskReviewActivity.this, "获取任务信息失败，请稍后重试", e);
             }
 
             @Override
@@ -214,8 +214,8 @@ public class TaskReviewActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_MODERATE, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskReviewActivity.this, "网络错误，审核失败", e);
             }
 
             @Override

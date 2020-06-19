@@ -29,6 +29,7 @@ import com.tsinghua.tsinghelper.components.UserItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -145,8 +146,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.get(profileUrl, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override
@@ -172,8 +172,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override
@@ -263,8 +263,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_TAKE, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override
@@ -297,8 +297,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_SUBMIT, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "提交失败，请稍后重试", e);
             }
 
             @Override

@@ -18,8 +18,8 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskReviewActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
-import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -91,8 +91,9 @@ public class TaskAdapter extends RecyclerView.Adapter {
         HttpUtil.get(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                ToastUtil.showToastOnUIThread((Activity) mContext,
-                        "获取任务列表失败，请稍后重试");
+                ErrorHandlingUtil.handleNetworkError(
+                        (Activity) mContext,
+                        "获取任务列表失败，请稍后重试", e);
             }
 
             @Override

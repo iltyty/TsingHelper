@@ -3,7 +3,6 @@ package com.tsinghua.tsinghelper.ui.mine;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.IconTextItem;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.ui.mine.settings.SettingsActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -167,8 +167,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         HttpUtil.get(HttpUtil.USER_TASK_STATES, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override

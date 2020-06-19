@@ -26,6 +26,7 @@ import com.tsinghua.tsinghelper.adapters.GridImageAdapter;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
 import com.tsinghua.tsinghelper.managers.ImageGridLayoutManager;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
@@ -195,8 +196,8 @@ public class BaseTaskActivity extends AppCompatActivity {
         HttpUtil.post(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                ToastUtil.showToastOnUIThread(activity, "连接服务器失败，请稍后重试");
+                ErrorHandlingUtil.handleNetworkError(
+                        BaseTaskActivity.this, "任务创建失败，请稍后重试", e);
                 activity.finish();
             }
 

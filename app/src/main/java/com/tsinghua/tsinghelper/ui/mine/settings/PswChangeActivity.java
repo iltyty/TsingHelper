@@ -1,7 +1,6 @@
 package com.tsinghua.tsinghelper.ui.mine.settings;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
@@ -79,8 +79,8 @@ public class PswChangeActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.USER_MODIFY_PWD, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        PswChangeActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override

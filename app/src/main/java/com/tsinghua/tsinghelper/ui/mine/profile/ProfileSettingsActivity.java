@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -23,6 +22,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.PreferenceItem;
 import com.tsinghua.tsinghelper.engines.GlideEngine;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -218,9 +218,9 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
             HttpUtil.uploadImage(url, path, new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    Log.e("error", e.toString());
-                    ToastUtil.showToastOnUIThread(ProfileSettingsActivity.this,
-                            "服务器开了小差，休息一会儿吧");
+                    ErrorHandlingUtil.handleNetworkError(
+                            ProfileSettingsActivity.this,
+                            "服务器开了小差，休息一会儿吧", e);
                 }
 
                 @Override
