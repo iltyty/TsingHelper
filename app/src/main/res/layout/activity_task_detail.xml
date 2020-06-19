@@ -113,28 +113,17 @@
                     android:textSize="@dimen/task_detail_task_tag_text_size" />
 
                 <TextView
-                    android:id="@+id/times_per_person"
+                    android:id="@+id/task_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/shape_task_detail_tag"
                     android:padding="3dp"
-                    android:text="每位猎人可做XX次"
+                    android:text="社区互助"
                     android:textAlignment="center"
                     android:textSize="@dimen/task_detail_task_tag_text_size" />
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/shape_task_detail_tag"
-                    android:padding="3dp"
-                    android:text="须XX小时内完成"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/task_detail_task_tag_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,6 +139,8 @@
                     android:background="@color/light_gray" />
 
                 <com.tsinghua.tsinghelper.components.UserItem
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left"
                     android:id="@+id/publisher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/task_detail_page_margin_right"
-                android:text="已有XXX位猎人完成任务"
+                android:text="已有XXX人完成任务"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="14sp" />

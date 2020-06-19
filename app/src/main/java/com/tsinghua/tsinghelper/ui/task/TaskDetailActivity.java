@@ -56,8 +56,8 @@ public class TaskDetailActivity extends AppCompatActivity {
     ScrollView mScrollView;
     @BindView(R.id.time_check)
     TextView mTimeCheck;
-    @BindView(R.id.times_per_person)
-    TextView mTimesPerPerson;
+    @BindView(R.id.task_type)
+    TextView mTaskType;
     @BindView(R.id.text_task_title)
     TextView mTaskTitle;
     @BindView(R.id.text_task_reward)
@@ -231,8 +231,21 @@ public class TaskDetailActivity extends AppCompatActivity {
             mTaskDescription.setText(taskDTO.description);
             mTaskReward.setText(String.valueOf(taskDTO.reward));
             mTimeCheck.setText(String.format(Locale.CHINA, "奖励%d小时内审核", taskDTO.reviewTime));
-            mTimesPerPerson.setText(String.format(Locale.CHINA, "每人可做%d次", taskDTO.timesPerPerson));
             mTimesFinished.setText(String.format(Locale.CHINA, "已有%d人完成", taskDTO.timesFinished));
+            switch (taskDTO.type) {
+                case "community":
+                    mTaskType.setText("社区互助");
+                    break;
+                case "meal":
+                    mTaskType.setText("代餐跑腿");
+                    break;
+                case "study":
+                    mTaskType.setText("学习解惑");
+                    break;
+                case "questionnaire":
+                    mTaskType.setText("个人问卷");
+                    break;
+            }
         } catch (JSONException e) {
             Log.e("error", e.toString());
             e.printStackTrace();
