@@ -1,8 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -266,31 +265,4 @@ public class TaskReviewActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    class DividerItemDecrator extends RecyclerView.ItemDecoration {
-        private Drawable mDivider;
-
-        public DividerItemDecrator(Drawable divider) {
-            mDivider = divider;
-        }
-
-        @Override
-        public void onDraw(@NotNull Canvas canvas, RecyclerView parent,
-                           @NotNull RecyclerView.State state) {
-            int dividerLeft = parent.getPaddingLeft();
-            int dividerRight = parent.getWidth() - parent.getPaddingRight();
-
-            int childCount = parent.getChildCount();
-            for (int i = 0; i <= childCount - 2; i++) {
-                View child = parent.getChildAt(i);
-
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-
-                int dividerTop = child.getBottom() + params.bottomMargin;
-                int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
-
-                mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
-                mDivider.draw(canvas);
-            }
-        }
-    }
 }

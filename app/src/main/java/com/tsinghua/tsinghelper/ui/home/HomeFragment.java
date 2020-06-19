@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.components.IconTextItem;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
@@ -71,8 +71,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 return false;
             }
         };
-        DividerItemDecoration divider = new DividerItemDecoration(getContext(),
-                DividerItemDecoration.VERTICAL);
+        DividerItemDecrator divider = new DividerItemDecrator(
+                requireActivity().getDrawable(R.drawable.shape_list_divider));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(divider);
         mRecyclerView.setLayoutManager(lm);

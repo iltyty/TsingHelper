@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class TaskListFragment extends Fragment {
     RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DividerItemDecoration mDivider;
+    private DividerItemDecrator mDivider;
 
     private String url;
 
@@ -72,8 +72,8 @@ public class TaskListFragment extends Fragment {
         mAdapter = new TaskAdapter(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        mDivider = new DividerItemDecoration(getContext(),
-                DividerItemDecoration.VERTICAL);
+        mDivider = new DividerItemDecrator(
+                requireActivity().getDrawable(R.drawable.shape_list_divider));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
