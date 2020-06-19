@@ -30,6 +30,7 @@ public class HttpUtil {
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
     public static final String USER_MODIFY = USER_PREFIX + "modify/";
+    public static final String USER_FORGET_PWD = USER_PREFIX + "forget-pwd/";
     public static final String USER_MODIFY_PWD = USER_PREFIX + "modify-pwd/";
     public static final String USER_TASK_STATES = USER_PREFIX + "task-states/";
 
