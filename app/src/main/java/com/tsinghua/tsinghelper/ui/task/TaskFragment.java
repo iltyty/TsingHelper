@@ -85,7 +85,7 @@ public class TaskFragment extends Fragment {
                             JSONObject task = (JSONObject) tasks.get(i);
                             mTasks.add(new TaskDTO(task));
                         }
-                        displayTasks();
+                        requireActivity().runOnUiThread(() -> displayTasks());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -95,7 +95,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void displayTasks() {
-        if (mViewPager.getAdapter() == null) {
+        if (mAdapter == null) {
             initTabs();
         } else {
             mAdapter.setTasks(0, mTasks);

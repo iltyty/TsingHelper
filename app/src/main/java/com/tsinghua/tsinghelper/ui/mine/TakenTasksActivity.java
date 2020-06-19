@@ -77,8 +77,8 @@ public class TakenTasksActivity extends AppCompatActivity {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             mContext = cxt;
 
-            HashMap<String, String> params = new HashMap<>();
             for (int i = 0; i < TAB_CNT; i++) {
+                HashMap<String, String> params = new HashMap<>();
                 params.put("type", TYPES[i]);
                 mFragments.add(new TaskListFragment(params, HttpUtil.TASK_GET_OTHERS));
             }
