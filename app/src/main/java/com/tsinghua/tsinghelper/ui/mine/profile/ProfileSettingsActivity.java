@@ -54,6 +54,20 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     PreferenceItem mUsername;
     @BindView(R.id.preference_signature)
     PreferenceItem mSignature;
+    @BindView(R.id.preference_phone)
+    PreferenceItem mPhone;
+    @BindView(R.id.preference_realname)
+    PreferenceItem mRealname;
+    @BindView(R.id.preference_department)
+    PreferenceItem mDepartment;
+    @BindView(R.id.preference_grade)
+    PreferenceItem mGrade;
+    @BindView(R.id.preference_dormitory)
+    PreferenceItem mDormitory;
+    @BindView(R.id.preference_wechat)
+    PreferenceItem mWechat;
+    @BindView(R.id.preference_email)
+    PreferenceItem mEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +80,27 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     private void initViews() {
         SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
-        mUsername.setValue(sp.getString("username", ""));
-        mSignature.setValue(sp.getString("signature", "未填写"));
+        mUsername.setValue(sp.getString(UserInfoUtil.USERNAME, ""));
+        mSignature.setValue(sp.getString(UserInfoUtil.SIGNATURE, "未填写"));
+        mPhone.setValue(sp.getString(UserInfoUtil.PHONE, ""));
+        mRealname.setValue(sp.getString(UserInfoUtil.REALNAME, ""));
+        mDepartment.setValue(sp.getString(UserInfoUtil.DEPARTMENT, ""));
+        mGrade.setValue(sp.getString(UserInfoUtil.GRADE, ""));
+        mDormitory.setValue(sp.getString(UserInfoUtil.DORMITORY, ""));
+        mWechat.setValue(sp.getString(UserInfoUtil.WECHAT, ""));
+        mEmail.setValue(sp.getString(UserInfoUtil.EMAIL, ""));
     }
 
     private void setClickListeners() {
         mUsername.setOnClickListener(this);
         mSignature.setOnClickListener(this);
+        mPhone.setOnClickListener(this);
+        mRealname.setOnClickListener(this);
+        mDepartment.setOnClickListener(this);
+        mGrade.setOnClickListener(this);
+        mDormitory.setOnClickListener(this);
+        mWechat.setOnClickListener(this);
+        mEmail.setOnClickListener(this);
     }
 
     @Override
@@ -118,7 +146,22 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     }
 
     public void getUserInfo(String userId) {
-        String signature = UserInfoUtil.getPref("signature", "未填写");
+        String signature = UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, "未填写");
+        String phone = UserInfoUtil.getPref(UserInfoUtil.PHONE, "");
+        String realname = UserInfoUtil.getPref(UserInfoUtil.REALNAME, "");
+        String department = UserInfoUtil.getPref(UserInfoUtil.DEPARTMENT, "");
+        String grade = UserInfoUtil.getPref(UserInfoUtil.GRADE, "");
+        String dormitory = UserInfoUtil.getPref(UserInfoUtil.DORMITORY, "");
+        String wechat = UserInfoUtil.getPref(UserInfoUtil.WECHAT, "");
+        String email = UserInfoUtil.getPref(UserInfoUtil.EMAIL, "");
+
+        mPhone.setValue(phone);
+        mRealname.setValue(realname);
+        mDepartment.setValue(department);
+        mGrade.setValue(grade);
+        mDormitory.setValue(dormitory);
+        mWechat.setValue(wechat);
+        mEmail.setValue(email);
         mSignature.setValue(signature.isEmpty() ? "未填写" : signature);
     }
 
@@ -215,13 +258,48 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.preference_username:
                 it.putExtra("fieldTitle", "昵称");
-                it.putExtra("fieldName", "username");
+                it.putExtra("fieldName", UserInfoUtil.USERNAME);
                 it.putExtra("fieldMaxLen", UserInfoUtil.USERNAME_MAX_LEN);
                 break;
             case R.id.preference_signature:
                 it.putExtra("fieldTitle", "个性签名");
-                it.putExtra("fieldName", "signature");
+                it.putExtra("fieldName", UserInfoUtil.SIGNATURE);
                 it.putExtra("fieldMaxLen", UserInfoUtil.SIGNATURE_MAX_LEN);
+                break;
+            case R.id.preference_phone:
+                it.putExtra("fieldTitle", "手机号码");
+                it.putExtra("fieldName", UserInfoUtil.PHONE);
+                it.putExtra("fieldMaxLen", UserInfoUtil.PHONE_LEN);
+                break;
+            case R.id.preference_realname:
+                it.putExtra("fieldTitle", "真实姓名");
+                it.putExtra("fieldName", UserInfoUtil.REALNAME);
+                it.putExtra("fieldMaxLen", UserInfoUtil.REALNAME_LEN);
+                break;
+            case R.id.preference_department:
+                it.putExtra("fieldTitle", "所在院系");
+                it.putExtra("fieldName", UserInfoUtil.DEPARTMENT);
+                it.putExtra("fieldMaxLen", UserInfoUtil.DEPARTMENT_MAX_LEN);
+                break;
+            case R.id.preference_grade:
+                it.putExtra("fieldTitle", "年级");
+                it.putExtra("fieldName", UserInfoUtil.GRADE);
+                it.putExtra("fieldMaxLen", UserInfoUtil.GRADE_MAX_LEN);
+                break;
+            case R.id.preference_dormitory:
+                it.putExtra("fieldTitle", "宿舍地址");
+                it.putExtra("fieldName", UserInfoUtil.DORMITORY);
+                it.putExtra("fieldMaxLen", UserInfoUtil.DORMITORY_MAX_LEN);
+                break;
+            case R.id.preference_wechat:
+                it.putExtra("fieldTitle", "微信");
+                it.putExtra("fieldName", UserInfoUtil.WECHAT);
+                it.putExtra("fieldMaxLen", UserInfoUtil.WECHAT_MAX_LEN);
+                break;
+            case R.id.preference_email:
+                it.putExtra("fieldTitle", "邮箱地址");
+                it.putExtra("fieldName", UserInfoUtil.EMAIL);
+                it.putExtra("fieldMaxLen", UserInfoUtil.EMAIL_MAX_LEN);
                 break;
         }
         startActivityForResult(it, FIELD_MODIFY_CODE);
