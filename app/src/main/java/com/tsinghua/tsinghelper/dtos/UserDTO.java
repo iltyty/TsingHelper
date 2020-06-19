@@ -31,7 +31,7 @@ public class UserDTO implements IUser {
     public ArrayList<TaskDTO> rewardedTasks = new ArrayList<>();
     public ArrayList<TaskDTO> moderatingTasks = new ArrayList<>();
 
-    UserDTO(String id, String username) {
+    public UserDTO(String id, String username) {
         this.username = username;
         this.id = Integer.parseInt(id);
         this.avatar = HttpUtil.getUserAvatarUrlById(id);

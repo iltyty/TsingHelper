@@ -1,26 +1,27 @@
 package com.tsinghua.tsinghelper.dtos;
 
 import com.stfalcon.chatkit.commons.models.IDialog;
-import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DialogDTO implements IDialog<MessageDTO> {
+
     private String id;
     private String name;
+    private String avatarAddr;
 
     private int unreadCount;
 
     private List<UserDTO> sender = new ArrayList<>();
     private MessageDTO lastMsg;
 
-
-    public DialogDTO(String id, String name) {
+    public DialogDTO(String id, String name, String avatarAddr, MessageDTO lastMsg) {
         this.id = id;
         this.name = name;
-        this.sender.add(new UserDTO(id, "用户" + id));
-        lastMsg = new MessageDTO(id, String.valueOf(System.currentTimeMillis()), "测试消息内容");
+        this.avatarAddr = avatarAddr;
+        this.lastMsg = lastMsg;
+        this.sender.add(lastMsg.getUser());
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DialogDTO implements IDialog<MessageDTO> {
 
     @Override
     public String getDialogPhoto() {
-        return HttpUtil.getUserAvatarUrlById(1);
+        return avatarAddr;
     }
 
     @Override

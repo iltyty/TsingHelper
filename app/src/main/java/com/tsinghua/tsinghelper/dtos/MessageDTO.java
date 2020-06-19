@@ -4,7 +4,10 @@ import androidx.annotation.Nullable;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.MessageContentType;
+import com.tsinghua.tsinghelper.util.MessageInfoUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
+
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -18,6 +21,12 @@ public class MessageDTO implements IMessage,
     private String timestamp;
     private UserDTO sender;
 
+    public MessageDTO(JSONObject message) {
+        this.id = message.optString(MessageInfoUtil.ID, "");
+        this.content = message.optString(MessageInfoUtil.CONTENT, "");
+        this.timestamp = message.optString(MessageInfoUtil.TIME, "");
+    }
+
     public MessageDTO(String content) {
         this.id = UserInfoUtil.getPref("userId", "1");
         this.content = content;
@@ -25,13 +34,9 @@ public class MessageDTO implements IMessage,
         this.sender = new UserDTO(id, "用户" + id);
     }
 
-    public MessageDTO(String id, String timestamp, String content) {
-        this.id = id;
-        this.content = content;
-        this.timestamp = timestamp;
-
-        id = String.valueOf(Integer.parseInt(id) % 3 + 1);
-        this.sender = new UserDTO(id, "用户" + id);
+    public MessageDTO(JSONObject message, String senderId, String senderName) {
+        this(message);
+        this.sender = new UserDTO(senderId, senderName);
     }
 
     public String getContent() {
