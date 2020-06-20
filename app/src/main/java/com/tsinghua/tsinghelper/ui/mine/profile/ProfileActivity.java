@@ -22,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.ui.messages.MessageDetailActivity;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -56,6 +57,12 @@ public class ProfileActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.button_info_modify)
     Button mBtnEdit;
+    @Nullable
+    @BindView(R.id.btn_follow)
+    Button mBtnFollow;
+    @Nullable
+    @BindView(R.id.btn_send_msg)
+    Button mBtnSendMsg;
 
     private boolean isMe;
 
@@ -172,8 +179,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getUserInfo(String userId) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("username", "");
-        params.put("signature", "");
+        params.put(UserInfoUtil.USERNAME, "");
+        params.put(UserInfoUtil.SIGNATURE, "");
+        params.put(UserInfoUtil.PHONE, "");
+        params.put(UserInfoUtil.REALNAME, "");
+        params.put(UserInfoUtil.DEPARTMENT, "");
+        params.put(UserInfoUtil.GRADE, "");
+        params.put(UserInfoUtil.DORMITORY, "");
+        params.put(UserInfoUtil.WECHAT, "");
+        params.put(UserInfoUtil.EMAIL, "");
         String url = HttpUtil.getUserProfileUrlById(userId);
         HttpUtil.get(url, params, new Callback() {
             @Override
@@ -186,18 +200,15 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
-                        UserDTO user = new UserDTO(resJson);
+                        UserInfoUtil.me = new UserDTO(resJson);
                         if (isMe) {
-                            UserInfoUtil.putPref("signature", user.signature);
+                            UserInfoUtil.putPref("signature", UserInfoUtil.me.signature);
                             ProfileActivity.this.runOnUiThread(() ->
-                                    mSignature.setText(user.signature));
+                                    mSignature.setText(UserInfoUtil.me.signature));
                         } else {
-                            ProfileActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mUsername.setText(user.username);
-                                    mSignature.setText(user.signature);
-                                }
+                            ProfileActivity.this.runOnUiThread(() -> {
+                                mUsername.setText(UserInfoUtil.me.username);
+                                mSignature.setText(UserInfoUtil.me.signature);
                             });
                         }
                     } catch (JSONException e) {
@@ -214,7 +225,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-
+        Intent it = new Intent(this, MessageDetailActivity.class);
+        it.putExtra("sender", String.valueOf(UserInfoUtil.me.id));
+        it.putExtra("username", UserInfoUtil.me.username);
+        startActivity(it);
     }
 
     public void back(View view) {
