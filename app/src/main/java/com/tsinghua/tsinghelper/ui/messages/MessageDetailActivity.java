@@ -81,7 +81,8 @@ public class MessageDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initViews();
-        getMessages();
+//        getMessages();
+        loadMsgsHistory();
     }
 
     private void initViews() {
@@ -116,8 +117,13 @@ public class MessageDetailActivity extends AppCompatActivity {
                 msg = new MessageDTO(String.valueOf(UserInfoUtil.me.id), content,
                         timestamp, UserInfoUtil.me, receiver);
             }
-            MessageStoreUtil.addSentMsg(String.valueOf(receiver.id), msg);
-            MessageDetailActivity.this.runOnUiThread(() -> mAdapter.addToStart(msg, true));
+            String receiverId = String.valueOf(receiver.id);
+            MessageStoreUtil.addMsg(receiverId, msg);
+            ChatHistoryCacheUtil.cache(receiverId, MessageStoreUtil.getMsgsWithUser(receiverId));
+            MessageDetailActivity.this.runOnUiThread(() -> {
+                // update message detail page
+                mAdapter.addToStart(msg, true);
+            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -143,7 +149,18 @@ public class MessageDetailActivity extends AppCompatActivity {
         mAdapter = new MessagesListAdapter<>(id, mh, imageLoader);
         mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
         messagesList.setAdapter(mAdapter);
+    }
 
+    private void loadMsgsHistory() {
+        String otherId = getIntent().getStringExtra("sender");
+        String otherName = getIntent().getStringExtra("username");
+        receiver = new UserDTO(otherId, otherName);
+        mUsername.setText(otherName);
+
+        ArrayList<MessageDTO> msgs = MessageStoreUtil.getMsgsWithUser(otherId);
+        if (msgs != null && !msgs.isEmpty()) {
+            mAdapter.addToEnd(MessageStoreUtil.getMsgsWithUser(otherId), false);
+        }
     }
 
     private void getMessages() {
@@ -186,9 +203,11 @@ public class MessageDetailActivity extends AppCompatActivity {
 
         // cache chat history
         ChatHistoryCacheUtil.cache(String.valueOf(receiver.id), msgs);
+        ArrayList<MessageDTO> historyMsgs = ChatHistoryCacheUtil
+                .getMsgsFromCache(String.valueOf(receiver.id));
 
         ArrayList<MessageDTO> receivedMsgs = MessageStoreUtil
-                .getReceivedMsgsFromUser(String.valueOf(receiver.id));
+                .getMsgsWithUser(String.valueOf(receiver.id));
         if (receivedMsgs != null) {
             msgs.addAll(receivedMsgs);
         }

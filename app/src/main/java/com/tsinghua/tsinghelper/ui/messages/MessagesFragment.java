@@ -19,6 +19,7 @@ import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.DialogDateFormatter;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -63,14 +64,32 @@ public class MessagesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_messages, container, false);
         ButterKnife.bind(this, root);
 
+//        ChatHistoryCacheUtil.clearCache();
+
         initSpinner();
         initAdapter();
-        getMessages();
+//        readHistoryMsgs();
+        getMsgsFromServer();
         initWebSocket();
 
         mDialogsList.setAdapter(mAdapter);
 
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ArrayList<DialogDTO> dialogs = new ArrayList<>();
+        for (String otherId : MessageStoreUtil.getMyMsgs().keySet()) {
+            UserDTO other = MessageStoreUtil.getUserById(otherId);
+            ArrayList<MessageDTO> msgs = MessageStoreUtil.getMsgsWithUser(otherId);
+            if (msgs.size() > 0) {
+                dialogs.add(new DialogDTO(otherId, other.username,
+                        other.avatar, msgs.get(msgs.size() - 1)));
+            }
+        }
+        requireActivity().runOnUiThread(() -> mAdapter.setItems(dialogs));
     }
 
     private void initWebSocket() {
@@ -105,8 +124,8 @@ public class MessagesFragment extends Fragment {
                         sender = new UserDTO(senderId, senderName);
                         MessageStoreUtil.putNewUser(sender);
                     }
-                    MessageDTO newMsg = new MessageDTO(senderId, content, time, sender, null);
-                    MessageStoreUtil.addReceivedMsg(senderId, newMsg);
+                    MessageDTO newMsg = new MessageDTO(senderId, content, time, sender, UserInfoUtil.me);
+                    MessageStoreUtil.addMsg(senderId, newMsg);
                     if (existed) {
                         mAdapter.updateDialogWithMessage(senderId, newMsg);
                     } else {
@@ -125,7 +144,11 @@ public class MessagesFragment extends Fragment {
         WebSocketUtil.setWSConnection(wsl);
     }
 
-    private void getMessages() {
+    private void readHistoryMsgs() {
+        MessageStoreUtil.setMyMsgs(ChatHistoryCacheUtil.getAllMsgsFromHistory());
+    }
+
+    private void getMsgsFromServer() {
         HashMap<String, String> params = new HashMap<>();
         String since = UserInfoUtil.getPref(MessageInfoUtil.SINCE, "");
         params.put(MessageInfoUtil.SINCE, since);
@@ -144,6 +167,8 @@ public class MessagesFragment extends Fragment {
                     String resStr = response.body().string();
                     try {
                         JSONArray resJson = new JSONArray(resStr);
+                        UserInfoUtil.putPref(MessageInfoUtil.SINCE,
+                                String.valueOf(System.currentTimeMillis()));
                         initDialogs(resJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -176,14 +201,16 @@ public class MessagesFragment extends Fragment {
                 MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender, UserInfoUtil.me);
                 msgs.add(msg);
             }
+            MessageStoreUtil.putMsgs(senderId, msgs);
+
             Comparator<MessageDTO> comparator = (msg1, msg2) ->
                     msg1.getTimestamp().compareTo(msg2.getTimestamp());
-            Collections.sort(msgs, comparator);
-            MessageStoreUtil.putReceivedMsgs(senderId, msgs);
-            MessageDTO lastMsg = msgs.get(msgs.size() - 1);
-            requireActivity().runOnUiThread(() ->
-                    mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, lastMsg)));
+
+            ArrayList<MessageDTO> msgsWithUser = MessageStoreUtil.getMsgsWithUser(senderId);
+            Collections.sort(msgsWithUser, comparator);
+            MessageDTO lastMsg = msgsWithUser.get(msgsWithUser.size() - 1);
         }
+        ChatHistoryCacheUtil.cacheAll(MessageStoreUtil.getMyMsgs());
     }
 
     private void initSpinner() {

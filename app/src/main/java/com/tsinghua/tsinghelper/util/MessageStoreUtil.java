@@ -10,42 +10,27 @@ public class MessageStoreUtil {
 
     private static MessageStoreUtil instance = new MessageStoreUtil();
     private ArrayList<UserDTO> users = new ArrayList<>();
-    private HashMap<String, ArrayList<MessageDTO>> sentMsgs = new HashMap<>();
-    private HashMap<String, ArrayList<MessageDTO>> receivedMsgs = new HashMap<>();
+    private HashMap<String, ArrayList<MessageDTO>> myMsgs = new HashMap<>();
+
+    public static void putNewUser(UserDTO user) {
+        getInstance().users.add(user);
+        getInstance().myMsgs.put(String.valueOf(user.id), new ArrayList<>());
+    }
 
     public static MessageStoreUtil getInstance() {
         return instance;
     }
 
-    public static void putNewUser(UserDTO user) {
-        getInstance().users.add(user);
-        getInstance().sentMsgs.put(String.valueOf(user.id), new ArrayList<>());
-        getInstance().receivedMsgs.put(String.valueOf(user.id), new ArrayList<>());
+    public static HashMap<String, ArrayList<MessageDTO>> getMyMsgs() {
+        return getInstance().myMsgs;
     }
 
-    public static HashMap<String, ArrayList<MessageDTO>> getMySentMsgs() {
-        return getInstance().sentMsgs;
+    public static void setMyMsgs(HashMap<String, ArrayList<MessageDTO>> msgs) {
+        instance.myMsgs = msgs;
     }
 
-    public static HashMap<String, ArrayList<MessageDTO>> getMyReceivedMsgs() {
-        return getInstance().receivedMsgs;
-    }
-
-    public static ArrayList<MessageDTO> getSentMsgsFromUser(String userId) {
-        return getInstance().sentMsgs.get(userId);
-    }
-
-    public static ArrayList<MessageDTO> getReceivedMsgsFromUser(String userId) {
-        return getInstance().receivedMsgs.get(userId);
-    }
-
-    public static void putNewUserIfNotExist(UserDTO user) {
-        MessageStoreUtil instance = getInstance();
-        if (!instance.users.contains(user)) {
-            instance.users.add(user);
-            instance.sentMsgs.put(String.valueOf(user.id), new ArrayList<>());
-            instance.receivedMsgs.put(String.valueOf(user.id), new ArrayList<>());
-        }
+    public static ArrayList<MessageDTO> getMsgsWithUser(String userId) {
+        return getInstance().myMsgs.get(userId);
     }
 
     public static boolean hasUser(UserDTO user) {
@@ -83,32 +68,25 @@ public class MessageStoreUtil {
         return null;
     }
 
-    public static void addSentMsg(String receiverId, MessageDTO msg) {
+    public static void addMsg(String otherId, MessageDTO msg) {
         MessageStoreUtil instance = getInstance();
-        ArrayList<MessageDTO> sentMsgs = instance.sentMsgs.get(receiverId);
-        if (sentMsgs == null) {
-            instance.sentMsgs.put(receiverId, new ArrayList<>());
+        ArrayList<MessageDTO> myMsgs = instance.myMsgs.get(otherId);
+        if (myMsgs == null) {
+            instance.myMsgs.put(otherId, new ArrayList<>());
         }
-        instance.sentMsgs.get(receiverId).add(msg);
-    }
-
-    public static void addReceivedMsg(String senderId, MessageDTO msg) {
-        ArrayList<MessageDTO> msgs = getInstance().receivedMsgs.get(senderId);
-        if (msgs != null) {
-            msgs.add(msg);
-        }
-    }
-
-    public static void putSentMsgs(String receiverId, ArrayList<MessageDTO> msgs) {
-        getInstance().sentMsgs.put(receiverId, msgs);
+        instance.myMsgs.get(otherId).add(msg);
     }
 
     public ArrayList<UserDTO> getUsers() {
         return users;
     }
 
-    public static void putReceivedMsgs(String senderId, ArrayList<MessageDTO> msgs) {
-        getInstance().receivedMsgs.put(senderId, msgs);
+    public static void putMsgs(String otherId, ArrayList<MessageDTO> msgs) {
+        MessageStoreUtil instance = getInstance();
+        if (!hasUser(otherId)) {
+            instance.users.add(new UserDTO(otherId));
+        }
+        getInstance().myMsgs.put(otherId, msgs);
     }
 
 }
