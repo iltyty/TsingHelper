@@ -39,6 +39,7 @@
         android:id="@+id/message_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:dateHeaderTextSize="@dimen/msg_date_size"
         app:incomingBubblePaddingBottom="@dimen/msg_bubble_padding"
         app:incomingBubblePaddingLeft="@dimen/msg_bubble_padding"
         app:incomingBubblePaddingRight="@dimen/msg_bubble_padding"

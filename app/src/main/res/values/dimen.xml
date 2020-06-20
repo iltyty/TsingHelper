@@ -94,6 +94,7 @@
     <dimen name="dialog_name_margin_end">16dp</dimen>
     <dimen name="dialog_date_margin_top">9dp</dimen>
     <dimen name="dialog_date_margin_end">16dp</dimen>
+    <dimen name="dialog_date_text_size">12sp</dimen>
     <dimen name="dialog_unread_msg_margin_top">6dp</dimen>
     <dimen name="dialog_unread_msg_margin_end">16dp</dimen>
     <dimen name="dialog_unread_bubble_margin_top">6dp</dimen>
@@ -102,6 +103,7 @@
 
     <dimen name="msg_user_avatar_size">35dp</dimen>
     <dimen name="msg_bubble_padding">10dp</dimen>
+    <dimen name="msg_date_size">12sp</dimen>
     <dimen name="msg_root_layout_margin_top">8dp</dimen>
     <dimen name="msg_root_layout_margin_bottom">8dp</dimen>
     <dimen name="msg_root_layout_margin_start">8dp</dimen>

@@ -19,11 +19,14 @@ import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.DialogDateFormatter;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.MessageInfoUtil;
 import com.tsinghua.tsinghelper.util.MessageStoreUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
+import com.tsinghua.tsinghelper.util.WebSocketUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -41,6 +44,9 @@ import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
 
 public class MessagesFragment extends Fragment {
 
@@ -61,10 +67,47 @@ public class MessagesFragment extends Fragment {
         initSpinner();
         initAdapter();
         getMessages();
+        initWebSocket();
 
         mDialogsList.setAdapter(mAdapter);
 
         return root;
+    }
+
+    private void initWebSocket() {
+        WebSocketListener wsl = new WebSocketListener() {
+            @Override
+            public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
+                super.onClosed(webSocket, code, reason);
+            }
+
+            @Override
+            public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
+                super.onClosing(webSocket, code, reason);
+            }
+
+            @Override
+            public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t,
+                                  @org.jetbrains.annotations.Nullable Response response) {
+                ToastUtil.showToastOnUIThread(requireActivity(), "websocket建立失败");
+            }
+
+            @Override
+            public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
+
+            }
+
+            @Override
+            public void onMessage(@NotNull WebSocket webSocket, @NotNull ByteString bytes) {
+                super.onMessage(webSocket, bytes);
+            }
+
+            @Override
+            public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
+                ToastUtil.showToastOnUIThread(requireActivity(), "websocket建立成功");
+            }
+        };
+        WebSocketUtil.setWSConnection(wsl);
     }
 
     private void getMessages() {
@@ -115,7 +158,8 @@ public class MessagesFragment extends Fragment {
             Collections.sort(msgs, comparator);
             MessageStoreUtil.putReceivedMsgs(senderId, msgs);
             MessageDTO lastMsg = msgs.get(msgs.size() - 1);
-            mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, lastMsg));
+            requireActivity().runOnUiThread(() ->
+                    mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, lastMsg)));
         }
     }
 
@@ -128,6 +172,7 @@ public class MessagesFragment extends Fragment {
         mAdapter = new DialogsListAdapter<>(R.layout.item_custom_dialog,
                 (imageView, url, payload) ->
                         Glide.with(requireActivity()).load(url).into(imageView));
+        mAdapter.setDatesFormatter(new DialogDateFormatter());
         mAdapter.setOnDialogClickListener(dialog -> {
             Intent it = new Intent(requireActivity(), MessageDetailActivity.class);
             it.putExtra("sender", String.valueOf(dialog.getId()));

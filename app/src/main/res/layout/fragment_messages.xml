@@ -124,6 +124,7 @@
         app:dialogTitleTextColor="@color/dialog_title_color"
         app:dialogTitleTextSize="@dimen/dialog_title_text_size"
         app:dialogUnreadBubbleBackgroundColor="@color/dialog_unread_color"
+        app:dialogDateSize="@dimen/dialog_date_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
