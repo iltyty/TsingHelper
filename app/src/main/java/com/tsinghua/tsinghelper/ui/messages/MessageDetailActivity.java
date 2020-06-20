@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import com.bumptech.glide.Glide;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageHolders;
+import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.tsinghua.tsinghelper.R;
@@ -26,16 +27,20 @@ import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.MessageDateFormatter;
 import com.tsinghua.tsinghelper.util.MessageStoreUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
+import com.tsinghua.tsinghelper.util.WebSocketUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -52,10 +57,12 @@ public class MessageDetailActivity extends AppCompatActivity {
     MessagesList messagesList;
     @BindView(R.id.username)
     TextView mUsername;
+    @BindView(R.id.input)
+    MessageInput mInput;
 
     MessagesListAdapter<MessageDTO> mAdapter;
 
-    private String senderId;
+    private UserDTO receiver;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,10 +79,48 @@ public class MessageDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message_detail);
         ButterKnife.bind(this);
 
+        initViews();
+        getMessages();
+    }
+
+    private void initViews() {
         initToolbar();
         initAdapter();
+        setInputListener();
         setStatusBarUpperAPI21();
-        getMessages();
+    }
+
+    private void setInputListener() {
+        mInput.setInputListener(input -> sendMessage(input.toString()));
+    }
+
+    private boolean sendMessage(String content) {
+        JSONObject msgInfo = new JSONObject();
+        String timestamp = String.valueOf(new Date().getTime());
+        try {
+            msgInfo.put("time", timestamp);
+            msgInfo.put("content", content);
+            msgInfo.put("type", "text");
+            msgInfo.put("to", receiver.id);
+            if (WebSocketUtil.getWebSocket().send(msgInfo.toString())) {
+                ToastUtil.showToastOnUIThread(MessageDetailActivity.this, "发送成功");
+            }
+
+            MessageDTO msg;
+            if (MessageStoreUtil.hasUser(receiver.id)) {
+                msg = new MessageDTO(String.valueOf(UserInfoUtil.me.id), content, timestamp,
+                        UserInfoUtil.me, MessageStoreUtil.getUserById(receiver.id));
+            } else {
+                MessageStoreUtil.putNewUser(receiver);
+                msg = new MessageDTO(String.valueOf(UserInfoUtil.me.id), content,
+                        timestamp, UserInfoUtil.me, receiver);
+            }
+            MessageStoreUtil.addSentMsg(String.valueOf(receiver.id), msg);
+            MessageDetailActivity.this.runOnUiThread(() -> mAdapter.addToStart(msg, true));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private void initToolbar() {
@@ -102,10 +147,12 @@ public class MessageDetailActivity extends AppCompatActivity {
 
     private void getMessages() {
         HashMap<String, String> params = new HashMap<>();
-        senderId = getIntent().getStringExtra("sender");
-        mUsername.setText(getIntent().getStringExtra("username"));
+        String otherId = getIntent().getStringExtra("sender");
+        String otherName = getIntent().getStringExtra("username");
+        receiver = new UserDTO(otherId, otherName);
+        mUsername.setText(otherName);
 
-        params.put("receiver", senderId);
+        params.put("receiver", otherId);
         HttpUtil.get(HttpUtil.CHAT_MSG_SENT, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -130,15 +177,16 @@ public class MessageDetailActivity extends AppCompatActivity {
 
     private void initMessages(JSONArray sentMsgs) throws JSONException {
         int length = sentMsgs.length();
-        String userId = UserInfoUtil.getPref("userId", "-1");
-        String username = UserInfoUtil.getPref("username", "");
-        UserDTO sender = new UserDTO(userId, username);
         ArrayList<MessageDTO> msgs = new ArrayList<>();
         for (int i = 0; i < length; i++) {
-            MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender);
+            MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), UserInfoUtil.me, receiver);
             msgs.add(msg);
         }
-        msgs.addAll(MessageStoreUtil.getReceivedMsgsFromUser(senderId));
+        ArrayList<MessageDTO> receivedMsgs = MessageStoreUtil
+                .getReceivedMsgsFromUser(String.valueOf(receiver.id));
+        if (receivedMsgs != null) {
+            msgs.addAll(receivedMsgs);
+        }
         Comparator<MessageDTO> comparator = (msg1, msg2) ->
                 msg1.getTimestamp().compareTo(msg2.getTimestamp());
         Collections.sort(msgs, comparator);

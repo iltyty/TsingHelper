@@ -45,7 +45,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     TextView mUsername;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
-
     @BindView(R.id.icon_settings)
     ImageView mToSettings;
     @BindView(R.id.relative_layout_to_profile)

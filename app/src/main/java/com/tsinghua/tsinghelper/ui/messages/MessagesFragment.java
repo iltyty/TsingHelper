@@ -24,7 +24,6 @@ import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.MessageInfoUtil;
 import com.tsinghua.tsinghelper.util.MessageStoreUtil;
-import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 import com.tsinghua.tsinghelper.util.WebSocketUtil;
 
@@ -87,24 +86,40 @@ public class MessagesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t,
-                                  @org.jetbrains.annotations.Nullable Response response) {
-                ToastUtil.showToastOnUIThread(requireActivity(), "websocket建立失败");
-            }
-
-            @Override
             public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
+                try {
+                    boolean existed = false;
+                    JSONObject resJson = new JSONObject(text);
+                    String time = resJson.getString("time");
+                    String type = resJson.getString("type");
+                    String content = resJson.getString("content");
+                    String senderId = resJson.getString("from");
+                    String senderName = resJson.getString("senderName");
+                    String senderAvatar = HttpUtil.getUserAvatarUrlById(senderId);
 
+                    UserDTO sender;
+                    if (MessageStoreUtil.hasUser(senderId)) {
+                        existed = true;
+                        sender = MessageStoreUtil.getUserById(senderId);
+                    } else {
+                        sender = new UserDTO(senderId, senderName);
+                        MessageStoreUtil.putNewUser(sender);
+                    }
+                    MessageDTO newMsg = new MessageDTO(senderId, content, time, sender, null);
+                    MessageStoreUtil.addReceivedMsg(senderId, newMsg);
+                    if (existed) {
+                        mAdapter.updateDialogWithMessage(senderId, newMsg);
+                    } else {
+                        mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, newMsg));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onMessage(@NotNull WebSocket webSocket, @NotNull ByteString bytes) {
                 super.onMessage(webSocket, bytes);
-            }
-
-            @Override
-            public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
-                ToastUtil.showToastOnUIThread(requireActivity(), "websocket建立成功");
             }
         };
         WebSocketUtil.setWSConnection(wsl);
@@ -124,7 +139,8 @@ public class MessagesFragment extends Fragment {
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 200) {
-                    UserInfoUtil.putPref(MessageInfoUtil.SINCE, String.valueOf(System.currentTimeMillis()));
+                    UserInfoUtil.putPref(MessageInfoUtil.SINCE,
+                            String.valueOf(System.currentTimeMillis()));
                     String resStr = response.body().string();
                     try {
                         JSONArray resJson = new JSONArray(resStr);
@@ -144,13 +160,20 @@ public class MessagesFragment extends Fragment {
             String senderId = dialogJson.getString("id");
             String senderAvatar = HttpUtil.getUserAvatarUrlById(senderId);
             String senderName = dialogJson.getString("username");
-            UserDTO sender = new UserDTO(senderId, senderName);
             JSONArray sentMsgs = dialogJson.getJSONArray("sent_msgs");
+
+            UserDTO sender;
+            if (MessageStoreUtil.hasUser(senderId)) {
+                sender = MessageStoreUtil.getUserById(senderId);
+            } else {
+                sender = new UserDTO(senderId, senderName);
+                MessageStoreUtil.putNewUser(sender);
+            }
 
             int msgsLen = sentMsgs.length();
             ArrayList<MessageDTO> msgs = new ArrayList<>();
             for (int j = 0; j < msgsLen; j++) {
-                MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender);
+                MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender, UserInfoUtil.me);
                 msgs.add(msg);
             }
             Comparator<MessageDTO> comparator = (msg1, msg2) ->

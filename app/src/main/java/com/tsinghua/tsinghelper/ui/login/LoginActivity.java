@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
-import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -179,7 +178,6 @@ public class LoginActivity extends AppCompatActivity {
             resJson = new JSONObject(resStr);
             String userId = resJson.getString("userId");
             params.put("userId", userId);
-            UserInfoUtil.me = new UserDTO(userId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
