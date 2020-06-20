@@ -23,6 +23,7 @@ import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.MessageDateFormatter;
@@ -184,7 +185,7 @@ public class MessageDetailActivity extends AppCompatActivity {
         }
 
         // cache chat history
-//        ChatHistoryCacheUtil.cache(String.valueOf(receiver.id), msgs);
+        ChatHistoryCacheUtil.cache(String.valueOf(receiver.id), msgs);
 
         ArrayList<MessageDTO> receivedMsgs = MessageStoreUtil
                 .getReceivedMsgsFromUser(String.valueOf(receiver.id));

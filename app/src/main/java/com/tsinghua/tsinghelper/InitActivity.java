@@ -1,7 +1,6 @@
 package com.tsinghua.tsinghelper;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -18,8 +17,6 @@ import com.tsinghua.tsinghelper.util.UserInfoUtil;
 public class InitActivity extends AppCompatActivity {
 
     private final String USER_INFO_FILENAME = "userinfo";
-
-    private SharedPreferences mSharedPreference;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
