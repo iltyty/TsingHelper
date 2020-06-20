@@ -22,6 +22,7 @@ import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.MessageInfoUtil;
+import com.tsinghua.tsinghelper.util.MessageStoreUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +50,6 @@ public class MessagesFragment extends Fragment {
     DialogsList mDialogsList;
 
     private DialogsListAdapter<DialogDTO> mAdapter;
-    private HashMap<String, ArrayList<MessageDTO>> myMsgs = new HashMap<>();
 
     @Nullable
     @Override
@@ -107,17 +107,13 @@ public class MessagesFragment extends Fragment {
             int msgsLen = sentMsgs.length();
             ArrayList<MessageDTO> msgs = new ArrayList<>();
             for (int j = 0; j < msgsLen; j++) {
-                MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(j), senderId, senderName);
+                MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender);
                 msgs.add(msg);
             }
-            Comparator<MessageDTO> comparator = new Comparator<MessageDTO>() {
-                @Override
-                public int compare(MessageDTO msg1, MessageDTO msg2) {
-                    return msg1.getTimestamp().compareTo(msg2.getTimestamp());
-                }
-            };
+            Comparator<MessageDTO> comparator = (msg1, msg2) ->
+                    msg1.getTimestamp().compareTo(msg2.getTimestamp());
             Collections.sort(msgs, comparator);
-            myMsgs.put(senderId, msgs);
+            MessageStoreUtil.putReceivedMsgs(senderId, msgs);
             MessageDTO lastMsg = msgs.get(msgs.size() - 1);
             mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, lastMsg));
         }
@@ -134,14 +130,9 @@ public class MessagesFragment extends Fragment {
                         Glide.with(requireActivity()).load(url).into(imageView));
         mAdapter.setOnDialogClickListener(dialog -> {
             Intent it = new Intent(requireActivity(), MessageDetailActivity.class);
+            it.putExtra("sender", String.valueOf(dialog.getId()));
+            it.putExtra("username", dialog.getDialogName());
             startActivity(it);
         });
     }
-
-//    private void initDialogs() {
-//        for (int i = 0; i < 10; i++) {
-//            String str = String.valueOf(i);
-//            mAdapter.addItem(new DialogDTO(str, "对话框" + str));
-//        }
-//    }
 }

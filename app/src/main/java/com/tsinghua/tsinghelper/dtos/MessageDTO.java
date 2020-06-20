@@ -34,9 +34,9 @@ public class MessageDTO implements IMessage,
         this.sender = new UserDTO(id, "用户" + id);
     }
 
-    public MessageDTO(JSONObject message, String senderId, String senderName) {
+    public MessageDTO(JSONObject message, UserDTO user) {
         this(message);
-        this.sender = new UserDTO(senderId, senderName);
+        this.sender = user;
     }
 
     public String getContent() {

@@ -29,6 +29,7 @@ public class HttpUtil {
     private static final String CHAT_PREFIX = SERVER_URL + "chat/";
 
     public static final String CHAT_MSG_GET = CHAT_PREFIX + "message/";
+    public static final String CHAT_MSG_SENT = CHAT_PREFIX + "sent/";
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
