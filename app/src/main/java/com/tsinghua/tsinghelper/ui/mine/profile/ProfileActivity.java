@@ -98,12 +98,12 @@ public class ProfileActivity extends AppCompatActivity {
         String userId;
         if (isMe) {
             userId = String.valueOf(UserInfoUtil.me.id);
+            getImages(userId);
         } else {
             userId = getIntent().getStringExtra("userId");
+            getImages(userId);
+            getUserInfo(userId);
         }
-
-        getImages(userId);
-        getUserInfo(userId);
     }
 
     private void getImages(String userId) {
@@ -193,15 +193,10 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
-                        if (isMe) {
-                            ProfileActivity.this.runOnUiThread(() ->
-                                    mSignature.setText(UserInfoUtil.me.signature));
-                        } else {
-                            ProfileActivity.this.runOnUiThread(() -> {
-                                mUsername.setText(UserInfoUtil.me.username);
-                                mSignature.setText(UserInfoUtil.me.signature);
-                            });
-                        }
+                        ProfileActivity.this.runOnUiThread(() -> {
+                            mUsername.setText(resJson.optString(UserInfoUtil.USERNAME, ""));
+                            mSignature.setText(resJson.optString(UserInfoUtil.SIGNATURE, ""));
+                        });
                     } catch (JSONException e) {
                         Log.e("error", e.toString());
                         e.printStackTrace();
