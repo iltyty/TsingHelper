@@ -101,11 +101,11 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONObject json = new JSONObject(resStr);
                                 String token = json.getString("token");
-                                params.put("auth", token);
+                                UserInfoUtil.putPref("auth", token);
                             } catch (JSONException ignored) {
                             }
                             params.remove("password");
-                            saveUserInfo(resStr, params);
+                            saveUserInfo(resStr);
                         }
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(it);
@@ -173,11 +173,21 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserInfo(String resStr, HashMap<String, String> params) {
+    private void saveUserInfo(String resStr) {
         JSONObject resJson;
         try {
             resJson = new JSONObject(resStr);
             UserInfoUtil.me = new UserDTO(resJson);
+            UserInfoUtil.putPref("loggedIn", "true");
+            UserInfoUtil.putPref(UserInfoUtil.ID, String.valueOf(UserInfoUtil.me.id));
+            UserInfoUtil.putPref(UserInfoUtil.USERNAME, UserInfoUtil.me.username);
+            UserInfoUtil.putPref(UserInfoUtil.PHONE, UserInfoUtil.me.phone);
+            UserInfoUtil.putPref(UserInfoUtil.REALNAME, UserInfoUtil.me.realname);
+            UserInfoUtil.putPref(UserInfoUtil.DEPARTMENT, UserInfoUtil.me.department);
+            UserInfoUtil.putPref(UserInfoUtil.GRADE, UserInfoUtil.me.grade);
+            UserInfoUtil.putPref(UserInfoUtil.DORMITORY, UserInfoUtil.me.dormitory);
+            UserInfoUtil.putPref(UserInfoUtil.WECHAT, UserInfoUtil.me.wechat);
+            UserInfoUtil.putPref(UserInfoUtil.EMAIL, UserInfoUtil.me.email);
         } catch (JSONException e) {
             e.printStackTrace();
         }

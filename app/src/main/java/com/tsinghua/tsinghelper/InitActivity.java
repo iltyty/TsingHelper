@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.login.LoginActivity;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
@@ -29,6 +30,7 @@ public class InitActivity extends AppCompatActivity {
 
         if (UserInfoUtil.isLoggedIn()) {
             // redirect to the main page of the app
+            genMe();
             Intent it = new Intent(this, MainActivity.class);
             startActivity(it);
         } else {
@@ -37,6 +39,20 @@ public class InitActivity extends AppCompatActivity {
             startActivity(it);
         }
         finish();
+    }
+
+    private void genMe() {
+        UserInfoUtil.me = new UserDTO();
+        UserInfoUtil.me.email = UserInfoUtil.getPref(UserInfoUtil.EMAIL, "");
+        UserInfoUtil.me.grade = UserInfoUtil.getPref(UserInfoUtil.GRADE, "");
+        UserInfoUtil.me.phone = UserInfoUtil.getPref(UserInfoUtil.PHONE, "");
+        UserInfoUtil.me.wechat = UserInfoUtil.getPref(UserInfoUtil.WECHAT, "");
+        UserInfoUtil.me.realname = UserInfoUtil.getPref(UserInfoUtil.REALNAME, "");
+        UserInfoUtil.me.username = UserInfoUtil.getPref(UserInfoUtil.USERNAME, "");
+        UserInfoUtil.me.dormitory = UserInfoUtil.getPref(UserInfoUtil.DORMITORY, "");
+        UserInfoUtil.me.signature = UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, "");
+        UserInfoUtil.me.department = UserInfoUtil.getPref(UserInfoUtil.DEPARTMENT, "");
+        UserInfoUtil.me.id = Integer.parseInt(UserInfoUtil.getPref(UserInfoUtil.ID, "0"));
     }
 
 }
