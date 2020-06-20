@@ -1,7 +1,6 @@
 package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +43,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     private int AVATAR_REQUEST_CODE = 1;
     private int BG_REQUEST_CODE = 2;
-    private int FIELD_MODIFY_CODE = 3;
 
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
@@ -78,19 +76,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
         setClickListeners();
     }
 
-    private void initViews() {
-        SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
-        mUsername.setValue(sp.getString(UserInfoUtil.USERNAME, ""));
-        mSignature.setValue(sp.getString(UserInfoUtil.SIGNATURE, "未填写"));
-        mPhone.setValue(sp.getString(UserInfoUtil.PHONE, ""));
-        mRealname.setValue(sp.getString(UserInfoUtil.REALNAME, ""));
-        mDepartment.setValue(sp.getString(UserInfoUtil.DEPARTMENT, ""));
-        mGrade.setValue(sp.getString(UserInfoUtil.GRADE, ""));
-        mDormitory.setValue(sp.getString(UserInfoUtil.DORMITORY, ""));
-        mWechat.setValue(sp.getString(UserInfoUtil.WECHAT, ""));
-        mEmail.setValue(sp.getString(UserInfoUtil.EMAIL, ""));
-    }
-
     private void setClickListeners() {
         mUsername.setOnClickListener(this);
         mSignature.setOnClickListener(this);
@@ -107,12 +92,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     public void onStart() {
         super.onStart();
         initViews();
-        String userId = UserInfoUtil
-                .getUserInfoSharedPreferences()
-                .getString("userId", "");
-
-        getImages(userId);
-        getUserInfo(userId);
+        getImages(String.valueOf(UserInfoUtil.me.id));
     }
 
     private void getImages(String userId) {
@@ -145,24 +125,17 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 });
     }
 
-    public void getUserInfo(String userId) {
-        String signature = UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, "未填写");
-        String phone = UserInfoUtil.getPref(UserInfoUtil.PHONE, "");
-        String realname = UserInfoUtil.getPref(UserInfoUtil.REALNAME, "");
-        String department = UserInfoUtil.getPref(UserInfoUtil.DEPARTMENT, "");
-        String grade = UserInfoUtil.getPref(UserInfoUtil.GRADE, "");
-        String dormitory = UserInfoUtil.getPref(UserInfoUtil.DORMITORY, "");
-        String wechat = UserInfoUtil.getPref(UserInfoUtil.WECHAT, "");
-        String email = UserInfoUtil.getPref(UserInfoUtil.EMAIL, "");
-
-        mPhone.setValue(phone);
-        mRealname.setValue(realname);
-        mDepartment.setValue(department);
-        mGrade.setValue(grade);
-        mDormitory.setValue(dormitory);
-        mWechat.setValue(wechat);
-        mEmail.setValue(email);
-        mSignature.setValue(signature.isEmpty() ? "未填写" : signature);
+    public void initViews() {
+        mUsername.setValue(UserInfoUtil.me.username);
+        mPhone.setValue(UserInfoUtil.me.phone);
+        mRealname.setValue(UserInfoUtil.me.realname);
+        mDepartment.setValue(UserInfoUtil.me.department);
+        mGrade.setValue(UserInfoUtil.me.grade);
+        mDormitory.setValue(UserInfoUtil.me.dormitory);
+        mWechat.setValue(UserInfoUtil.me.wechat);
+        mEmail.setValue(UserInfoUtil.me.email);
+        mSignature.setValue(UserInfoUtil.me.signature.isEmpty() ?
+                "未填写" : UserInfoUtil.me.signature);
     }
 
     public void showGallery(View view) {
@@ -200,12 +173,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
-        if (resultCode == RESULT_OK && requestCode == FIELD_MODIFY_CODE) {
-            String fieldName = data.getStringExtra("fieldName");
-            String fieldValue = data.getStringExtra(fieldName);
-            UserInfoUtil.putPref(fieldName, fieldValue);
-            initViews();
-        }
         if (resultCode == RESULT_OK &&
                 (requestCode == AVATAR_REQUEST_CODE || requestCode == BG_REQUEST_CODE)) {
             images = PictureSelector.obtainMultipleResult(data);
@@ -302,7 +269,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 it.putExtra("fieldMaxLen", UserInfoUtil.EMAIL_MAX_LEN);
                 break;
         }
-        startActivityForResult(it, FIELD_MODIFY_CODE);
+        startActivity(it);
     }
 
     public void back(View view) {
