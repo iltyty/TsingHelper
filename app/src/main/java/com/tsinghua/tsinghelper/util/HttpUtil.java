@@ -12,21 +12,19 @@ import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class HttpUtil {
+public class HttpUtil extends NetworkUtil {
 
-    private static final String SERVER_URL = "http://192.168.1.105:3000/";
 //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
 
     //    private static final String SERVER_URL = "http://47.94.16.255:3000/";
-    private static final String USER_PREFIX = SERVER_URL + "users/";
-    private static final String TASK_PREFIX = SERVER_URL + "tasks/";
-    private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
-    private static final String CHAT_PREFIX = SERVER_URL + "chat/";
+    private static final String USER_PREFIX = SERVER_HTTP_URL + "users/";
+    private static final String TASK_PREFIX = SERVER_HTTP_URL + "tasks/";
+    private static final String PROFILE_PREFIX = SERVER_HTTP_URL + "profile/";
+    private static final String CHAT_PREFIX = SERVER_HTTP_URL + "chat/";
 
     public static final String CHAT_MSG_GET = CHAT_PREFIX + "message/";
     public static final String CHAT_MSG_SENT = CHAT_PREFIX + "sent/";
@@ -49,8 +47,6 @@ public class HttpUtil {
 
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";
     public static final String BACKGROUND_UPLOAD = PROFILE_PREFIX + "background/";
-
-    private static final OkHttpClient mClient = new OkHttpClient();
 
     // Initiate an asynchronous get request
     public static void get(String url, HashMap<String, String> params, Callback callback) {
