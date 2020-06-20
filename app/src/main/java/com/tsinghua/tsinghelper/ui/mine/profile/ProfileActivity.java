@@ -63,6 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
     Button mBtnSendMsg;
 
     private boolean isMe;
+    private String uid;
+    private String uname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,9 +195,12 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
+                        uid = resJson.optString(UserInfoUtil.ID, "");
+                        uname = resJson.optString(UserInfoUtil.USERNAME, "");
+                        String signature = resJson.optString(UserInfoUtil.SIGNATURE, "");
                         ProfileActivity.this.runOnUiThread(() -> {
-                            mUsername.setText(resJson.optString(UserInfoUtil.USERNAME, ""));
-                            mSignature.setText(resJson.optString(UserInfoUtil.SIGNATURE, ""));
+                            mUsername.setText(uname);
+                            mSignature.setText(signature);
                         });
                     } catch (JSONException e) {
                         Log.e("error", e.toString());
@@ -212,8 +217,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void sendMessage(View view) {
         Intent it = new Intent(this, MessageDetailActivity.class);
-        it.putExtra("sender", String.valueOf(UserInfoUtil.me.id));
-        it.putExtra("username", UserInfoUtil.me.username);
+        it.putExtra("sender", uid);
+        it.putExtra("username", uname);
         startActivity(it);
     }
 
