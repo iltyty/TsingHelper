@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -87,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         HttpUtil.post(HttpUtil.USER_LOGIN, params, new Callback() {
-            Intent it = new Intent(LoginActivity.this, MainActivity.class);
             @Override
             public void onResponse(
                     @NotNull Call call, @NotNull Response response) throws IOException {
@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                                 params.put("auth", token);
                             } catch (JSONException ignored) {
                             }
-                            System.out.println("params" + params);
                             params.remove("password");
                             saveUserInfo(resStr, params);
                         }
@@ -178,7 +177,9 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject resJson;
         try {
             resJson = new JSONObject(resStr);
-            params.put("userId", resJson.getString("userId"));
+            String userId = resJson.getString("userId");
+            params.put("userId", userId);
+            UserInfoUtil.me = new UserDTO(userId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

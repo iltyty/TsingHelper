@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class UserInfoUtil {
 
-    private static UserDTO me;
+    public static UserDTO me;
 
     public static final int USERNAME_MAX_LEN = 20;
     public static final int SIGNATURE_MAX_LEN = 40;
