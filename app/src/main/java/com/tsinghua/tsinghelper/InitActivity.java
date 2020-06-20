@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.ui.login.LoginActivity;
-import com.tsinghua.tsinghelper.util.LoginUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 // This activity is the main activity of the app.
@@ -28,7 +27,7 @@ public class InitActivity extends AppCompatActivity {
 
         UserInfoUtil.setSharedPreferences(getSharedPreferences(USER_INFO_FILENAME, MODE_PRIVATE));
 
-        if (LoginUtil.isLoggedIn(this)) {
+        if (UserInfoUtil.isLoggedIn()) {
             // redirect to the main page of the app
             Intent it = new Intent(this, MainActivity.class);
             startActivity(it);

@@ -2,9 +2,13 @@ package com.tsinghua.tsinghelper.util;
 
 import android.content.SharedPreferences;
 
+import com.tsinghua.tsinghelper.dtos.UserDTO;
+
 import java.util.HashMap;
 
 public class UserInfoUtil {
+
+    private static UserDTO me;
 
     public static final int USERNAME_MAX_LEN = 20;
     public static final int SIGNATURE_MAX_LEN = 40;
@@ -79,5 +83,9 @@ public class UserInfoUtil {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public static boolean isLoggedIn() {
+        return !UserInfoUtil.getPref("userId", "").isEmpty();
     }
 }
