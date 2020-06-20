@@ -56,7 +56,6 @@ public class TaskSearchActivity extends AppCompatActivity {
     }
 
     public void initRecyclerView() {
-        // TODO: 2020/6/20 get search result from backend
         queryParams = new HashMap<>();
         queryParams.put("searchType", "TASK");
 
