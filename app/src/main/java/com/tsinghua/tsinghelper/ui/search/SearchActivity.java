@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        Intent it = getIntent();
 
         // 设置搜索文本监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -39,6 +41,8 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 
     public void cancel(View view) {

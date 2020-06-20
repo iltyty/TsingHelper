@@ -1,6 +1,7 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.ui.search.SearchActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
@@ -26,7 +28,8 @@ public class TaskFragment extends Fragment {
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-
+    @BindView(R.id.view)
+    View mView;
     @BindView(R.id.pager_tasks)
     ViewPager mViewPager;
 
@@ -41,6 +44,7 @@ public class TaskFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_task, container, false);
         ButterKnife.bind(this, root);
         initTabs();
+        initSearchView();
         return root;
     }
 
@@ -104,5 +108,16 @@ public class TaskFragment extends Fragment {
         public Fragment getItem(int position) {
             return mFragments.get(position);
         }
+    }
+
+    public void initSearchView() {
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), SearchActivity.class);
+                it.putExtra("searchType", "TASK");
+                startActivityForResult(it, 1);
+            }
+        });
     }
 }

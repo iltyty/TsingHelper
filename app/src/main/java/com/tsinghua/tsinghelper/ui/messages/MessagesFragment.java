@@ -17,6 +17,7 @@ import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
+import com.tsinghua.tsinghelper.ui.search.SearchActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public class MessagesFragment extends Fragment {
     Spinner spinner;
     @BindView(R.id.dialog_list)
     DialogsList mDialogsList;
+    @BindView(R.id.view)
+    View mView;
 
     private DialogsListAdapter<DialogDTO> mAdapter;
 
@@ -40,6 +43,7 @@ public class MessagesFragment extends Fragment {
         initSpinner();
         initAdapter();
         initDialogs();
+        initSearchView();
 
         mDialogsList.setAdapter(mAdapter);
 
@@ -66,5 +70,16 @@ public class MessagesFragment extends Fragment {
             String str = String.valueOf(i);
             mAdapter.addItem(new DialogDTO(str, "对话框" + str));
         }
+    }
+
+    public void initSearchView() {
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), SearchActivity.class);
+                it.putExtra("searchType", "MESSAGE");
+                startActivityForResult(it, 1);
+            }
+        });
     }
 }
