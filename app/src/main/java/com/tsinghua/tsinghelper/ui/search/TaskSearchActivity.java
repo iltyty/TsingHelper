@@ -60,7 +60,6 @@ public class TaskSearchActivity extends AppCompatActivity {
         queryParams = new HashMap<>();
         queryParams.put("searchType", "TASK");
 
-        mAdapter.getTasks(queryParams, HttpUtil.TASK_GET_OTHERS);
 
         mAdapter = new TaskAdapter(mRecyclerView.getContext());
         mLayoutManager = new LinearLayoutManager(mRecyclerView.getContext(),
@@ -71,6 +70,8 @@ public class TaskSearchActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
+
+        mAdapter.getTasks(queryParams, HttpUtil.TASK_GET_OTHERS);
     }
 
     public void cancel(View view) {
