@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
 import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.components.IconTextItem;
+import com.tsinghua.tsinghelper.ui.search.SearchActivity;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.HashMap;
@@ -35,6 +37,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     IconTextItem mStudyItem;
     @BindView(R.id.questionnaire)
     IconTextItem mQuestItem;
+    @BindView(R.id.search_view)
+    SearchView mSearchView;
+    @BindView(R.id.view)
+    View mView;
 
     private TaskAdapter mAdapter;
     private static final String TASK_NUMBER_LIMIT = "20";
@@ -48,6 +54,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         setClickListeners();
         initRecyclerView();
+        initSearchView();
 
         return root;
     }
@@ -101,5 +108,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Intent it = new Intent(getActivity(), TasksTypeActivity.class);
         it.putExtra("pos", pos);
         startActivity(it);
+    }
+
+    public void initSearchView() {
+        //搜索图标按钮(打开搜索框的按钮)的点击事件
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), SearchActivity.class);
+                it.putExtra("searchType", "TASK");
+                startActivityForResult(it, 1);
+            }
+        });
     }
 }
