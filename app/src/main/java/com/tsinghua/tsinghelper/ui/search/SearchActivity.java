@@ -32,6 +32,15 @@ public class SearchActivity extends AppCompatActivity {
             // 当点击搜索按钮时触发该方法
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if(it.getStringExtra("searchType").equals("TASK")) {
+                    Intent intent = new Intent(SearchActivity.this, TaskSearchActivity.class);
+                    intent.putExtra("queryText", query);
+                    startActivity(intent);
+                } else if(it.getStringExtra("searchType").equals("MESSAGE")) {
+                    Intent intent = new Intent(SearchActivity.this, MessageSearchActivity.class);
+                    intent.putExtra("queryText", query);
+                    startActivity(intent);
+                }
                 return false;
             }
 
@@ -41,8 +50,6 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
 
     public void cancel(View view) {
