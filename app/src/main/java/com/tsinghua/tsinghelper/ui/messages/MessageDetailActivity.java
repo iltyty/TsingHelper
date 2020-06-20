@@ -132,7 +132,7 @@ public class MessageDetailActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        String id = UserInfoUtil.getPref("userId", "");
+        String id = String.valueOf(UserInfoUtil.me.id);
         ImageLoader imageLoader = (imageView, url, payload) ->
                 Glide.with(MessageDetailActivity.this)
                         .load(url).into(imageView);
@@ -182,6 +182,10 @@ public class MessageDetailActivity extends AppCompatActivity {
             MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), UserInfoUtil.me, receiver);
             msgs.add(msg);
         }
+
+        // cache chat history
+//        ChatHistoryCacheUtil.cache(String.valueOf(receiver.id), msgs);
+
         ArrayList<MessageDTO> receivedMsgs = MessageStoreUtil
                 .getReceivedMsgsFromUser(String.valueOf(receiver.id));
         if (receivedMsgs != null) {

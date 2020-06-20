@@ -162,7 +162,7 @@ public class TaskAdapter extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             TaskDTO task = mTasks.get(getAdapterPosition());
-            String id = UserInfoUtil.getPref("userId", "-1");
+            String id = String.valueOf(UserInfoUtil.me.id);
             if (id.equals(String.valueOf(task.publisherId))) {
                 Intent it = new Intent(mContext, TaskReviewActivity.class);
                 it.putExtra("id", task.id);

@@ -92,11 +92,12 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     public void onStart() {
         super.onStart();
         initViews();
-        getImages(String.valueOf(UserInfoUtil.me.id));
+        getImages();
     }
 
-    private void getImages(String userId) {
+    private void getImages() {
         ArrayList<String> urls = new ArrayList<>();
+        String userId = String.valueOf(UserInfoUtil.me.id);
         urls.add(HttpUtil.getUserAvatarUrlById(userId));
         urls.add(HttpUtil.getUserBgUrlById(userId));
 

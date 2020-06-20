@@ -1,7 +1,6 @@
 package com.tsinghua.tsinghelper.ui.mine;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,16 +71,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.published_doing)
     IconTextItem mPublishedDoing;
 
-    private SharedPreferences mSharedPreferences;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, root);
-
-        mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
 
         setClickListeners();
 
@@ -110,7 +105,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.relative_layout_to_profile:
                 Intent itInfo = new Intent(getActivity(), ProfileActivity.class);
-                itInfo.putExtra("userId", UserInfoUtil.getPref("userId", ""));
+                itInfo.putExtra("userId", String.valueOf(UserInfoUtil.me.id));
                 startActivity(itInfo);
                 break;
             case R.id.relative_layout_to_published:
@@ -147,14 +142,14 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setUserInfo() {
-        mUsername.setText(mSharedPreferences.getString("username", ""));
+        mUsername.setText(UserInfoUtil.me.username);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         setUserInfo();
-        String userId = UserInfoUtil.getPref("userId", "");
+        String userId = String.valueOf(UserInfoUtil.me.id);
         String url = HttpUtil.getUserAvatarUrlById(userId);
         Glide.with(requireContext())
                 .load(url)

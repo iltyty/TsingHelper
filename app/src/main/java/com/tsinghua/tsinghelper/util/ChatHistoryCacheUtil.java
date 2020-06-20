@@ -65,7 +65,7 @@ public class ChatHistoryCacheUtil {
     }
 
     private String getCurrentUserId() {
-        return UserInfoUtil.getPref("userId", "");
+        return String.valueOf(UserInfoUtil.me.id);
     }
 
     private JSONArray msgsToJSON(ArrayList<MessageDTO> msgs) throws JSONException {

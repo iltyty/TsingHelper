@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -115,12 +116,10 @@ public class PswForgetActivity extends AppCompatActivity {
         JSONObject resJson;
         try {
             resJson = new JSONObject(resStr);
-            params.put("userId", resJson.getString("userId"));
-            params.put("username", resJson.getString("username"));
+            UserInfoUtil.me = new UserDTO(resJson);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        UserInfoUtil.putPrefs(params);
     }
 
     public void back(View view) {

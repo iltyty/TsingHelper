@@ -179,10 +179,12 @@ public class TaskDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
-                ResponseBody resBody = response.body();
-                assert resBody != null;
-                String resStr = resBody.string();
-                TaskDetailActivity.this.runOnUiThread(() -> setTaskInfo(resStr));
+                if (response.code() == 200) {
+                    ResponseBody resBody = response.body();
+                    assert resBody != null;
+                    String resStr = resBody.string();
+                    TaskDetailActivity.this.runOnUiThread(() -> setTaskInfo(resStr));
+                }
             }
         });
     }
@@ -192,7 +194,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             JSONObject resJson = new JSONObject(resStr);
             JSONObject taskInfo = resJson.getJSONObject("task");
             TaskDTO taskDTO = new TaskDTO(taskInfo);
-            String userId = UserInfoUtil.getPref("userId", "-1");
+            String userId = String.valueOf(UserInfoUtil.me.id);
 
             for (UserDTO user : taskDTO.doingUsers) {
                 if (userId.equals(String.valueOf(user.id))) {

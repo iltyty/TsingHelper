@@ -86,6 +86,6 @@ public class UserInfoUtil {
     }
 
     public static boolean isLoggedIn() {
-        return !UserInfoUtil.getPref("userId", "").isEmpty();
+        return UserInfoUtil.me != null;
     }
 }

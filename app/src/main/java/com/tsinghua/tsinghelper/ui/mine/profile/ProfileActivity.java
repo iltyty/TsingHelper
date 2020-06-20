@@ -1,7 +1,6 @@
 package com.tsinghua.tsinghelper.ui.mine.profile;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
-import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.messages.MessageDetailActivity;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -77,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent it = getIntent();
         String userId = it.getStringExtra("userId");
         assert userId != null;
-        isMe = userId.equals(UserInfoUtil.getPref("userId", ""));
+        isMe = userId.equals(String.valueOf(UserInfoUtil.me.id));
 
         if (isMe) {
             setContentView(R.layout.activity_profile_me);
@@ -88,11 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initViews() {
         if (isMe) {
-            SharedPreferences sp = UserInfoUtil.getUserInfoSharedPreferences();
-            mUsername.setText(sp.getString("username", ""));
-            mSignature.setText(sp.getString("signature", ""));
-        } else {
-
+            mUsername.setText(UserInfoUtil.me.username);
+            mSignature.setText(UserInfoUtil.me.signature);
         }
     }
 
@@ -102,9 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         initViews();
         String userId;
         if (isMe) {
-            userId = UserInfoUtil
-                    .getUserInfoSharedPreferences()
-                    .getString("userId", "");
+            userId = String.valueOf(UserInfoUtil.me.id);
         } else {
             userId = getIntent().getStringExtra("userId");
         }
@@ -200,9 +193,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
-                        UserInfoUtil.me = new UserDTO(resJson);
                         if (isMe) {
-                            UserInfoUtil.putPref("signature", UserInfoUtil.me.signature);
                             ProfileActivity.this.runOnUiThread(() ->
                                     mSignature.setText(UserInfoUtil.me.signature));
                         } else {
