@@ -19,10 +19,10 @@ import okhttp3.Response;
 
 public class HttpUtil {
 
-    private static final String SERVER_URL = "http://192.168.1.105:3000/";
+//    private static final String SERVER_URL = "http://192.168.1.105:3000/";
 //    private static final String SERVER_URL = "http://123.56.51.235:3000/";
 
-    //    private static final String SERVER_URL = "http://47.94.16.255:3000/";
+    private static final String SERVER_URL = "http://47.94.16.255:3000/";
     private static final String USER_PREFIX = SERVER_URL + "users/";
     private static final String TASK_PREFIX = SERVER_URL + "tasks/";
     private static final String PROFILE_PREFIX = SERVER_URL + "profile/";
