@@ -66,7 +66,7 @@ public class MessagesFragment extends Fragment {
 
         initSpinner();
         initAdapter();
-        readHistoryMsgs();
+//        readHistoryMsgs();
         getMsgsFromServer();
         initWebSocket();
 
@@ -75,19 +75,23 @@ public class MessagesFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void setDialogs() {
         ArrayList<DialogDTO> dialogs = new ArrayList<>();
         for (String otherId : MessageStoreUtil.getMyMsgs().keySet()) {
             UserDTO other = MessageStoreUtil.getUserById(otherId);
             ArrayList<MessageDTO> msgs = MessageStoreUtil.getMsgsWithUser(otherId);
             if (msgs.size() > 0) {
                 dialogs.add(new DialogDTO(otherId, other.username,
-                        other.avatar, msgs.get(msgs.size() - 1)));
+                        other.avatar, msgs.get(0)));
             }
         }
         requireActivity().runOnUiThread(() -> mAdapter.setItems(dialogs));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setDialogs();
     }
 
     private void initWebSocket() {
@@ -164,7 +168,7 @@ public class MessagesFragment extends Fragment {
                             String.valueOf(System.currentTimeMillis()));
                     String resStr = response.body().string();
                     try {
-                        JSONArray resJson = new JSONArray(resStr);
+                        JSONObject resJson = new JSONObject(resStr);
                         UserInfoUtil.putPref(MessageInfoUtil.SINCE,
                                 String.valueOf(System.currentTimeMillis()));
                         initDialogs(resJson);
@@ -176,39 +180,49 @@ public class MessagesFragment extends Fragment {
         });
     }
 
-    private void initDialogs(JSONArray resJson) throws JSONException {
-        int length = resJson.length();
-        for (int i = 0; i < length; i++) {
-            JSONObject dialogJson = resJson.getJSONObject(i);
-            String senderId = dialogJson.getString("id");
-            String senderAvatar = HttpUtil.getUserAvatarUrlById(senderId);
-            String senderName = dialogJson.getString("username");
-            JSONArray sentMsgs = dialogJson.getJSONArray("sent_msgs");
-
-            UserDTO sender;
-            if (MessageStoreUtil.hasUser(senderId)) {
-                sender = MessageStoreUtil.getUserById(senderId);
-            } else {
-                sender = new UserDTO(senderId, senderName);
-                MessageStoreUtil.putNewUser(sender);
-            }
-
-            int msgsLen = sentMsgs.length();
-            ArrayList<MessageDTO> msgs = new ArrayList<>();
-            for (int j = 0; j < msgsLen; j++) {
-                MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), sender, UserInfoUtil.me);
-                msgs.add(msg);
-            }
-            MessageStoreUtil.putMsgs(senderId, msgs);
-
-            Comparator<MessageDTO> comparator = (msg1, msg2) ->
-                    msg1.getTimestamp().compareTo(msg2.getTimestamp());
-
-            ArrayList<MessageDTO> msgsWithUser = MessageStoreUtil.getMsgsWithUser(senderId);
-            Collections.sort(msgsWithUser, comparator);
-            MessageDTO lastMsg = msgsWithUser.get(msgsWithUser.size() - 1);
-        }
+    private void initDialogs(JSONObject resJson) throws JSONException {
+        JSONArray mySent = resJson.getJSONArray("sent");
+        JSONArray myReceived = resJson.getJSONArray("received");
+        parseMsgs(mySent, true);
+        parseMsgs(myReceived, false);
+        setDialogs();
         ChatHistoryCacheUtil.cacheAll(MessageStoreUtil.getMyMsgs());
+    }
+
+    private void parseMsgs(JSONArray array, boolean iAmSender) throws JSONException {
+        int length = array.length();
+        for (int i = 0; i < length; i++) {
+            JSONObject other = array.getJSONObject(i);
+            String otherId = other.getString("id");
+            String otherName = other.getString("username");
+            String fieldName = iAmSender ? "received_msgs" : "sent_msgs";
+            JSONArray msgs = other.getJSONArray(fieldName);
+
+            UserDTO otherUser;
+            if (MessageStoreUtil.hasUser(otherId)) {
+                otherUser = MessageStoreUtil.getUserById(otherId);
+            } else {
+                otherUser = new UserDTO(otherId, otherName);
+                MessageStoreUtil.putNewUser(otherUser);
+            }
+
+            int msgsLen = msgs.length();
+            ArrayList<MessageDTO> res = new ArrayList<>();
+            for (int j = 0; j < msgsLen; j++) {
+                MessageDTO msg;
+                if (iAmSender) {
+                    msg = new MessageDTO(msgs.getJSONObject(j), UserInfoUtil.me, otherUser);
+                } else {
+                    msg = new MessageDTO(msgs.getJSONObject(j), otherUser, UserInfoUtil.me);
+                }
+                res.add(msg);
+            }
+            MessageStoreUtil.addMsgs(otherId, res);
+            Comparator<MessageDTO> comparator = (msg1, msg2) ->
+                    msg2.getTimestamp().compareTo(msg1.getTimestamp());
+            ArrayList<MessageDTO> msgsWithUser = MessageStoreUtil.getMsgsWithUser(otherId);
+            Collections.sort(msgsWithUser, comparator);
+        }
     }
 
     private void initSpinner() {

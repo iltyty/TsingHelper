@@ -223,7 +223,11 @@ public class TaskReviewActivity extends AppCompatActivity {
                     throws IOException {
                 if (response.code() == 201) {
                     ToastUtil.showToastOnUIThread(TaskReviewActivity.this, "审核成功");
-                    doingUsers.remove(user);
+                    for (UserDTO u : doingUsers) {
+                        if (u.id == user.id) {
+                            doingUsers.remove(u);
+                        }
+                    }
                     if (passed) {
                         rewardedUsers.add(user);
                         TaskReviewActivity.this.runOnUiThread(() -> {

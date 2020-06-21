@@ -86,7 +86,31 @@ public class MessageStoreUtil {
         if (!hasUser(otherId)) {
             instance.users.add(new UserDTO(otherId));
         }
-        getInstance().myMsgs.put(otherId, msgs);
+        if (instance.myMsgs.get(otherId) == null) {
+            getInstance().myMsgs.put(otherId, msgs);
+        } else {
+            instance.myMsgs.get(otherId).addAll(msgs);
+        }
     }
 
+    public static void addMsgs(String otherId, ArrayList<MessageDTO> msgs) {
+        ArrayList<MessageDTO> currentMsgs = getInstance().myMsgs.get(otherId);
+        for (MessageDTO msg : msgs) {
+            if (!contains(currentMsgs, msg)) {
+                currentMsgs.add(msg);
+            }
+        }
+    }
+
+    private static boolean contains(ArrayList<MessageDTO> msgs, MessageDTO msg) {
+        if (msgs == null) {
+            return false;
+        }
+        for (MessageDTO m : msgs) {
+            if (m.getId().equals(msg.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
