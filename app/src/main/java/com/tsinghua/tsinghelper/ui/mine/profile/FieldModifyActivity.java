@@ -135,6 +135,10 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
             }
         });
 
+        Intent it = new Intent();
+        it.putExtra("fieldName", fieldName);
+        it.putExtra(fieldName, value);
+        setResult(RESULT_OK, it);
         finish();
     }
 

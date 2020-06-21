@@ -43,6 +43,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     private int AVATAR_REQUEST_CODE = 1;
     private int BG_REQUEST_CODE = 2;
+    private final int MODIFY_CODE = 3;
 
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
@@ -53,6 +54,8 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     @BindView(R.id.preference_signature)
     PreferenceItem mSignature;
     @BindView(R.id.preference_phone)
+    PreferenceItem mPhone;
+    @BindView(R.id.preference_realname)
     PreferenceItem mRealname;
     @BindView(R.id.preference_department)
     PreferenceItem mDepartment;
@@ -124,15 +127,16 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     }
 
     public void initViews() {
-        mUsername.setValue(UserInfoUtil.me.username);
-        mRealname.setValue(UserInfoUtil.me.realname);
-        mDepartment.setValue(UserInfoUtil.me.department);
-        mGrade.setValue(UserInfoUtil.me.grade);
-        mDormitory.setValue(UserInfoUtil.me.dormitory);
-        mWechat.setValue(UserInfoUtil.me.wechat);
-        mEmail.setValue(UserInfoUtil.me.email);
-        mSignature.setValue(UserInfoUtil.me.signature.isEmpty() ?
-                "未填写" : UserInfoUtil.me.signature);
+        mUsername.setValue(UserInfoUtil.getPref(UserInfoUtil.USERNAME, ""));
+        mPhone.setValue(UserInfoUtil.getPref(UserInfoUtil.PHONE, ""));
+        mRealname.setValue(UserInfoUtil.getPref(UserInfoUtil.REALNAME, ""));
+        mDepartment.setValue(UserInfoUtil.getPref(UserInfoUtil.DEPARTMENT, ""));
+        mGrade.setValue(UserInfoUtil.getPref(UserInfoUtil.GRADE, ""));
+        mDormitory.setValue(UserInfoUtil.getPref(UserInfoUtil.DORMITORY, ""));
+        mWechat.setValue(UserInfoUtil.getPref(UserInfoUtil.WECHAT, ""));
+        mEmail.setValue(UserInfoUtil.getPref(UserInfoUtil.EMAIL, ""));
+        mSignature.setValue(UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, "").isEmpty() ?
+                "未填写" : UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, ""));
     }
 
     public void showGallery(View view) {
@@ -170,6 +174,12 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
+        if (resultCode == RESULT_OK && requestCode == MODIFY_CODE) {
+            String fieldName = data.getStringExtra("fieldName");
+            String fieldValue = data.getStringExtra(fieldName);
+            UserInfoUtil.putPref(fieldName, fieldValue);
+            initViews();
+        }
         if (resultCode == RESULT_OK &&
                 (requestCode == AVATAR_REQUEST_CODE || requestCode == BG_REQUEST_CODE)) {
             images = PictureSelector.obtainMultipleResult(data);
@@ -261,7 +271,7 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 it.putExtra("fieldMaxLen", UserInfoUtil.EMAIL_MAX_LEN);
                 break;
         }
-        startActivity(it);
+        startActivityForResult(it, MODIFY_CODE);
     }
 
     public void back(View view) {
