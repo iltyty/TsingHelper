@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -108,7 +107,7 @@ public class StudyTaskActivity extends BaseTaskActivity {
         }
 
         int amount = Integer.parseInt(duration);
-        long startTimestamp = new Date().getTime();
+        long startTimestamp = System.currentTimeMillis();
         long endTimestamp = DateTimeUtil.calculateEndTimestamp(
                 startTimestamp, amount, DateTimeUtil.TemporalUnit.DAY);
 

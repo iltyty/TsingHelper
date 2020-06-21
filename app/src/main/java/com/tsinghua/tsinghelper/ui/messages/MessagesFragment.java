@@ -109,6 +109,7 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
                 try {
+                    System.out.println("Received message from server.");
                     boolean existed = false;
                     JSONObject resJson = new JSONObject(text);
                     String time = resJson.getString("time");
@@ -127,11 +128,14 @@ public class MessagesFragment extends Fragment {
                         MessageStoreUtil.putNewUser(sender);
                     }
                     MessageDTO newMsg = new MessageDTO(senderId, content, time, sender, UserInfoUtil.me);
+                    System.out.println("------------------: " + time);
                     MessageStoreUtil.addMsg(senderId, newMsg);
                     if (existed) {
-                        mAdapter.updateDialogWithMessage(senderId, newMsg);
+                        requireActivity().runOnUiThread(() ->
+                                mAdapter.updateDialogWithMessage(senderId, newMsg));
                     } else {
-                        mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, newMsg));
+                        requireActivity().runOnUiThread(() ->
+                                mAdapter.addItem(new DialogDTO(senderId, senderName, senderAvatar, newMsg)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

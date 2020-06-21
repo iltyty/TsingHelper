@@ -26,7 +26,6 @@ import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
-import com.tsinghua.tsinghelper.util.MessageDateFormatter;
 import com.tsinghua.tsinghelper.util.MessageStoreUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -41,7 +40,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -98,7 +96,7 @@ public class MessageDetailActivity extends AppCompatActivity {
 
     private boolean sendMessage(String content) {
         JSONObject msgInfo = new JSONObject();
-        String timestamp = String.valueOf(new Date().getTime());
+        String timestamp = String.valueOf(System.currentTimeMillis());
         try {
             msgInfo.put("time", timestamp);
             msgInfo.put("content", content);
@@ -147,7 +145,7 @@ public class MessageDetailActivity extends AppCompatActivity {
         mh.setIncomingTextLayout(R.layout.item_custom_incoming_msg);
         mh.setOutcomingTextLayout(R.layout.item_custom_outcoming_msg);
         mAdapter = new MessagesListAdapter<>(id, mh, imageLoader);
-        mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
+//        mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
         messagesList.setAdapter(mAdapter);
     }
 

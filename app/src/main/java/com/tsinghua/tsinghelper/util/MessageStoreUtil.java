@@ -74,7 +74,7 @@ public class MessageStoreUtil {
         if (myMsgs == null) {
             instance.myMsgs.put(otherId, new ArrayList<>());
         }
-        instance.myMsgs.get(otherId).add(msg);
+        instance.myMsgs.get(otherId).add(0, msg);
     }
 
     public ArrayList<UserDTO> getUsers() {

@@ -66,14 +66,32 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView mTaskDeadline;
     @BindView(R.id.description)
     TextView mTaskDescription;
-    @BindView(R.id.requirements)
-    TextView mTaskRequirement;
     @BindView(R.id.number_finished)
     TextView mTimesFinished;
     @BindView(R.id.publisher)
     UserItem mPublisher;
     @BindView(R.id.task_take)
     Button mTaskTake;
+    @BindView(R.id.view_demands)
+    TextView mViewDemands;
+    @BindView(R.id.demands)
+    TextView mDemands;
+    @BindView(R.id.view_link)
+    TextView mViewLink;
+    @BindView(R.id.link)
+    TextView mLink;
+    @BindView(R.id.view_subjects)
+    TextView mViewSubjects;
+    @BindView(R.id.subjects)
+    TextView mSubjects;
+    @BindView(R.id.view_site)
+    TextView mViewSite;
+    @BindView(R.id.site)
+    TextView mSite;
+    @BindView(R.id.view_food_num)
+    TextView mViewFoodNum;
+    @BindView(R.id.food_num)
+    TextView mFoodNum;
 
     private int taskId;
     private int publisherId;
@@ -240,12 +258,22 @@ public class TaskDetailActivity extends AppCompatActivity {
                     break;
                 case "meal":
                     mTaskType.setText("代餐跑腿");
+                    mViewSite.setVisibility(View.VISIBLE);
+                    mSite.setText(taskDTO.site);
+                    mViewFoodNum.setVisibility(View.VISIBLE);
+                    mFoodNum.setText(String.valueOf(taskDTO.foodNum));
                     break;
                 case "study":
                     mTaskType.setText("学习解惑");
+                    mViewSubjects.setVisibility(View.VISIBLE);
+                    mSubjects.setText(taskDTO.subjects);
                     break;
                 case "questionnaire":
                     mTaskType.setText("个人问卷");
+                    mViewDemands.setVisibility(View.VISIBLE);
+                    mDemands.setText(taskDTO.demands);
+                    mViewLink.setVisibility(View.VISIBLE);
+                    mLink.setText(taskDTO.link);
                     break;
             }
         } catch (JSONException e) {
