@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,19 +40,19 @@ public class TaskListFragment extends Fragment {
         this.url = url;
     }
 
-    public TaskListFragment(HashMap<String, String> params, String url) {
+    public TaskListFragment(HashMap<String, String> params, String url, Context cxt) {
         this.url = url;
         queryParams = params;
+        mAdapter = new TaskAdapter(cxt);
     }
 
-    public TaskListFragment(ArrayList<TaskDTO> tasks) {
+    public TaskListFragment(ArrayList<TaskDTO> tasks, Context cxt) {
+        mAdapter = new TaskAdapter(cxt);
         mTasks = tasks;
     }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
-        if (mAdapter != null) {
-            mAdapter.setTasks(tasks);
-        }
+        mAdapter.setTasks(tasks);
     }
 
     @Nullable
@@ -75,10 +76,6 @@ public class TaskListFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext());
-        if (mTasks != null) {
-            mAdapter.setTasks(mTasks);
-        }
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
         mDivider = new DividerItemDecrator(

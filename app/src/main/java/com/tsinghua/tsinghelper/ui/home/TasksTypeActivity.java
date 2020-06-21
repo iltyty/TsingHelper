@@ -76,7 +76,7 @@ public class TasksTypeActivity extends AppCompatActivity {
             for (int i = 0; i < TAB_CNT; i++) {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", TYPES[i]);
-                mFragments.add(new TaskListFragment(params, HttpUtil.TASK_GET_OTHERS));
+                mFragments.add(new TaskListFragment(params, HttpUtil.TASK_GET_OTHERS, mContext));
             }
         }
 
