@@ -53,8 +53,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     @BindView(R.id.preference_signature)
     PreferenceItem mSignature;
     @BindView(R.id.preference_phone)
-    PreferenceItem mPhone;
-    @BindView(R.id.preference_realname)
     PreferenceItem mRealname;
     @BindView(R.id.preference_department)
     PreferenceItem mDepartment;
@@ -79,7 +77,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
     private void setClickListeners() {
         mUsername.setOnClickListener(this);
         mSignature.setOnClickListener(this);
-        mPhone.setOnClickListener(this);
         mRealname.setOnClickListener(this);
         mDepartment.setOnClickListener(this);
         mGrade.setOnClickListener(this);
@@ -128,7 +125,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
 
     public void initViews() {
         mUsername.setValue(UserInfoUtil.me.username);
-        mPhone.setValue(UserInfoUtil.me.phone);
         mRealname.setValue(UserInfoUtil.me.realname);
         mDepartment.setValue(UserInfoUtil.me.department);
         mGrade.setValue(UserInfoUtil.me.grade);
@@ -233,11 +229,6 @@ public class ProfileSettingsActivity extends AppCompatActivity implements View.O
                 it.putExtra("fieldTitle", "个性签名");
                 it.putExtra("fieldName", UserInfoUtil.SIGNATURE);
                 it.putExtra("fieldMaxLen", UserInfoUtil.SIGNATURE_MAX_LEN);
-                break;
-            case R.id.preference_phone:
-                it.putExtra("fieldTitle", "手机号码");
-                it.putExtra("fieldName", UserInfoUtil.PHONE);
-                it.putExtra("fieldMaxLen", UserInfoUtil.PHONE_LEN);
                 break;
             case R.id.preference_realname:
                 it.putExtra("fieldTitle", "真实姓名");

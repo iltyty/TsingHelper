@@ -144,8 +144,6 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
                 return UserInfoUtil.me.username;
             case UserInfoUtil.SIGNATURE:
                 return UserInfoUtil.me.signature;
-            case UserInfoUtil.PHONE:
-                return UserInfoUtil.me.phone;
             case UserInfoUtil.REALNAME:
                 return UserInfoUtil.me.realname;
             case UserInfoUtil.DEPARTMENT:
@@ -170,9 +168,6 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
                 break;
             case UserInfoUtil.SIGNATURE:
                 UserInfoUtil.me.signature = value;
-                break;
-            case UserInfoUtil.PHONE:
-                UserInfoUtil.me.phone = value;
                 break;
             case UserInfoUtil.REALNAME:
                 UserInfoUtil.me.realname = value;
