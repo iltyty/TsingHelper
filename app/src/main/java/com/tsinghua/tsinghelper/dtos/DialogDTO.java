@@ -56,7 +56,7 @@ public class DialogDTO implements IDialog<MessageDTO> {
 
     @Override
     public int getUnreadCount() {
-        return 2;
+        return 0;
     }
 
     public void setUnreadCount(int unreadCount) {

@@ -76,7 +76,7 @@ public class GlideCacheUtil {
         return "";
     }
 
-    private static String getFormattedSize(double size) {
+    public static String getFormattedSize(double size) {
         double kiloBytes = size / 1024;
         if (kiloBytes < 1) {
             return size + "B";

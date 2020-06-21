@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.PreferenceItem;
 import com.tsinghua.tsinghelper.ui.login.LoginActivity;
+import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.GlideCacheUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
@@ -57,6 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void initPrefs() {
+        mFileCache.setValue(ChatHistoryCacheUtil.getCacheSize());
         mImageCache.setValue(GlideCacheUtil.getCacheSize());
     }
 
@@ -65,8 +67,13 @@ public class SettingsActivity extends AppCompatActivity {
         mImageCache.setValue(GlideCacheUtil.getCacheSize());
     }
 
+    public void clearFileCache(View view) {
+        ChatHistoryCacheUtil.clearCache();
+    }
+
     public void logout(View view) {
         UserInfoUtil.clearUserInfo();
+        clearFileCache(view);
         Intent it = new Intent(this, LoginActivity.class);
         it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(it);

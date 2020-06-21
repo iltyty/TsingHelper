@@ -175,6 +175,28 @@ public class ChatHistoryCacheUtil {
         }
     }
 
+    public static String getCacheSize() {
+        String dirName = getInstance().mContext.getFilesDir().toString();
+        return GlideCacheUtil.getFormattedSize(getFolderSize(new File(dirName)));
+    }
+
+    private static long getFolderSize(File file) {
+        long size = 0;
+        try {
+            File[] files = file.listFiles();
+            assert files != null;
+            for (File f : files) {
+                String[] args = f.getName().split("\\.");
+                if (args.length == 2 && args[1].equals("json")) {
+                    size += f.length();
+                }
+            }
+        } catch (Exception e) {
+            ErrorHandlingUtil.logToConsole(e);
+        }
+        return size;
+    }
+
     private JSONArray msgsToJSON(ArrayList<MessageDTO> msgs) throws JSONException {
         JSONArray res = new JSONArray();
         for (MessageDTO msg : msgs) {

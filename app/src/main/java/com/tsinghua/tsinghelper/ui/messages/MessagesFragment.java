@@ -64,11 +64,9 @@ public class MessagesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_messages, container, false);
         ButterKnife.bind(this, root);
 
-//        ChatHistoryCacheUtil.clearCache();
-
         initSpinner();
         initAdapter();
-//        readHistoryMsgs();
+        readHistoryMsgs();
         getMsgsFromServer();
         initWebSocket();
 
