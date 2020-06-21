@@ -197,7 +197,8 @@ public class ProfileActivity extends AppCompatActivity {
                         JSONObject resJson = new JSONObject(response.body().string());
                         uid = resJson.optString(UserInfoUtil.ID, "");
                         uname = resJson.optString(UserInfoUtil.USERNAME, "");
-                        String signature = resJson.optString(UserInfoUtil.SIGNATURE, "");
+                        String signature = resJson.isNull(UserInfoUtil.SIGNATURE) ?
+                                "" : resJson.getString(UserInfoUtil.SIGNATURE);
                         ProfileActivity.this.runOnUiThread(() -> {
                             mUsername.setText(uname);
                             mSignature.setText(signature);
