@@ -3,25 +3,17 @@ package com.tsinghua.tsinghelper.ui.search;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.tsinghua.tsinghelper.R;
-import com.tsinghua.tsinghelper.adapters.TaskAdapter;
-import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
 import com.tsinghua.tsinghelper.ui.messages.MessageDetailActivity;
-import com.tsinghua.tsinghelper.util.HttpUtil;
-
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +54,7 @@ public class MessageSearchActivity extends AppCompatActivity {
     private void initDialogs() {
         for (int i = 0; i < 10; i++) {
             String str = String.valueOf(i);
-            mAdapter.addItem(new DialogDTO(str, "对话框" + str));
+//            mAdapter.addItem(new DialogDTO(str, "对话框" + str));
         }
 
         // TODO: 2020/6/20 get message search result from backend

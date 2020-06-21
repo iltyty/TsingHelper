@@ -35,6 +35,10 @@ public class TaskListFragment extends Fragment {
     private String url;
     private ArrayList<TaskDTO> mTasks;
 
+    public TaskListFragment(String url) {
+        this.url = url;
+    }
+
     public TaskListFragment(HashMap<String, String> params, String url) {
         this.url = url;
         queryParams = params;
