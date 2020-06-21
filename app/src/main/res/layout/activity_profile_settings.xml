@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:background="@color/dark_gray"
         app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="#80000000"
@@ -63,96 +63,107 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relative_layout">
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_username"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="昵称"
-            app:preference_value="" />
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_layout">
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_signature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="个性签名"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="昵称"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="手机号码"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_signature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="个性签名"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_realname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="真实姓名"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="手机号码"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_department"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="所在院系"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_realname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="真实姓名"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_grade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="年级"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="所在院系"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_dormitory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="宿舍地址"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="年级"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_wechat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="微信"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_dormitory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="宿舍地址"
+                app:preference_value="" />
 
-        <com.tsinghua.tsinghelper.components.PreferenceItem
-            android:id="@+id/preference_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/preference_item_margin_top"
-            android:layout_marginBottom="@dimen/preference_item_margin_bottom"
-            app:preference_title="邮箱地址"
-            app:preference_value="" />
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_wechat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="微信"
+                app:preference_value="" />
 
-    </LinearLayout>
+            <com.tsinghua.tsinghelper.components.PreferenceItem
+                android:id="@+id/preference_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/preference_item_margin_top"
+                android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+                app:preference_title="邮箱地址"
+                app:preference_value="" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
