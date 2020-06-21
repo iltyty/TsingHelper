@@ -5,7 +5,7 @@
     <string name="title_messages">消息</string>
     <string name="title_mine">我的</string>
 
-    <string name="query_publisher_hint">搜索任务发布者ID</string>
+    <string name="query_publisher_hint">搜索任务关键词</string>
     <string name="query_task_hint">搜索任务关键词</string>
     <string name="query_messages_hint">搜索消息关键词</string>
 

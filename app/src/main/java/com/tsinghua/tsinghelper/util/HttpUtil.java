@@ -44,6 +44,7 @@ public class HttpUtil extends NetworkUtil {
     public static final String TASK_TAKE = TASK_PREFIX + "take/";
     public static final String TASK_SUBMIT = TASK_PREFIX + "submit/";
     public static final String TASK_MODERATE = TASK_PREFIX + "moderate/";
+    public static final String TASK_SEARCH = TASK_PREFIX + "search/";
 
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";
     public static final String BACKGROUND_UPLOAD = PROFILE_PREFIX + "background/";

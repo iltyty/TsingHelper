@@ -1,6 +1,5 @@
 package com.tsinghua.tsinghelper.ui.search;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +7,15 @@ import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,28 +25,25 @@ public class SearchActivity extends AppCompatActivity {
     SearchView mSearchView;
     @BindView(R.id.cancel)
     Button mCancel;
+    @BindView(R.id.task_result)
+    RecyclerView mRecyclerView;
+
+    private TaskAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-        Intent it = getIntent();
+
+        initRecyclerView();
 
         // 设置搜索文本监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // 当点击搜索按钮时触发该方法
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(it.getStringExtra("searchType").equals("TASK")) {
-                    Intent intent = new Intent(SearchActivity.this, TaskSearchActivity.class);
-                    intent.putExtra("queryText", query);
-                    startActivity(intent);
-                } else if(it.getStringExtra("searchType").equals("MESSAGE")) {
-                    Intent intent = new Intent(SearchActivity.this, MessageSearchActivity.class);
-                    intent.putExtra("queryText", query);
-                    startActivity(intent);
-                }
+                searchTasks(query);
                 return false;
             }
 
@@ -50,6 +53,24 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void searchTasks(String query) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("q", query);
+        mAdapter.getTasks(params, HttpUtil.TASK_SEARCH);
+    }
+
+    public void initRecyclerView() {
+        mAdapter = new TaskAdapter(mRecyclerView.getContext());
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(mRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL, false);
+        DividerItemDecrator divider = new DividerItemDecrator(
+                this.getDrawable(R.drawable.shape_list_divider));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(divider);
+        mRecyclerView.setLayoutManager(lm);
+        mRecyclerView.setNestedScrollingEnabled(false);
     }
 
     public void cancel(View view) {

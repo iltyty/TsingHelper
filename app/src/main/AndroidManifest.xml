@@ -102,10 +102,6 @@
             android:parentActivityName=".ui.login.LoginActivity"
             android:theme="@style/Theme.bgFullScreen" />
         <activity android:name=".ui.search.SearchActivity"/>
-        <activity android:name=".ui.search.TaskSearchActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ui.search.MessageSearchActivity"
-            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
