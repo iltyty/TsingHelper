@@ -106,6 +106,7 @@ public class MealTaskActivity extends BaseTaskActivity {
         params.put("site", site);
         params.put("type", "meal");
         params.put("food_num", foodNum);
+        params.put("times_total", "1");
         params.put("end_time", Long.toString(cal.getTimeInMillis()));
         params.put("start_time", Long.toString(new Date().getTime()));
         return params;
