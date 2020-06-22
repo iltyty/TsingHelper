@@ -45,6 +45,14 @@ public class UserItemAdapter extends RecyclerView.Adapter {
         showModerationBtn = show;
     }
 
+    public void setUsers(ArrayList<UserDTO> users) {
+        mUsers = users;
+    }
+
+    public void clearUsers() {
+        mUsers.clear();
+    }
+
     @Override
     public int getItemViewType(int pos) {
         if (mUsers == null || mUsers.size() <= 0) {

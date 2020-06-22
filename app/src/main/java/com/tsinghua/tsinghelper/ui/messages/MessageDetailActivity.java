@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -16,14 +17,36 @@ import androidx.core.view.ViewCompat;
 import com.bumptech.glide.Glide;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageHolders;
+import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.MessageStoreUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
+import com.tsinghua.tsinghelper.util.WebSocketUtil;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MessageDetailActivity extends AppCompatActivity {
 
@@ -31,8 +54,14 @@ public class MessageDetailActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @BindView(R.id.message_list)
     MessagesList messagesList;
+    @BindView(R.id.username)
+    TextView mUsername;
+    @BindView(R.id.input)
+    MessageInput mInput;
 
     MessagesListAdapter<MessageDTO> mAdapter;
+
+    private UserDTO receiver;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -49,10 +78,54 @@ public class MessageDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message_detail);
         ButterKnife.bind(this);
 
+        initViews();
+//        getMessages();
+        loadMsgsHistory();
+    }
+
+    private void initViews() {
         initToolbar();
         initAdapter();
+        setInputListener();
         setStatusBarUpperAPI21();
-        genMessages();
+    }
+
+    private void setInputListener() {
+        mInput.setInputListener(input -> sendMessage(input.toString()));
+    }
+
+    private boolean sendMessage(String content) {
+        JSONObject msgInfo = new JSONObject();
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        try {
+            msgInfo.put("time", timestamp);
+            msgInfo.put("content", content);
+            msgInfo.put("type", "text");
+            msgInfo.put("to", receiver.id);
+            if (WebSocketUtil.getWebSocket().send(msgInfo.toString())) {
+                ToastUtil.showToastOnUIThread(MessageDetailActivity.this, "发送成功");
+            }
+
+            MessageDTO msg;
+            if (MessageStoreUtil.hasUser(receiver.id)) {
+                msg = new MessageDTO(String.valueOf(UserInfoUtil.me.id), content, timestamp,
+                        UserInfoUtil.me, MessageStoreUtil.getUserById(receiver.id));
+            } else {
+                MessageStoreUtil.putNewUser(receiver);
+                msg = new MessageDTO(String.valueOf(UserInfoUtil.me.id), content,
+                        timestamp, UserInfoUtil.me, receiver);
+            }
+            String receiverId = String.valueOf(receiver.id);
+            MessageStoreUtil.addMsg(receiverId, msg);
+//            ChatHistoryCacheUtil.cache(receiverId, MessageStoreUtil.getMsgsWithUser(receiverId));
+            MessageDetailActivity.this.runOnUiThread(() -> {
+                // update message detail page
+                mAdapter.addToStart(msg, true);
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private void initToolbar() {
@@ -64,7 +137,7 @@ public class MessageDetailActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        String id = UserInfoUtil.getPref("userId", "");
+        String id = String.valueOf(UserInfoUtil.me.id);
         ImageLoader imageLoader = (imageView, url, payload) ->
                 Glide.with(MessageDetailActivity.this)
                         .load(url).into(imageView);
@@ -72,15 +145,74 @@ public class MessageDetailActivity extends AppCompatActivity {
         mh.setIncomingTextLayout(R.layout.item_custom_incoming_msg);
         mh.setOutcomingTextLayout(R.layout.item_custom_outcoming_msg);
         mAdapter = new MessagesListAdapter<>(id, mh, imageLoader);
+//        mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
         messagesList.setAdapter(mAdapter);
-
     }
 
-    private void genMessages() {
-        String ts = String.valueOf(System.currentTimeMillis());
-        for (int i = 0; i < 10; i++) {
-            mAdapter.addToStart(new MessageDTO(String.valueOf(i), ts, String.valueOf(i)), true);
+    private void loadMsgsHistory() {
+        String otherId = getIntent().getStringExtra("sender");
+        String otherName = getIntent().getStringExtra("username");
+        receiver = new UserDTO(otherId, otherName);
+        mUsername.setText(otherName);
+
+        ArrayList<MessageDTO> msgs = MessageStoreUtil.getMsgsWithUser(otherId);
+        if (msgs != null && !msgs.isEmpty()) {
+            mAdapter.addToEnd(MessageStoreUtil.getMsgsWithUser(otherId), false);
         }
+    }
+
+    private void getMessages() {
+        HashMap<String, String> params = new HashMap<>();
+        String otherId = getIntent().getStringExtra("sender");
+        String otherName = getIntent().getStringExtra("username");
+        receiver = new UserDTO(otherId, otherName);
+        mUsername.setText(otherName);
+
+        params.put("receiver", otherId);
+        HttpUtil.get(HttpUtil.CHAT_MSG_SENT, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.handleNetworkError(
+                        MessageDetailActivity.this, "网络错误", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        JSONArray resJson = new JSONArray(response.body().string());
+                        initMessages(resJson);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private void initMessages(JSONArray sentMsgs) throws JSONException {
+        int length = sentMsgs.length();
+        ArrayList<MessageDTO> msgs = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            MessageDTO msg = new MessageDTO(sentMsgs.getJSONObject(i), UserInfoUtil.me, receiver);
+            msgs.add(msg);
+        }
+
+        // cache chat history
+        ChatHistoryCacheUtil.cache(String.valueOf(receiver.id), msgs);
+        ArrayList<MessageDTO> historyMsgs = ChatHistoryCacheUtil
+                .getMsgsFromCache(String.valueOf(receiver.id));
+
+        ArrayList<MessageDTO> receivedMsgs = MessageStoreUtil
+                .getMsgsWithUser(String.valueOf(receiver.id));
+        if (receivedMsgs != null) {
+            msgs.addAll(receivedMsgs);
+        }
+        Comparator<MessageDTO> comparator = (msg1, msg2) ->
+                msg1.getTimestamp().compareTo(msg2.getTimestamp());
+        Collections.sort(msgs, comparator);
+        MessageDetailActivity.this.runOnUiThread(() -> mAdapter.addToEnd(msgs, true));
     }
 
     private void setStatusBarUpperAPI21() {

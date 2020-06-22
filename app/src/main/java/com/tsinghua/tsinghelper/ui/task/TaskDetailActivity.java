@@ -29,6 +29,7 @@ import com.tsinghua.tsinghelper.components.UserItem;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -55,8 +56,8 @@ public class TaskDetailActivity extends AppCompatActivity {
     ScrollView mScrollView;
     @BindView(R.id.time_check)
     TextView mTimeCheck;
-    @BindView(R.id.times_per_person)
-    TextView mTimesPerPerson;
+    @BindView(R.id.task_type)
+    TextView mTaskType;
     @BindView(R.id.text_task_title)
     TextView mTaskTitle;
     @BindView(R.id.text_task_reward)
@@ -65,14 +66,32 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView mTaskDeadline;
     @BindView(R.id.description)
     TextView mTaskDescription;
-    @BindView(R.id.requirements)
-    TextView mTaskRequirement;
     @BindView(R.id.number_finished)
     TextView mTimesFinished;
     @BindView(R.id.publisher)
     UserItem mPublisher;
     @BindView(R.id.task_take)
     Button mTaskTake;
+    @BindView(R.id.view_demands)
+    TextView mViewDemands;
+    @BindView(R.id.demands)
+    TextView mDemands;
+    @BindView(R.id.view_link)
+    TextView mViewLink;
+    @BindView(R.id.link)
+    TextView mLink;
+    @BindView(R.id.view_subjects)
+    TextView mViewSubjects;
+    @BindView(R.id.subjects)
+    TextView mSubjects;
+    @BindView(R.id.view_site)
+    TextView mViewSite;
+    @BindView(R.id.site)
+    TextView mSite;
+    @BindView(R.id.view_food_num)
+    TextView mViewFoodNum;
+    @BindView(R.id.food_num)
+    TextView mFoodNum;
 
     private int taskId;
     private int publisherId;
@@ -145,8 +164,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.get(profileUrl, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override
@@ -172,17 +190,19 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
-                ResponseBody resBody = response.body();
-                assert resBody != null;
-                String resStr = resBody.string();
-                TaskDetailActivity.this.runOnUiThread(() -> setTaskInfo(resStr));
+                if (response.code() == 200) {
+                    ResponseBody resBody = response.body();
+                    assert resBody != null;
+                    String resStr = resBody.string();
+                    TaskDetailActivity.this.runOnUiThread(() -> setTaskInfo(resStr));
+                }
             }
         });
     }
@@ -192,7 +212,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             JSONObject resJson = new JSONObject(resStr);
             JSONObject taskInfo = resJson.getJSONObject("task");
             TaskDTO taskDTO = new TaskDTO(taskInfo);
-            String userId = UserInfoUtil.getPref("userId", "-1");
+            String userId = String.valueOf(UserInfoUtil.me.id);
 
             for (UserDTO user : taskDTO.doingUsers) {
                 if (userId.equals(String.valueOf(user.id))) {
@@ -231,8 +251,26 @@ public class TaskDetailActivity extends AppCompatActivity {
             mTaskDescription.setText(taskDTO.description);
             mTaskReward.setText(String.valueOf(taskDTO.reward));
             mTimeCheck.setText(String.format(Locale.CHINA, "奖励%d小时内审核", taskDTO.reviewTime));
-            mTimesPerPerson.setText(String.format(Locale.CHINA, "每人可做%d次", taskDTO.timesPerPerson));
             mTimesFinished.setText(String.format(Locale.CHINA, "已有%d人完成", taskDTO.timesFinished));
+            switch (taskDTO.type) {
+                case "community":
+                    mTaskType.setText("社区互助");
+                    break;
+                case "meal":
+                    mTaskType.setText("代餐跑腿");
+                    mSite.setText(taskDTO.site);
+                    mFoodNum.setText(String.valueOf(taskDTO.foodNum));
+                    break;
+                case "study":
+                    mTaskType.setText("学习解惑");
+                    mSubjects.setText(taskDTO.subjects);
+                    break;
+                case "questionnaire":
+                    mTaskType.setText("个人问卷");
+                    mDemands.setText(taskDTO.demands);
+                    mLink.setText(taskDTO.link);
+                    break;
+            }
         } catch (JSONException e) {
             Log.e("error", e.toString());
             e.printStackTrace();
@@ -263,14 +301,18 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_TAKE, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 201) {
+                    isDoing = true;
+                    isFailed = false;
+                    isRewarded = false;
+                    isUnderModeration = false;
                     TaskDetailActivity.this.runOnUiThread(() -> {
                         ToastUtil.showToast(TaskDetailActivity.this, "任务接取成功");
                         setTakeButtonAsTaken();
@@ -297,14 +339,18 @@ public class TaskDetailActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_SUBMIT, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskDetailActivity.this, "提交失败，请稍后重试", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 201) {
+                    isDoing = false;
+                    isFailed = false;
+                    isRewarded = false;
+                    isUnderModeration = true;
                     TaskDetailActivity.this.runOnUiThread(() -> {
                         ToastUtil.showToast(TaskDetailActivity.this, "提交成功");
                         setTakeButtonAsUnderModeration();

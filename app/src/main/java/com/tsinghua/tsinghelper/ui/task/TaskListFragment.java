@@ -1,5 +1,6 @@
 package com.tsinghua.tsinghelper.ui.task;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 
 import java.util.ArrayList;
@@ -30,21 +31,27 @@ public class TaskListFragment extends Fragment {
     RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DividerItemDecoration mDivider;
+    private DividerItemDecrator mDivider;
 
     private String url;
+    private ArrayList<TaskDTO> mTasks;
 
     public TaskListFragment(String url) {
         this.url = url;
     }
 
-    public TaskListFragment(String taskType, String url) {
+    public TaskListFragment(HashMap<String, String> params, String url, Context cxt) {
         this.url = url;
-        queryParams = new HashMap<>();
-        queryParams.put("type", taskType);
+        queryParams = params;
+        mAdapter = new TaskAdapter(cxt);
     }
 
-    public TaskListFragment(ArrayList<TaskDTO> tasks) {
+    public TaskListFragment(ArrayList<TaskDTO> tasks, Context cxt) {
+        mAdapter = new TaskAdapter(cxt);
+        mTasks = tasks;
+    }
+
+    public void setTasks(ArrayList<TaskDTO> tasks) {
         mAdapter.setTasks(tasks);
     }
 
@@ -69,11 +76,10 @@ public class TaskListFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        mAdapter = new TaskAdapter(getContext());
         mLayoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);
-        mDivider = new DividerItemDecoration(getContext(),
-                DividerItemDecoration.VERTICAL);
+        mDivider = new DividerItemDecrator(
+                requireActivity().getDrawable(R.drawable.shape_list_divider));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(mDivider);
         mRecyclerView.setLayoutManager(mLayoutManager);

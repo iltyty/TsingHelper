@@ -1,10 +1,7 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.UserItemAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
@@ -165,8 +164,8 @@ public class TaskReviewActivity extends AppCompatActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskReviewActivity.this, "获取任务信息失败，请稍后重试", e);
             }
 
             @Override
@@ -215,8 +214,8 @@ public class TaskReviewActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.TASK_MODERATE, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.handleNetworkError(
+                        TaskReviewActivity.this, "网络错误，审核失败", e);
             }
 
             @Override
@@ -224,7 +223,11 @@ public class TaskReviewActivity extends AppCompatActivity {
                     throws IOException {
                 if (response.code() == 201) {
                     ToastUtil.showToastOnUIThread(TaskReviewActivity.this, "审核成功");
-                    doingUsers.remove(user);
+                    for (UserDTO u : doingUsers) {
+                        if (u.id == user.id) {
+                            doingUsers.remove(u);
+                        }
+                    }
                     if (passed) {
                         rewardedUsers.add(user);
                         TaskReviewActivity.this.runOnUiThread(() -> {
@@ -266,31 +269,4 @@ public class TaskReviewActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    class DividerItemDecrator extends RecyclerView.ItemDecoration {
-        private Drawable mDivider;
-
-        public DividerItemDecrator(Drawable divider) {
-            mDivider = divider;
-        }
-
-        @Override
-        public void onDraw(@NotNull Canvas canvas, RecyclerView parent,
-                           @NotNull RecyclerView.State state) {
-            int dividerLeft = parent.getPaddingLeft();
-            int dividerRight = parent.getWidth() - parent.getPaddingRight();
-
-            int childCount = parent.getChildCount();
-            for (int i = 0; i <= childCount - 2; i++) {
-                View child = parent.getChildAt(i);
-
-                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-
-                int dividerTop = child.getBottom() + params.bottomMargin;
-                int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
-
-                mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
-                mDivider.draw(canvas);
-            }
-        }
-    }
 }

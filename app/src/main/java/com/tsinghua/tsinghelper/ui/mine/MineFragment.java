@@ -1,12 +1,11 @@
 package com.tsinghua.tsinghelper.ui.mine;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,8 +18,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.IconTextItem;
+import com.tsinghua.tsinghelper.ui.bonus.BonusActivity;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.ui.mine.settings.SettingsActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.TaskInfoUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -45,7 +46,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     TextView mUsername;
     @BindView(R.id.avatar)
     CircleImageView mAvatar;
-
     @BindView(R.id.icon_settings)
     ImageView mToSettings;
     @BindView(R.id.relative_layout_to_profile)
@@ -64,6 +64,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout mToTakenDoing;
     @BindView(R.id.rl_taken_done)
     RelativeLayout mToTakenDone;
+    @BindView(R.id.mine_relationships)
+    RelativeLayout mToRelations;
     @BindView(R.id.taken_done)
     IconTextItem mTakenDone;
     @BindView(R.id.taken_doing)
@@ -72,8 +74,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     IconTextItem mPublishedDone;
     @BindView(R.id.published_doing)
     IconTextItem mPublishedDoing;
-
-    private SharedPreferences mSharedPreferences;
+    @BindView(R.id.personal_asset_btn)
+    Button mBtnAsset;
 
     @Nullable
     @Override
@@ -81,8 +83,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, root);
-
-        mSharedPreferences = UserInfoUtil.getUserInfoSharedPreferences();
 
         setClickListeners();
 
@@ -99,6 +99,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mToPublishedDone.setOnClickListener(this);
         mToTakenDoing.setOnClickListener(this);
         mToTakenDone.setOnClickListener(this);
+        mToRelations.setOnClickListener(this);
+        mBtnAsset.setOnClickListener(this);
     }
 
 
@@ -111,7 +113,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.relative_layout_to_profile:
                 Intent itInfo = new Intent(getActivity(), ProfileActivity.class);
-                itInfo.putExtra("userId", UserInfoUtil.getPref("userId", ""));
+                itInfo.putExtra("userId", String.valueOf(UserInfoUtil.me.id));
                 startActivity(itInfo);
                 break;
             case R.id.relative_layout_to_published:
@@ -144,18 +146,26 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 itTakenDone.putExtra("pos", 2);
                 startActivity(itTakenDone);
                 break;
+            case R.id.mine_relationships:
+                Intent itRelations = new Intent(getActivity(), RelationsActivity.class);
+                startActivity(itRelations);
+                break;
+            case R.id.personal_asset_btn:
+                Intent itBonus = new Intent(getActivity(), BonusActivity.class);
+                startActivity(itBonus);
+                break;
         }
     }
 
     private void setUserInfo() {
-        mUsername.setText(mSharedPreferences.getString("username", ""));
+        mUsername.setText(UserInfoUtil.me.username);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         setUserInfo();
-        String userId = UserInfoUtil.getPref("userId", "");
+        String userId = String.valueOf(UserInfoUtil.me.id);
         String url = HttpUtil.getUserAvatarUrlById(userId);
         Glide.with(requireContext())
                 .load(url)
@@ -167,8 +177,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         HttpUtil.get(HttpUtil.USER_TASK_STATES, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override

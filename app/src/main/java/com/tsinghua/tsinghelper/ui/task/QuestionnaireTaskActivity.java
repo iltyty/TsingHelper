@@ -1,13 +1,13 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.util.DateTimeUtil;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -56,8 +55,7 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override
@@ -110,7 +108,7 @@ public class QuestionnaireTaskActivity extends BaseTaskActivity {
         }
 
         int amount = Integer.parseInt(duration);
-        long startTimestamp = new Date().getTime();
+        long startTimestamp = System.currentTimeMillis();
         long endTimestamp = DateTimeUtil.calculateEndTimestamp(
                 startTimestamp, amount, DateTimeUtil.TemporalUnit.DAY);
 

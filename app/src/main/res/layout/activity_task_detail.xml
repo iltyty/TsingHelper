@@ -113,28 +113,17 @@
                     android:textSize="@dimen/task_detail_task_tag_text_size" />
 
                 <TextView
-                    android:id="@+id/times_per_person"
+                    android:id="@+id/task_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/shape_task_detail_tag"
                     android:padding="3dp"
-                    android:text="每位猎人可做XX次"
+                    android:text="社区互助"
                     android:textAlignment="center"
                     android:textSize="@dimen/task_detail_task_tag_text_size" />
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/shape_task_detail_tag"
-                    android:padding="3dp"
-                    android:text="须XX小时内完成"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/task_detail_task_tag_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,6 +139,8 @@
                     android:background="@color/light_gray" />
 
                 <com.tsinghua.tsinghelper.components.UserItem
+                    android:layout_marginStart="@dimen/task_review_page_margin_left"
+                    android:layout_marginEnd="@dimen/task_review_page_margin_left"
                     android:id="@+id/publisher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -195,12 +186,12 @@
                 android:background="@color/light_gray" />
 
             <TextView
-                android:id="@+id/view4"
+                android:id="@+id/view_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/task_detail_page_margin_left"
                 android:layout_marginTop="10dp"
-                android:text="任务链接"
+                android:text="问卷链接"
                 android:textColor="@color/black"
                 android:textSize="@dimen/new_task_title_font_size" />
 
@@ -225,7 +216,7 @@
                 android:background="@color/light_gray" />
 
             <TextView
-                android:id="@+id/view6"
+                android:id="@+id/view_demands"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/task_detail_page_margin_left"
@@ -235,7 +226,94 @@
                 android:textSize="@dimen/new_task_title_font_size" />
 
             <TextView
-                android:id="@+id/requirements"
+                android:id="@+id/demands"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:text="无"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/task_detail_page_margin_right"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view_subjects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:text="涉及学科"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size" />
+
+            <TextView
+                android:id="@+id/subjects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:text="无"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/task_detail_page_margin_right"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view_site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:text="代餐地点/餐厅"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size" />
+
+            <TextView
+                android:id="@+id/site"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:text="无"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/new_task_divider_height"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/task_detail_page_margin_right"
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:id="@+id/view_food_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/task_detail_page_margin_left"
+                android:layout_marginTop="10dp"
+                android:text="代餐份数"
+                android:textColor="@color/black"
+                android:textSize="@dimen/new_task_title_font_size" />
+
+            <TextView
+                android:id="@+id/food_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/task_detail_page_margin_left"
@@ -258,9 +336,10 @@
                 android:id="@+id/number_finished"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="@dimen/task_detail_page_margin_right"
-                android:text="已有XXX位猎人完成任务"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="30dp"
+                android:text="已有XXX人完成任务"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="14sp" />

@@ -4,19 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
+import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class AccountStateAdapter extends BaseAdapter {
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+public class AccountStateAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener {
 
     private Context mContext;
     private ArrayList<Integer> mStateIcons = new ArrayList<>();
-    private final String[] mStateText = {"在线", "忙碌", "隐身"};
+    private final String[] mStateText = {"在线", "忙碌", "离线"};
 
     public AccountStateAdapter(Context context) {
         mContext = context;
@@ -56,5 +68,44 @@ public class AccountStateAdapter extends BaseAdapter {
         stateText.setText(mStateText[position]);
 
         return convertView;
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        HashMap<String, String> params = new HashMap<>();
+        final String state;
+        switch (position) {
+            case 0:
+                state = "online";
+                break;
+            case 1:
+                state = "busy";
+                break;
+            default:
+                state = "offline";
+                break;
+        }
+        params.put("state", state);
+        HttpUtil.post(HttpUtil.USER_ONLINE_STATE, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.logToConsole(e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    UserInfoUtil.me.state = state;
+                    UserInfoUtil.putPref(UserInfoUtil.STATE, state);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

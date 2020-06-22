@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-06-22 Mon 22:48 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>清华帮帮忙项目报告</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="file:///home/qiu/vue.css">
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.cacheClassElem = elem.className;
+         elem.cacheClassTarget = target.className;
+         target.className = "code-highlighted";
+         elem.className   = "code-highlighted";
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(elem.cacheClassElem)
+         elem.className = elem.cacheClassElem;
+       if(elem.cacheClassTarget)
+         target.className = elem.cacheClassTarget;
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">清华帮帮忙项目报告</h1>
+
+<div id="outline-container-org762a066" class="outline-2">
+<h2 id="org762a066">项目简介</h2>
+<div class="outline-text-2" id="text-org762a066">
+<p>
+项目名称为 <i><b>TsingHelper</b></i> ，中文名为 <i><b>清华帮帮忙</b></i> ，旨在解决校内学生带餐、二手交易、学习互助等需求问题。
+</p>
+</div>
+</div>
+<div id="outline-container-org31c8ae7" class="outline-2">
+<h2 id="org31c8ae7">项目功能</h2>
+<div class="outline-text-2" id="text-org31c8ae7">
+<p>
+截至目前，本项目所有已实现的功能包括：
+</p>
+</div>
+<div id="outline-container-orgf58ce3e" class="outline-3">
+<h3 id="orgf58ce3e">个人信息有关</h3>
+<div class="outline-text-3" id="text-orgf58ce3e">
+<ul class="org-ul">
+<li>支持修改用户头像</li>
+<li>支持显示个人主页，并可自行设置主页背景图片</li>
+<li>支持修改并显示其他基本信息，包括但不限于：真实姓名、微信、邮件、宿舍地址、所属院系和年级等</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge7ae490" class="outline-3">
+<h3 id="orge7ae490">任务（需求）有关</h3>
+<div class="outline-text-3" id="text-orge7ae490">
+<ul class="org-ul">
+<li><p>
+发布任务
+</p>
+
+<p>
+共四种任务可供用户选择：社区互助、代餐跑腿、学习解惑、个人问卷。四种任务大体信息相同，同时也有各自特有的一些信息
+</p></li>
+
+<li><p>
+查看其他人发布的任务
+</p>
+
+<p>
+首页会显示20个其他用户发布的任务，用户可进入底部导航栏中的 <b>任务</b> 页面查看所有任务
+</p></li>
+
+<li><p>
+任务筛选及排序
+</p>
+
+<p>
+首页和任务页面均可根据关键词对任务进行搜索和筛选，在首页还可查看指定类型的任务，任务页面可对所有任务按时间及报酬进行排序，其中时间按照发布时间从早到晚显示，报酬按照从高到低进行显示
+</p></li>
+
+<li><p>
+接取并提交任务
+</p>
+
+<p>
+用户点击任何一个任务进入详情页面后可接取该任务，接取之后可进行任务的提交，提交之后需要等待发布者审核是否已正确完成任务
+</p></li>
+
+<li><p>
+任务的统一管理
+</p>
+
+<p>
+在个人页面中可以统一管理与我有关的所有任务，处于不同阶段（如待提交、待审核等）的任务会分开显示，同时可在 <b>我发布的任务</b> 页面对我发布的任务进行管理或者快捷进入发布任务界面。针对每个我发布的任务，可以查看这个任务目前的完成情况，包括正在做的人、待审核的人等，其中对每个已提交该任务的用户，可在这里选择审核通过或审核不通过。
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2d1c7a9" class="outline-3">
+<h3 id="org2d1c7a9">用户间互动有关</h3>
+<div class="outline-text-3" id="text-org2d1c7a9">
+<ul class="org-ul">
+<li><p>
+消息发送与接收
+</p>
+
+<p>
+用户可通过进入其他人的个人主页或者消息页面，发起与他人的聊天。在接收到来自其他用户的消息后，客户端能够将其实时的更新在消息页面的对话框列表中。进入聊天页面后会自动显示与该用户的所有历史聊天记录以及每条消息的发送/接收时间
+</p></li>
+
+<li><p>
+关注与取消关注
+</p>
+
+<p>
+个人主页中会显示这个用户已关注的用户数量和被关注的数量，用户可在他人主页中选择关注或者取消关注此人（如果已经关注了的话）。同时还可通过个人页面里的 <b>我的关系</b>
+按钮进入关系页面，此页面会显示用户当前已关注的和被关注的所有用户列表
+</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org8707ccf" class="outline-2">
+<h2 id="org8707ccf">项目基本架构</h2>
+<div class="outline-text-2" id="text-org8707ccf">
+<p>
+项目的代码目录结构如下图：
+</p>
+
+
+<div class="figure">
+<p><img src="./images/screenshot-01.png" alt="screenshot-01.png" width="30%" />
+</p>
+</div>
+
+
+<p>
+下面分别对每个包进行相关说明：
+</p>
+</div>
+<div id="outline-container-org217e6dc" class="outline-3">
+<h3 id="org217e6dc">adapters</h3>
+<div class="outline-text-3" id="text-org217e6dc">
+<p>
+包括各个界面需要的一些常见的数据适配器，如 <code>RecyclerView</code> 的适配器等。
+</p>
+</div>
+</div>
+<div id="outline-container-org5e41cba" class="outline-3">
+<h3 id="org5e41cba">components</h3>
+<div class="outline-text-3" id="text-org5e41cba">
+<p>
+包括几个自定义的UI组件。
+</p>
+</div>
+</div>
+<div id="outline-container-orga3b4b91" class="outline-3">
+<h3 id="orga3b4b91">dtos</h3>
+<div class="outline-text-3" id="text-orga3b4b91">
+<p>
+<i><b>DateTransferObject</b></i>: 数据传输对象，该对象定义了与后端交接数据的规范，如字段名称等。
+</p>
+
+<p>
+此包中对几个常用的数据传输对象进行了封装，主要包括用户对象、任务对象以及消息对象等。
+</p>
+</div>
+</div>
+<div id="outline-container-org4ce6c8f" class="outline-3">
+<h3 id="org4ce6c8f">engines</h3>
+<div class="outline-text-3" id="text-org4ce6c8f">
+<p>
+用户从本机选择图片进行上传的图片加载引擎包，负责展示本地照片供用户选择。
+</p>
+</div>
+</div>
+<div id="outline-container-org0384c7d" class="outline-3">
+<h3 id="org0384c7d">managers</h3>
+<div class="outline-text-3" id="text-org0384c7d">
+<p>
+包括一个 <code>ImageGridLayoutManager</code> 类，用户在创建任务页面上传的任务图片就是由该类负责进行排版的。
+</p>
+</div>
+</div>
+<div id="outline-container-org8cb920f" class="outline-3">
+<h3 id="org8cb920f">ui</h3>
+<div class="outline-text-3" id="text-org8cb920f">
+<p>
+绝大部分程序界面都定义在这个包中，此包又有以下几个子包：
+</p>
+<ul class="org-ul">
+<li>home
+包括首页部分的几个页面。</li>
+<li>login
+登录页面和忘记密码页面。</li>
+<li>messages
+消息页面和聊天页面。</li>
+<li>mine
+个人页面，以及以下两个子包：
+<ul class="org-ul">
+<li>profile
+个人资料显示页面和资料编辑页面。</li>
+<li>settings
+设置页面。</li>
+</ul></li>
+<li>search
+任务的搜索页面。</li>
+<li>task
+创建新任务的页面、任务详情页面以及任务审核页面。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcb97ebb" class="outline-3">
+<h3 id="orgcb97ebb">util</h3>
+<div class="outline-text-3" id="text-orgcb97ebb">
+<p>
+整个程序通用的一些工具类。
+</p>
+
+<p>
+如提示框显示工具 <code>ToastUtil</code> 、定义后端接口地址的网络工具 <code>HttpUtil</code> 以及图片缓存工具 <code>GlideCacheUtil</code> 等。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe9795c" class="outline-2">
+<h2 id="orgfe9795c">成员分工</h2>
+<div class="outline-text-2" id="text-orgfe9795c">
+<p>
+本项目由邱圆辉、杨松霖、那森共同开发，具体成员分工如下：
+</p>
+<ul class="org-ul">
+<li>杨松霖
+<ul class="org-ul">
+<li>前端界面的设计、实现与美化</li>
+</ul></li>
+<li>那森
+<ul class="org-ul">
+<li>后端框架的搭建及部分接口的实现与测试</li>
+</ul></li>
+<li>邱圆辉
+<ul class="org-ul">
+<li>前端界面的设计、实现与美化</li>
+<li>后端部分接口的实现与测试</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdcdca50" class="outline-2">
+<h2 id="orgdcdca50">设计亮点</h2>
+<div class="outline-text-2" id="text-orgdcdca50">
+<p>
+项目的几个设计亮点如下：
+</p>
+<ul class="org-ul">
+<li><p>
+程序整体架构清晰，不同包之间分工明确
+</p>
+
+<p>
+上文已对项目的架构进行了较为详细的说明，在此不再赘述。总之项目总体遵循了数据与界面分离的原则，页面在更新时只需调用相应的数据类进行数据更新即可。
+</p></li>
+
+<li><p>
+与后端交互的统一管理
+</p>
+
+<p>
+本项目的后端有将近三十个不同接口，每个接口又都有不一样的数据接收与返回格式。为了统一规范管理前后端的数据交互，我们分别针对这两个问题采取了如下的应对策略：
+</p>
+<ul class="org-ul">
+<li><i><b>HttpUtil</b></i> 类的设计与实现，此类主要负责：
+<ul class="org-ul">
+<li>统一定义后端的所有接口地址，这样当后端接口地址有修改时前端只需要在此类中修改对应地址即可。</li>
+<li>基于 <i><b>okHttp3</b></i> ，对常用的 <i><b>get</b></i> <i><b>post</b></i> 请求进行了一定的封装，减少了代码的冗余量。</li>
+</ul></li>
+
+<li><p>
+<i><b>dto</b></i> 包的设计与实现，此包中定义了三个与后端数据交互有关的 <i><b>DTO</b></i> 对象：
+</p>
+<ul class="org-ul">
+<li><i><b>MessageDTO</b></i> ：消息传输对象</li>
+<li><i><b>TaskDTO</b></i> ：任务传输对象</li>
+<li><i><b>UserDTo</b></i> ：用户传输对象</li>
+</ul>
+
+<p>
+封装后，前端可直接根据后端返回的 <i>json</i> 数据快速构造一个对应的 <i><b>DTO</b></i> 对象，而不必每次都进行繁琐的解析操作。
+</p></li>
+</ul></li>
+
+<li><p>
+消息的发送与接收采用了 <i><b>WebSocket</b></i> 协议进行传输
+</p>
+
+<p>
+程序运行后会与服务器建立一个 <i><b>WebSocket</b></i> 长连接，负责消息的发送与接收。这样避免了 <i>http</i> 协议无法让服务器主动给客户端发送数据的缺陷，同时也保证了客户端在接收到来自其他用户的消息后能够及时的刷新在消息页面。
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgeec3b5b" class="outline-2">
+<h2 id="orgeec3b5b">项目感想</h2>
+<div class="outline-text-2" id="text-orgeec3b5b">
+<p>
+这个项目是我第一个参与开发的安卓项目，经过几个月的开发后，总结几点收获如下：
+</p>
+<ul class="org-ul">
+<li>首先极大程度上让自己熟悉了安卓前端界面开发的流程，包括各种组件的布局、各种
+margin和padding。</li>
+<li>除了前端开发之外，还增进了对java开发以及用nodejs作为后端进行开发的熟悉程度。</li>
+</ul>
+<p>
+当然，还有几个小瑕疵：
+</p>
+<ul class="org-ul">
+<li>前端界面除了消息和聊天页面外，没有用任何第三方UI框架，所有界面均由原生安卓组件或自定义的组合原生组件组成。虽然能够更底层地接触安卓开发，但是在一定程度上降低了项目的开发效率。</li>
+<li>消息页面实现不完善。虽然后端支持文本和图像消息的传输，但由于时间关系，前端目前只支持传输文本消息。同时没有针对未读消息的通知（即类似小红点的显示）。除此之外，我们虽然已经实现了历史消息的缓存类（见 <i><b>util/ChatHistoryCache</b></i> ），但是因未能克服缓存带来的诸多难题（如保证不重复缓存、保证从缓存获取的消息不会再从后端请求等），我们没有将这个缓存机制应用起来，而只是简单的将所有消息都放在内存里，希望下次碰到类似问题时能够采取更好的策略。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9e86fe3" class="outline-2">
+<h2 id="org9e86fe3">其他说明</h2>
+<div class="outline-text-2" id="text-org9e86fe3">
+<p>
+为了方便老师和助教进行测试，我们将后端部署在了自己的服务器上，同时还创建了多个用户和多个任务以增进项目的用户体验，在此将目前所有已存在的用户列举如下，供老师助教测试用：（注：本项目登录时只验证手机号和密码，因此登录时务必输入正确的手机号）
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">用户名</td>
+<td class="org-right">密码</td>
+<td class="org-right">手机号</td>
+</tr>
+
+<tr>
+<td class="org-left">Chinwer</td>
+<td class="org-right">227515</td>
+<td class="org-right">18573843049</td>
+</tr>
+
+<tr>
+<td class="org-left">Lymntrix</td>
+<td class="org-right">227515</td>
+<td class="org-right">15873818124</td>
+</tr>
+
+<tr>
+<td class="org-left">Niklaous</td>
+<td class="org-right">227515</td>
+<td class="org-right">13034663500</td>
+</tr>
+
+<tr>
+<td class="org-left">Elijah</td>
+<td class="org-right">227515</td>
+<td class="org-right">18724653394</td>
+</tr>
+
+<tr>
+<td class="org-left">留白</td>
+<td class="org-right">227515</td>
+<td class="org-right">13695723454</td>
+</tr>
+
+<tr>
+<td class="org-left">养乐多</td>
+<td class="org-right">227515</td>
+<td class="org-right">18922336677</td>
+</tr>
+
+<tr>
+<td class="org-left">山海</td>
+<td class="org-right">227515</td>
+<td class="org-right">13622226983</td>
+</tr>
+
+<tr>
+<td class="org-left">Queen</td>
+<td class="org-right">227515</td>
+<td class="org-right">16845692769</td>
+</tr>
+
+<tr>
+<td class="org-left">nasen</td>
+<td class="org-right">114514</td>
+<td class="org-right">17610779859</td>
+</tr>
+
+<tr>
+<td class="org-left">Candy</td>
+<td class="org-right">227515</td>
+<td class="org-right">13549872365</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2020-06-22 Mon 22:48</p>
+</div>
+</body>
+</html>

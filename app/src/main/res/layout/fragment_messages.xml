@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="@color/white"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".ui.messages.MessagesFragment">
@@ -49,6 +49,17 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="280dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/grid_layout"
         android:layout_width="0dp"
@@ -68,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear_layout">
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -79,6 +91,7 @@
             app:layout_columnWeight="1" />
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -90,6 +103,7 @@
             app:layout_columnWeight="1" />
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_community"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -101,6 +115,7 @@
             app:layout_columnWeight="1" />
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/address_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -124,6 +139,7 @@
         app:dialogTitleTextColor="@color/dialog_title_color"
         app:dialogTitleTextSize="@dimen/dialog_title_text_size"
         app:dialogUnreadBubbleBackgroundColor="@color/dialog_unread_color"
+        app:dialogDateSize="@dimen/dialog_date_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

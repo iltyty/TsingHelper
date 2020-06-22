@@ -5,21 +5,36 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.TaskAdapter;
+import com.tsinghua.tsinghelper.components.DividerItemDecrator;
 import com.tsinghua.tsinghelper.components.IconTextItem;
+import com.tsinghua.tsinghelper.ui.search.SearchActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.ToastUtil;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -33,8 +48,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     IconTextItem mStudyItem;
     @BindView(R.id.questionnaire)
     IconTextItem mQuestItem;
+    @BindView(R.id.search_view)
+    SearchView mSearchView;
+    @BindView(R.id.view)
+    View mView;
+    @BindView(R.id.btn_refresh)
+    ImageView mRefresh;
 
     private TaskAdapter mAdapter;
+    private static final String TASK_NUMBER_LIMIT = "20";
 
     @Nullable
     @Override
@@ -45,6 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         setClickListeners();
         initRecyclerView();
+        initSearchView();
 
         return root;
     }
@@ -52,7 +75,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.getTasks(null, HttpUtil.TASK_GET_OTHERS);
+        getTasks();
+    }
+
+    private void getTasks() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("limit", TASK_NUMBER_LIMIT);
+        mAdapter.getTasks(params, HttpUtil.TASK_GET_OTHERS);
+    }
+
+    private void refreshTasks() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("limit", TASK_NUMBER_LIMIT);
+        HttpUtil.get(HttpUtil.TASK_GET_OTHERS, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.handleNetworkError(
+                        requireActivity(), "网络错误，刷新失败", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 200) {
+                    try {
+                        mAdapter.setTasks(new JSONObject(response.body().string()));
+                        ToastUtil.showToastOnUIThread(requireActivity(), "刷新成功");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void setClickListeners() {
@@ -60,6 +114,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mMealItem.setOnClickListener(this);
         mStudyItem.setOnClickListener(this);
         mQuestItem.setOnClickListener(this);
+        mRefresh.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -71,8 +126,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 return false;
             }
         };
-        DividerItemDecoration divider = new DividerItemDecoration(getContext(),
-                DividerItemDecoration.VERTICAL);
+        DividerItemDecrator divider = new DividerItemDecrator(
+                requireActivity().getDrawable(R.drawable.shape_list_divider));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(divider);
         mRecyclerView.setLayoutManager(lm);
@@ -81,6 +136,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.btn_refresh) {
+            refreshTasks();
+            return;
+        }
+
         int pos = 0;
         switch (v.getId()) {
             case R.id.meal:
@@ -96,5 +156,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Intent it = new Intent(getActivity(), TasksTypeActivity.class);
         it.putExtra("pos", pos);
         startActivity(it);
+    }
+
+    public void initSearchView() {
+        //搜索图标按钮(打开搜索框的按钮)的点击事件
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), SearchActivity.class);
+                it.putExtra("searchType", "TASK");
+                startActivityForResult(it, 1);
+            }
+        });
     }
 }

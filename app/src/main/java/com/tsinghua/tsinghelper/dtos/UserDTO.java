@@ -18,6 +18,7 @@ public class UserDTO implements IUser {
     public String email;
     public String grade;
     public String phone;
+    public String state;
     public String avatar;
     public String wechat;
     public String realname;
@@ -26,12 +27,22 @@ public class UserDTO implements IUser {
     public String signature;
     public String department;
 
+    public ArrayList<UserDTO> followers = new ArrayList<>();
+    public ArrayList<UserDTO> followings = new ArrayList<>();
     public ArrayList<TaskDTO> doingTasks = new ArrayList<>();
     public ArrayList<TaskDTO> failedTasks = new ArrayList<>();
     public ArrayList<TaskDTO> rewardedTasks = new ArrayList<>();
     public ArrayList<TaskDTO> moderatingTasks = new ArrayList<>();
 
-    UserDTO(String id, String username) {
+    public UserDTO() {
+    }
+
+    public UserDTO(String id) {
+        this.id = Integer.parseInt(id);
+        this.avatar = HttpUtil.getUserAvatarUrlById(id);
+    }
+
+    public UserDTO(String id, String username) {
         this.username = username;
         this.id = Integer.parseInt(id);
         this.avatar = HttpUtil.getUserAvatarUrlById(id);
@@ -47,6 +58,7 @@ public class UserDTO implements IUser {
         // optional fields
         this.email = optString(user, UserInfoUtil.EMAIL);
         this.grade = optString(user, UserInfoUtil.GRADE);
+        this.state = optString(user, UserInfoUtil.STATE);
         this.wechat = optString(user, UserInfoUtil.WECHAT);
         this.realname = optString(user, UserInfoUtil.REALNAME);
         this.signature = optString(user, UserInfoUtil.SIGNATURE);
@@ -57,6 +69,8 @@ public class UserDTO implements IUser {
         JSONArray failed = user.optJSONArray(UserInfoUtil.FAILED_TASKS);
         JSONArray rewarded = user.optJSONArray(UserInfoUtil.REWARDED_TASKS);
         JSONArray moderating = user.optJSONArray(UserInfoUtil.MODERATING_TASKS);
+        JSONArray followersUsers = user.optJSONArray(UserInfoUtil.FOLLOWERS);
+        JSONArray followingsUsers = user.optJSONArray(UserInfoUtil.FOLLOWINGS);
 
         if (doing != null) {
             int length = doing.length();
@@ -96,6 +110,28 @@ public class UserDTO implements IUser {
             try {
                 for (int i = 0; i < length; i++) {
                     moderatingTasks.add(new TaskDTO(moderating.getJSONObject(i)));
+                }
+            } catch (JSONException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+        }
+        if (followersUsers != null) {
+            int length = followersUsers.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    followers.add(new UserDTO(followersUsers.getJSONObject(i)));
+                }
+            } catch (JSONException e) {
+                Log.e("error", e.toString());
+                e.printStackTrace();
+            }
+        }
+        if (followingsUsers != null) {
+            int length = followingsUsers.length();
+            try {
+                for (int i = 0; i < length; i++) {
+                    followings.add(new UserDTO(followingsUsers.getJSONObject(i)));
                 }
             } catch (JSONException e) {
                 Log.e("error", e.toString());

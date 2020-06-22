@@ -2,9 +2,13 @@ package com.tsinghua.tsinghelper.util;
 
 import android.content.SharedPreferences;
 
+import com.tsinghua.tsinghelper.dtos.UserDTO;
+
 import java.util.HashMap;
 
 public class UserInfoUtil {
+
+    public static UserDTO me;
 
     public static final int USERNAME_MAX_LEN = 20;
     public static final int SIGNATURE_MAX_LEN = 40;
@@ -19,21 +23,24 @@ public class UserInfoUtil {
     public static String BG_SIGN = "bg_cache_signature";
     public static String AVATAR_SIGN = "avatar_cache_signature";
 
-    public static String ID = "id";
-    public static String EMAIL = "email";
-    public static String GRADE = "grade";
-    public static String PHONE = "phone";
-    public static String AVATAR = "avatar";
-    public static String WECHAT = "wechat";
-    public static String REALNAME = "realname";
-    public static String USERNAME = "username";
-    public static String DORMITORY = "dormitory";
-    public static String SIGNATURE = "signature";
-    public static String DEPARTMENT = "department";
-    public static String DOING_TASKS = "doing_tasks";
-    public static String FAILED_TASKS = "failed_tasks";
-    public static String REWARDED_TASKS = "rewarded_tasks";
-    public static String MODERATING_TASKS = "moderating_tasks";
+    public static final String ID = "id";
+    public static final String EMAIL = "email";
+    public static final String GRADE = "grade";
+    public static final String PHONE = "phone";
+    public static final String STATE = "state";
+    public static final String AVATAR = "avatar";
+    public static final String WECHAT = "wechat";
+    public static final String REALNAME = "realname";
+    public static final String USERNAME = "username";
+    public static final String DORMITORY = "dormitory";
+    public static final String FOLLOWERS = "followers";
+    public static final String FOLLOWINGS = "followings";
+    public static final String SIGNATURE = "signature";
+    public static final String DEPARTMENT = "department";
+    public static final String DOING_TASKS = "doing_tasks";
+    public static final String FAILED_TASKS = "failed_tasks";
+    public static final String REWARDED_TASKS = "rewarded_tasks";
+    public static final String MODERATING_TASKS = "moderating_tasks";
 
     private static UserInfoUtil instance = new UserInfoUtil();
     private SharedPreferences mSharedPreferences;
@@ -79,5 +86,9 @@ public class UserInfoUtil {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public static boolean isLoggedIn() {
+        return !UserInfoUtil.getPref("loggedIn", "").isEmpty();
     }
 }

@@ -17,6 +17,7 @@ import com.tsinghua.tsinghelper.ui.messages.MessagesFragment;
 import com.tsinghua.tsinghelper.ui.mine.MineFragment;
 import com.tsinghua.tsinghelper.ui.task.NewTaskTypeActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskFragment;
+import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.GlideCacheUtil;
 
 import java.util.ArrayList;
@@ -48,10 +49,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GlideCacheUtil.setContext(this);
+        ChatHistoryCacheUtil.setContext(this);
 
         setStatusBarUpperAPI21(true);
-//        StatusBarUtil.setTransparent(this);
-//        StatusBarUtil.setColor(MainActivity.this, 16777215);
 
         ButterKnife.bind(this);
 
@@ -69,22 +69,17 @@ public class MainActivity extends AppCompatActivity {
                 .fragmentList(mFragments)
                 .mode(EasyNavigationBar.MODE_ADD)
                 .fragmentManager(getSupportFragmentManager())
-                .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
-                    @Override
-                    public boolean onTabClickEvent(View view, int position) {
-                        if (position == 2) {
-                            Intent it = new Intent(MainActivity.this, NewTaskTypeActivity.class);
-                            startActivityForResult(it, 1);
-                            return true;
-                        } else if (position == 4) {
-//                            StatusBarUtil.setColor(MainActivity.this, 16768570);
-                            setStatusBarUpperAPI21(false);
-                        } else if (position <= 4) {
-//                            StatusBarUtil.setColor(MainActivity.this, 16777215);
-                            setStatusBarUpperAPI21(true);
-                        }
-                        return false;
+                .onTabClickListener((view, position) -> {
+                    if (position == 2) {
+                        Intent it = new Intent(MainActivity.this, NewTaskTypeActivity.class);
+                        startActivityForResult(it, 1);
+                        return true;
+                    } else if (position == 4) {
+                        setStatusBarUpperAPI21(false);
+                    } else if (position <= 4) {
+                        setStatusBarUpperAPI21(true);
                     }
+                    return false;
                 })
                 .build();
     }

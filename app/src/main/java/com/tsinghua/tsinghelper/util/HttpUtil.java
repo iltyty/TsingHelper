@@ -19,9 +19,12 @@ import okhttp3.Response;
 public class HttpUtil extends NetworkUtil {
 
     private static final String USER_PREFIX = SERVER_HTTP_URL + "users/";
-    private static final String CHAT_PREFIX = SERVER_HTTP_URL + "chat/";
-    public static final String CHAT_GET_MSG = CHAT_PREFIX + "message/";
     private static final String TASK_PREFIX = SERVER_HTTP_URL + "tasks/";
+    private static final String PROFILE_PREFIX = SERVER_HTTP_URL + "profile/";
+    private static final String CHAT_PREFIX = SERVER_HTTP_URL + "chat/";
+
+    public static final String CHAT_MSG_GET = CHAT_PREFIX + "message/";
+    public static final String CHAT_MSG_SENT = CHAT_PREFIX + "sent/";
 
     public static final String USER_LOGIN = USER_PREFIX + "login/";
     public static final String USER_REGISTER = USER_PREFIX + "register/";
@@ -29,7 +32,11 @@ public class HttpUtil extends NetworkUtil {
     public static final String USER_FORGET_PWD = USER_PREFIX + "forget-pwd/";
     public static final String USER_MODIFY_PWD = USER_PREFIX + "modify-pwd/";
     public static final String USER_TASK_STATES = USER_PREFIX + "task-states/";
-    private static final String PROFILE_PREFIX = SERVER_HTTP_URL + "profile/";
+    public static final String USER_ONLINE_STATE = USER_PREFIX + "online-state/";
+    public static final String USER_FOLLOW = USER_PREFIX + "follow/";
+    public static final String USER_UNFOLLOW = USER_PREFIX + "unfollow/";
+    public static final String USER_FOLLOW_STATE = USER_PREFIX + "follow-state/";
+    public static final String USER_RELATIONS = USER_PREFIX + "relations/";
 
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
@@ -39,6 +46,7 @@ public class HttpUtil extends NetworkUtil {
     public static final String TASK_TAKE = TASK_PREFIX + "take/";
     public static final String TASK_SUBMIT = TASK_PREFIX + "submit/";
     public static final String TASK_MODERATE = TASK_PREFIX + "moderate/";
+    public static final String TASK_SEARCH = TASK_PREFIX + "search/";
 
     public static final String AVATAR_UPLOAD = PROFILE_PREFIX + "avatar/";
     public static final String BACKGROUND_UPLOAD = PROFILE_PREFIX + "background/";

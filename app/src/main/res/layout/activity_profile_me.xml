@@ -9,30 +9,47 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:background="@color/dark_gray"
         android:backgroundTint="#80000000"
         android:backgroundTintMode="src_over"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <RelativeLayout
+            android:id="@+id/rl_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/not_logged_in"
-            app:civ_border_color="@color/colorWhite"
-            app:civ_border_width="@dimen/avatar_border_size" />
+            android:layout_marginTop="60dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/not_logged_in"
+                app:civ_border_color="@color/colorWhite"
+                app:civ_border_width="@dimen/avatar_border_size" />
+
+            <ImageView
+                android:id="@+id/online_state"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/avatar"
+                android:layout_toEndOf="@id/avatar"
+                android:src="@drawable/ic_green_dot_8dp" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/avatar"
+            android:layout_below="@+id/rl_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="我的名字"
@@ -90,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="15dp"
-                    android:text="1"
+                    android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />

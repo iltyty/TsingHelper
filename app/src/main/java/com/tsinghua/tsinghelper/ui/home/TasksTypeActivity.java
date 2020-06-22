@@ -20,6 +20,7 @@ import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +74,9 @@ public class TasksTypeActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment(TYPES[i], HttpUtil.TASK_GET_OTHERS));
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", TYPES[i]);
+                mFragments.add(new TaskListFragment(params, HttpUtil.TASK_GET_OTHERS, mContext));
             }
         }
 

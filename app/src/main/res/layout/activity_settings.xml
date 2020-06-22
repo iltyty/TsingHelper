@@ -56,6 +56,7 @@
             android:layout_marginTop="@dimen/preference_item_margin_top"
             android:layout_marginEnd="@dimen/preference_item_margin_end"
             android:layout_marginBottom="@dimen/preference_item_margin_bottom"
+            android:onClick="clearFileCache"
             app:preference_value="0.0B"
             app:preference_title="清理文件缓存" />
 

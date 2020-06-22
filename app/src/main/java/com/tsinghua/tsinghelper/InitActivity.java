@@ -1,14 +1,13 @@
 package com.tsinghua.tsinghelper;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.login.LoginActivity;
-import com.tsinghua.tsinghelper.util.LoginUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 // This activity is the main activity of the app.
@@ -19,8 +18,6 @@ public class InitActivity extends AppCompatActivity {
 
     private final String USER_INFO_FILENAME = "userinfo";
 
-    private SharedPreferences mSharedPreference;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +25,9 @@ public class InitActivity extends AppCompatActivity {
 
         UserInfoUtil.setSharedPreferences(getSharedPreferences(USER_INFO_FILENAME, MODE_PRIVATE));
 
-        if (LoginUtil.isLoggedIn(this)) {
+        if (UserInfoUtil.isLoggedIn()) {
             // redirect to the main page of the app
+            genMe();
             Intent it = new Intent(this, MainActivity.class);
             startActivity(it);
         } else {
@@ -38,6 +36,21 @@ public class InitActivity extends AppCompatActivity {
             startActivity(it);
         }
         finish();
+    }
+
+    private void genMe() {
+        UserInfoUtil.me = new UserDTO();
+        UserInfoUtil.me.email = UserInfoUtil.getPref(UserInfoUtil.EMAIL, "");
+        UserInfoUtil.me.grade = UserInfoUtil.getPref(UserInfoUtil.GRADE, "");
+        UserInfoUtil.me.phone = UserInfoUtil.getPref(UserInfoUtil.PHONE, "");
+        UserInfoUtil.me.state = UserInfoUtil.getPref(UserInfoUtil.STATE, "online");
+        UserInfoUtil.me.wechat = UserInfoUtil.getPref(UserInfoUtil.WECHAT, "");
+        UserInfoUtil.me.realname = UserInfoUtil.getPref(UserInfoUtil.REALNAME, "");
+        UserInfoUtil.me.username = UserInfoUtil.getPref(UserInfoUtil.USERNAME, "");
+        UserInfoUtil.me.dormitory = UserInfoUtil.getPref(UserInfoUtil.DORMITORY, "");
+        UserInfoUtil.me.signature = UserInfoUtil.getPref(UserInfoUtil.SIGNATURE, "");
+        UserInfoUtil.me.department = UserInfoUtil.getPref(UserInfoUtil.DEPARTMENT, "");
+        UserInfoUtil.me.id = Integer.parseInt(UserInfoUtil.getPref(UserInfoUtil.ID, "0"));
     }
 
 }

@@ -1,13 +1,13 @@
 package com.tsinghua.tsinghelper.ui.task;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 
@@ -57,8 +57,7 @@ public class MealTaskActivity extends BaseTaskActivity {
         HttpUtil.get(HttpUtil.TASK_GET, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
-                e.printStackTrace();
+                ErrorHandlingUtil.logToConsole(e);
             }
 
             @Override
@@ -107,6 +106,7 @@ public class MealTaskActivity extends BaseTaskActivity {
         params.put("site", site);
         params.put("type", "meal");
         params.put("food_num", foodNum);
+        params.put("times_total", "1");
         params.put("end_time", Long.toString(cal.getTimeInMillis()));
         params.put("start_time", Long.toString(new Date().getTime()));
         return params;

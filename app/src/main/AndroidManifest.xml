@@ -15,12 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.mine.settings.SettingsActivity">
-        </activity>
+        <activity
+            android:name=".ui.bonus.BonusActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.bgFullScreen" />
+        <activity android:name=".ui.mine.settings.SettingsActivity" />
         <activity
             android:name=".ui.mine.settings.PswChangeActivity"
-            android:parentActivityName=".ui.mine.settings.SettingsActivity">
-        </activity>
+            android:parentActivityName=".ui.mine.settings.SettingsActivity" />
         <activity android:name=".ui.mine.profile.FieldModifyActivity" />
         <activity
             android:name=".InitActivity"
@@ -34,10 +36,11 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/Theme.bgFullScreen" />
-        <activity android:name=".ui.login.PswForgetActivity"
+        <activity
+            android:name=".ui.login.PswForgetActivity"
             android:parentActivityName=".ui.login.LoginActivity"
-            android:theme="@style/Theme.bgFullScreen"/>
-        <activity android:name=".MainActivity" /> <!-- home fragment -->
+            android:theme="@style/Theme.bgFullScreen" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".ui.home.TasksTypeActivity"
             android:label="TasksTypeActivity"
@@ -74,33 +77,37 @@
             android:name=".ui.mine.profile.ProfileActivity"
             android:label="InfoProfileActivity"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.bgFullScreen" /> <!-- message fragment -->
+            android:theme="@style/Theme.bgFullScreen" />
         <activity
             android:name=".ui.messages.MessageDetailActivity"
             android:label="MessageDetail"
-            android:parentActivityName=".MainActivity" /> <!-- task fragment -->
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.task.NewTaskTypeActivity"
             android:label="NewTaskTypeActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.task.CommunityTaskActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+            android:parentActivityName=".ui.task.NewTaskTypeActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.task.MealTaskActivity"
             android:label="MealTaskActivity"
-            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+            android:parentActivityName=".ui.task.NewTaskTypeActivity" />
         <activity
             android:name=".ui.task.StudyTaskActivity"
-            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+            android:parentActivityName=".ui.task.NewTaskTypeActivity" />
         <activity
             android:name=".ui.task.QuestionnaireTaskActivity"
-            android:parentActivityName=".ui.task.NewTaskTypeActivity"/>
+            android:parentActivityName=".ui.task.NewTaskTypeActivity" />
         <activity
             android:name=".ui.mine.profile.ProfileSettingsActivity"
             android:parentActivityName=".ui.login.LoginActivity"
             android:theme="@style/Theme.bgFullScreen" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity
+            android:name=".ui.mine.RelationsActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

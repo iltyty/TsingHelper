@@ -20,6 +20,7 @@ import com.tsinghua.tsinghelper.ui.task.TaskListFragment;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +64,7 @@ public class TakenTasksActivity extends AppCompatActivity {
     public static class Adapter extends FragmentPagerAdapter {
 
         private final int TAB_CNT = 4;
-        private final String[] TYPE = {
+        private final String[] TYPES = {
                 "doing", "moderating", "rewarded", "failed"
         };
         private final String[] TITLE = {
@@ -77,7 +78,9 @@ public class TakenTasksActivity extends AppCompatActivity {
             mContext = cxt;
 
             for (int i = 0; i < TAB_CNT; i++) {
-                mFragments.add(new TaskListFragment(TYPE[i], HttpUtil.TASK_GET_OTHERS));
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", TYPES[i]);
+                mFragments.add(new TaskListFragment(params, HttpUtil.TASK_GET_OTHERS, mContext));
             }
         }
 

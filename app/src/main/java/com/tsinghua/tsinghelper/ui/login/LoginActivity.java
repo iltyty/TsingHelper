@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tsinghua.tsinghelper.MainActivity;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -86,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         HttpUtil.post(HttpUtil.USER_LOGIN, params, new Callback() {
-            Intent it = new Intent(LoginActivity.this, MainActivity.class);
             @Override
             public void onResponse(
                     @NotNull Call call, @NotNull Response response) throws IOException {
@@ -100,12 +101,11 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONObject json = new JSONObject(resStr);
                                 String token = json.getString("token");
-                                params.put("auth", token);
+                                UserInfoUtil.putPref("auth", token);
                             } catch (JSONException ignored) {
                             }
-                            System.out.println("params" + params);
                             params.remove("password");
-                            saveUserInfo(resStr, params);
+                            saveUserInfo(resStr);
                         }
                         Intent it = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(it);
@@ -128,7 +128,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
+                ErrorHandlingUtil.handleNetworkError(
+                        LoginActivity.this, "网络错误，登录失败", e);
             }
         });
     }
@@ -142,7 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         HttpUtil.post(HttpUtil.USER_REGISTER, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
+                ErrorHandlingUtil.handleNetworkError(
+                        LoginActivity.this, "网络错误，注册失败", e);
             }
 
             @Override
@@ -171,15 +173,24 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserInfo(String resStr, HashMap<String, String> params) {
+    private void saveUserInfo(String resStr) {
         JSONObject resJson;
         try {
             resJson = new JSONObject(resStr);
-            params.put("userId", resJson.getString("userId"));
+            UserInfoUtil.me = new UserDTO(resJson);
+            UserInfoUtil.putPref("loggedIn", "true");
+            UserInfoUtil.putPref(UserInfoUtil.ID, String.valueOf(UserInfoUtil.me.id));
+            UserInfoUtil.putPref(UserInfoUtil.USERNAME, UserInfoUtil.me.username);
+            UserInfoUtil.putPref(UserInfoUtil.PHONE, UserInfoUtil.me.phone);
+            UserInfoUtil.putPref(UserInfoUtil.REALNAME, UserInfoUtil.me.realname);
+            UserInfoUtil.putPref(UserInfoUtil.DEPARTMENT, UserInfoUtil.me.department);
+            UserInfoUtil.putPref(UserInfoUtil.GRADE, UserInfoUtil.me.grade);
+            UserInfoUtil.putPref(UserInfoUtil.DORMITORY, UserInfoUtil.me.dormitory);
+            UserInfoUtil.putPref(UserInfoUtil.WECHAT, UserInfoUtil.me.wechat);
+            UserInfoUtil.putPref(UserInfoUtil.EMAIL, UserInfoUtil.me.email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        UserInfoUtil.putPrefs(params);
     }
 
     public void forgetPassword(View view) {

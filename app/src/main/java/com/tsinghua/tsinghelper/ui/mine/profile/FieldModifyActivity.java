@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -69,9 +69,9 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
 
         mPageTitle.setText(fieldTitle);
         mEditText.addTextChangedListener(this);
-        mEditText.setText(UserInfoUtil.getUserInfoSharedPreferences()
-                .getString(fieldName, ""));
-        mLenHint.setText(String.format(Locale.CHINA, "0/%d", fieldMaxLen));
+        mEditText.setText(getUserInfo());
+        mLenHint.setText(String.format(Locale.CHINA, "%d/%d",
+                mEditText.getText().toString().length(), fieldMaxLen));
     }
 
     @Override
@@ -122,21 +122,75 @@ public class FieldModifyActivity extends AppCompatActivity implements TextWatche
         HttpUtil.post(HttpUtil.USER_MODIFY, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.e("error", e.toString());
+                ErrorHandlingUtil.handleNetworkError(
+                        FieldModifyActivity.this, "网络错误，请稍后重试", e);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.code() == 201) {
                     ToastUtil.showToastOnUIThread(FieldModifyActivity.this, "修改成功");
+                    updateMyInfo(value);
                 }
             }
         });
 
         Intent it = new Intent();
-        it.putExtra(fieldName, value);
         it.putExtra("fieldName", fieldName);
+        it.putExtra(fieldName, value);
         setResult(RESULT_OK, it);
         finish();
+    }
+
+    private String getUserInfo() {
+        switch (fieldName) {
+            case UserInfoUtil.USERNAME:
+                return UserInfoUtil.me.username;
+            case UserInfoUtil.SIGNATURE:
+                return UserInfoUtil.me.signature;
+            case UserInfoUtil.REALNAME:
+                return UserInfoUtil.me.realname;
+            case UserInfoUtil.DEPARTMENT:
+                return UserInfoUtil.me.department;
+            case UserInfoUtil.GRADE:
+                return UserInfoUtil.me.grade;
+            case UserInfoUtil.DORMITORY:
+                return UserInfoUtil.me.dormitory;
+            case UserInfoUtil.WECHAT:
+                return UserInfoUtil.me.wechat;
+            case UserInfoUtil.EMAIL:
+                return UserInfoUtil.me.email;
+            default:
+                return "";
+        }
+    }
+
+    private void updateMyInfo(String value) {
+        switch (fieldName) {
+            case UserInfoUtil.USERNAME:
+                UserInfoUtil.me.username = value;
+                break;
+            case UserInfoUtil.SIGNATURE:
+                UserInfoUtil.me.signature = value;
+                break;
+            case UserInfoUtil.REALNAME:
+                UserInfoUtil.me.realname = value;
+                break;
+            case UserInfoUtil.DEPARTMENT:
+                UserInfoUtil.me.department = value;
+                break;
+            case UserInfoUtil.GRADE:
+                UserInfoUtil.me.grade = value;
+                break;
+            case UserInfoUtil.DORMITORY:
+                UserInfoUtil.me.dormitory = value;
+                break;
+            case UserInfoUtil.WECHAT:
+                UserInfoUtil.me.wechat = value;
+                break;
+            case UserInfoUtil.EMAIL:
+                UserInfoUtil.me.email = value;
+                break;
+        }
     }
 }

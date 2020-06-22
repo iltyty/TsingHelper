@@ -18,8 +18,8 @@ import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.dtos.TaskDTO;
 import com.tsinghua.tsinghelper.ui.task.TaskDetailActivity;
 import com.tsinghua.tsinghelper.ui.task.TaskReviewActivity;
+import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
-import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,10 +38,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private ArrayList<TaskDTO> mTasks;
+    private static final int EMPTY_VIEW_TYPE = -1;
 
     public TaskAdapter(Context cxt) {
         mContext = cxt;
@@ -49,34 +50,60 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void setTasks(ArrayList<TaskDTO> tasks) {
-        this.mTasks = tasks;
+        mTasks = tasks;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int pos) {
+        if (mTasks == null || mTasks.size() <= 0) {
+            return EMPTY_VIEW_TYPE;
+        }
+        return super.getItemViewType(pos);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.component_task_item, parent, false);
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        if (viewType == EMPTY_VIEW_TYPE) {
+            view = inflater.inflate(R.layout.component_empty_task_list, parent, false);
+            return new EmptyViewHolder(view);
+        }
+        view = inflater.inflate(R.layout.component_task_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        return mTasks == null ? 0 : mTasks.size();
+        return mTasks.size() > 0 ? mTasks.size() : 1;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setTaskData(mTasks.get(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolder) {
+            ((ViewHolder) holder).setTaskData(mTasks.get(position));
+        }
+    }
+
+    public void setTasks(JSONObject resJson) throws JSONException {
+        JSONArray tasks = resJson.getJSONArray("tasks");
+        mTasks.clear();
+        for (int i = 0; i < tasks.length(); i++) {
+            JSONObject task = (JSONObject) tasks.get(i);
+            mTasks.add(new TaskDTO(task));
+        }
+        ((Activity) mContext).runOnUiThread(this::notifyDataSetChanged);
     }
 
     public void getTasks(HashMap<String, String> params, String url) {
         HttpUtil.get(url, params, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                ToastUtil.showToastOnUIThread((Activity) mContext,
-                        "获取任务列表失败，请稍后重试");
+                ErrorHandlingUtil.handleNetworkError(
+                        (Activity) mContext,
+                        "获取任务列表失败，请稍后重试", e);
             }
 
             @Override
@@ -85,20 +112,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 if (response.code() == 200) {
                     String resStr = response.body().string();
                     try {
-                        JSONObject resJson = new JSONObject(resStr);
-                        JSONArray tasks = resJson.getJSONArray("tasks");
-                        mTasks.clear();
-                        for (int i = 0; i < tasks.length(); i++) {
-                            JSONObject task = (JSONObject) tasks.get(i);
-                            mTasks.add(new TaskDTO(task));
-                        }
-                        ((Activity) mContext).runOnUiThread(() -> notifyDataSetChanged());
+                        setTasks(new JSONObject(resStr));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+    }
+
+    public class EmptyViewHolder extends RecyclerView.ViewHolder {
+        EmptyViewHolder(@NotNull View view) {
+            super(view);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -139,7 +165,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             TaskDTO task = mTasks.get(getAdapterPosition());
-            String id = UserInfoUtil.getPref("userId", "-1");
+            String id = String.valueOf(UserInfoUtil.me.id);
             if (id.equals(String.valueOf(task.publisherId))) {
                 Intent it = new Intent(mContext, TaskReviewActivity.class);
                 it.putExtra("id", task.id);
