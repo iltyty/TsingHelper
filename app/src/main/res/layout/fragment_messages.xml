@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="@color/white"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".ui.messages.MessagesFragment">
@@ -79,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linear_layout">
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -90,6 +91,7 @@
             app:layout_columnWeight="1" />
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"
@@ -101,6 +103,7 @@
             app:layout_columnWeight="1" />
 
         <com.tsinghua.tsinghelper.components.CircleIconTextItem
+            android:id="@+id/tsing_community"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00ffffff"

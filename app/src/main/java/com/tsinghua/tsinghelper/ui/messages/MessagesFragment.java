@@ -20,6 +20,7 @@ import com.tsinghua.tsinghelper.components.CircleIconTextItem;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.ui.bonus.BonusActivity;
 import com.tsinghua.tsinghelper.ui.mine.RelationsActivity;
 import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.DialogDateFormatter;
@@ -55,6 +56,12 @@ public class MessagesFragment extends Fragment implements View.OnClickListener {
     Spinner spinner;
     @BindView(R.id.dialog_list)
     DialogsList mDialogsList;
+    @BindView(R.id.tsing_helper)
+    CircleIconTextItem mTsingHelper;
+    @BindView(R.id.tsing_community)
+    CircleIconTextItem mTsingCommunity;
+    @BindView(R.id.tsing_email)
+    CircleIconTextItem mTsingEmail;
     @BindView(R.id.address_book)
     CircleIconTextItem mAddressBook;
 
@@ -81,7 +88,10 @@ public class MessagesFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setOnClickListeners() {
+        mTsingEmail.setOnClickListener(this);
+        mTsingHelper.setOnClickListener(this);
         mAddressBook.setOnClickListener(this);
+        mTsingCommunity.setOnClickListener(this);
     }
 
     private void setDialogs() {
@@ -254,9 +264,17 @@ public class MessagesFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.address_book) {
-            Intent it = new Intent(requireActivity(), RelationsActivity.class);
-            startActivity(it);
+        switch (v.getId()) {
+            case R.id.address_book:
+                Intent it = new Intent(requireActivity(), RelationsActivity.class);
+                startActivity(it);
+                break;
+            case R.id.tsing_community:
+            case R.id.tsing_email:
+            case R.id.tsing_helper:
+                Intent itBonus = new Intent(requireActivity(), BonusActivity.class);
+                startActivity(itBonus);
+                break;
         }
     }
 }

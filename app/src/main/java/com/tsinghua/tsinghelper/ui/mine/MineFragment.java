@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.components.IconTextItem;
+import com.tsinghua.tsinghelper.ui.bonus.BonusActivity;
 import com.tsinghua.tsinghelper.ui.mine.profile.ProfileActivity;
 import com.tsinghua.tsinghelper.ui.mine.settings.SettingsActivity;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
@@ -72,6 +74,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     IconTextItem mPublishedDone;
     @BindView(R.id.published_doing)
     IconTextItem mPublishedDoing;
+    @BindView(R.id.personal_asset_btn)
+    Button mBtnAsset;
 
     @Nullable
     @Override
@@ -96,6 +100,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mToTakenDoing.setOnClickListener(this);
         mToTakenDone.setOnClickListener(this);
         mToRelations.setOnClickListener(this);
+        mBtnAsset.setOnClickListener(this);
     }
 
 
@@ -144,6 +149,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.mine_relationships:
                 Intent itRelations = new Intent(getActivity(), RelationsActivity.class);
                 startActivity(itRelations);
+                break;
+            case R.id.personal_asset_btn:
+                Intent itBonus = new Intent(getActivity(), BonusActivity.class);
+                startActivity(itBonus);
                 break;
         }
     }
