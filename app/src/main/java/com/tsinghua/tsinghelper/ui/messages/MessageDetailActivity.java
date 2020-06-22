@@ -26,6 +26,7 @@ import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
+import com.tsinghua.tsinghelper.util.MessageDateFormatter;
 import com.tsinghua.tsinghelper.util.MessageStoreUtil;
 import com.tsinghua.tsinghelper.util.ToastUtil;
 import com.tsinghua.tsinghelper.util.UserInfoUtil;
@@ -145,7 +146,7 @@ public class MessageDetailActivity extends AppCompatActivity {
         mh.setIncomingTextLayout(R.layout.item_custom_incoming_msg);
         mh.setOutcomingTextLayout(R.layout.item_custom_outcoming_msg);
         mAdapter = new MessagesListAdapter<>(id, mh, imageLoader);
-//        mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
+        mAdapter.setDateHeadersFormatter(new MessageDateFormatter());
         messagesList.setAdapter(mAdapter);
     }
 
