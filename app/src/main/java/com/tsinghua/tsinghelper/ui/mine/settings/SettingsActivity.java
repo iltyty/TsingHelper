@@ -69,6 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void clearFileCache(View view) {
         ChatHistoryCacheUtil.clearCache();
+        mFileCache.setValue(ChatHistoryCacheUtil.getCacheSize());
     }
 
     public void logout(View view) {
