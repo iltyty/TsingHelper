@@ -62,6 +62,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout mToTakenDoing;
     @BindView(R.id.rl_taken_done)
     RelativeLayout mToTakenDone;
+    @BindView(R.id.mine_relationships)
+    RelativeLayout mToRelations;
     @BindView(R.id.taken_done)
     IconTextItem mTakenDone;
     @BindView(R.id.taken_doing)
@@ -93,6 +95,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mToPublishedDone.setOnClickListener(this);
         mToTakenDoing.setOnClickListener(this);
         mToTakenDone.setOnClickListener(this);
+        mToRelations.setOnClickListener(this);
     }
 
 
@@ -137,6 +140,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Intent itTakenDone = new Intent(getActivity(), TakenTasksActivity.class);
                 itTakenDone.putExtra("pos", 2);
                 startActivity(itTakenDone);
+                break;
+            case R.id.mine_relationships:
+                Intent itRelations = new Intent(getActivity(), RelationsActivity.class);
+                startActivity(itRelations);
                 break;
         }
     }
