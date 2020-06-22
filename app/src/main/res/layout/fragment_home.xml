@@ -145,25 +145,41 @@
             </com.tsinghua.tsinghelper.components.IconTextItem>
         </androidx.gridlayout.widget.GridLayout>
 
-        <TextView
-            android:id="@+id/text_view_task_list"
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="推荐任务"
-            android:textColor="#000000"
-            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/grid_layout" />
+            app:layout_constraintTop_toBottomOf="@id/grid_layout">
+
+            <TextView
+                android:id="@+id/text_view_task_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="推荐任务"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/btn_refresh"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_refresh_24dp" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_task_list">
+            app:layout_constraintTop_toBottomOf="@+id/rl_title">
 
             <include layout="@layout/fragment_task_list" />
 

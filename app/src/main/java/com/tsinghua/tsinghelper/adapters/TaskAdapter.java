@@ -87,6 +87,16 @@ public class TaskAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public void setTasks(JSONObject resJson) throws JSONException {
+        JSONArray tasks = resJson.getJSONArray("tasks");
+        mTasks.clear();
+        for (int i = 0; i < tasks.length(); i++) {
+            JSONObject task = (JSONObject) tasks.get(i);
+            mTasks.add(new TaskDTO(task));
+        }
+        ((Activity) mContext).runOnUiThread(this::notifyDataSetChanged);
+    }
+
     public void getTasks(HashMap<String, String> params, String url) {
         HttpUtil.get(url, params, new Callback() {
             @Override
@@ -102,14 +112,7 @@ public class TaskAdapter extends RecyclerView.Adapter {
                 if (response.code() == 200) {
                     String resStr = response.body().string();
                     try {
-                        JSONObject resJson = new JSONObject(resStr);
-                        JSONArray tasks = resJson.getJSONArray("tasks");
-                        mTasks.clear();
-                        for (int i = 0; i < tasks.length(); i++) {
-                            JSONObject task = (JSONObject) tasks.get(i);
-                            mTasks.add(new TaskDTO(task));
-                        }
-                        ((Activity) mContext).runOnUiThread(() -> notifyDataSetChanged());
+                        setTasks(new JSONObject(resStr));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
