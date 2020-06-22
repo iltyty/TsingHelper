@@ -43,6 +43,7 @@ public class InitActivity extends AppCompatActivity {
         UserInfoUtil.me.email = UserInfoUtil.getPref(UserInfoUtil.EMAIL, "");
         UserInfoUtil.me.grade = UserInfoUtil.getPref(UserInfoUtil.GRADE, "");
         UserInfoUtil.me.phone = UserInfoUtil.getPref(UserInfoUtil.PHONE, "");
+        UserInfoUtil.me.state = UserInfoUtil.getPref(UserInfoUtil.STATE, "online");
         UserInfoUtil.me.wechat = UserInfoUtil.getPref(UserInfoUtil.WECHAT, "");
         UserInfoUtil.me.realname = UserInfoUtil.getPref(UserInfoUtil.REALNAME, "");
         UserInfoUtil.me.username = UserInfoUtil.getPref(UserInfoUtil.USERNAME, "");

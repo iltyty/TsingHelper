@@ -98,6 +98,7 @@ public class AccountStateAdapter extends BaseAdapter implements AdapterView.OnIt
                     throws IOException {
                 if (response.code() == 201) {
                     UserInfoUtil.me.state = state;
+                    UserInfoUtil.putPref(UserInfoUtil.STATE, state);
                 }
             }
         });

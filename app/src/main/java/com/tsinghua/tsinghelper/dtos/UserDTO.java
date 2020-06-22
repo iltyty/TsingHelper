@@ -15,17 +15,17 @@ import java.util.ArrayList;
 public class UserDTO implements IUser {
 
     public int id;
-    public String email = "";
-    public String grade = "";
-    public String phone = "";
-    public String state = "";
-    public String avatar = "";
-    public String wechat = "";
-    public String realname = "";
-    public String username = "";
-    public String dormitory = "";
-    public String signature = "";
-    public String department = "";
+    public String email;
+    public String grade;
+    public String phone;
+    public String state;
+    public String avatar;
+    public String wechat;
+    public String realname;
+    public String username;
+    public String dormitory;
+    public String signature;
+    public String department;
 
     public ArrayList<UserDTO> followers = new ArrayList<>();
     public ArrayList<UserDTO> followings = new ArrayList<>();
