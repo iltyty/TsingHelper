@@ -61,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.btn_send_msg)
     Button mBtnSendMsg;
+    @BindView(R.id.online_state)
+    ImageView mOnlineState;
 
     private boolean isMe;
     private String uid;
@@ -90,6 +92,17 @@ public class ProfileActivity extends AppCompatActivity {
         if (isMe) {
             mUsername.setText(UserInfoUtil.me.username);
             mSignature.setText(UserInfoUtil.me.signature);
+            switch (UserInfoUtil.me.state) {
+                case "busy":
+                    mOnlineState.setImageResource(R.drawable.ic_yellow_dot_8dp);
+                    break;
+                case "offline":
+                    mOnlineState.setImageResource(R.drawable.ic_red_dot_8dp);
+                    break;
+                default:
+                    mOnlineState.setImageResource(R.drawable.ic_green_dot_8dp);
+                    break;
+            }
         }
     }
 
@@ -174,6 +187,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getUserInfo(String userId) {
         HashMap<String, String> params = new HashMap<>();
+        params.put(UserInfoUtil.STATE, "");
         params.put(UserInfoUtil.USERNAME, "");
         params.put(UserInfoUtil.SIGNATURE, "");
         params.put(UserInfoUtil.PHONE, "");
@@ -199,9 +213,21 @@ public class ProfileActivity extends AppCompatActivity {
                         uname = resJson.optString(UserInfoUtil.USERNAME, "");
                         String signature = resJson.isNull(UserInfoUtil.SIGNATURE) ?
                                 "" : resJson.getString(UserInfoUtil.SIGNATURE);
+                        String state = resJson.optString(UserInfoUtil.STATE, "online");
                         ProfileActivity.this.runOnUiThread(() -> {
                             mUsername.setText(uname);
                             mSignature.setText(signature);
+                            switch (state) {
+                                case "online":
+                                    mOnlineState.setImageResource(R.drawable.ic_green_dot_8dp);
+                                    break;
+                                case "busy":
+                                    mOnlineState.setImageResource(R.drawable.ic_yellow_dot_8dp);
+                                    break;
+                                case "offline":
+                                    mOnlineState.setImageResource(R.drawable.ic_red_dot_8dp);
+                                    break;
+                            }
                         });
                     } catch (JSONException e) {
                         Log.e("error", e.toString());

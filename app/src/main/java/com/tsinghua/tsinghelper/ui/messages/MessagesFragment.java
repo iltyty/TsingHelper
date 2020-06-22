@@ -37,7 +37,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -128,7 +127,6 @@ public class MessagesFragment extends Fragment {
                         MessageStoreUtil.putNewUser(sender);
                     }
                     MessageDTO newMsg = new MessageDTO(senderId, content, time, sender, UserInfoUtil.me);
-                    System.out.println("------------------: " + time);
                     MessageStoreUtil.addMsg(senderId, newMsg);
                     if (existed) {
                         requireActivity().runOnUiThread(() ->
@@ -155,9 +153,6 @@ public class MessagesFragment extends Fragment {
     }
 
     private void getMsgsFromServer() {
-        HashMap<String, String> params = new HashMap<>();
-        String since = UserInfoUtil.getPref(MessageInfoUtil.SINCE, "");
-        params.put(MessageInfoUtil.SINCE, since);
         HttpUtil.get(HttpUtil.CHAT_MSG_GET, null, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -173,8 +168,6 @@ public class MessagesFragment extends Fragment {
                     String resStr = response.body().string();
                     try {
                         JSONObject resJson = new JSONObject(resStr);
-                        UserInfoUtil.putPref(MessageInfoUtil.SINCE,
-                                String.valueOf(System.currentTimeMillis()));
                         initDialogs(resJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -230,8 +223,10 @@ public class MessagesFragment extends Fragment {
     }
 
     private void initSpinner() {
-        spinner.setAdapter(new AccountStateAdapter(getContext()));
+        AccountStateAdapter adapter = new AccountStateAdapter(getContext());
+        spinner.setAdapter(adapter);
         spinner.setSelection(0, true);
+        spinner.setOnItemSelectedListener(adapter);
     }
 
     private void initAdapter() {

@@ -18,6 +18,7 @@ public class UserDTO implements IUser {
     public String email;
     public String grade;
     public String phone;
+    public String state;
     public String avatar;
     public String wechat;
     public String realname;
@@ -55,6 +56,7 @@ public class UserDTO implements IUser {
         // optional fields
         this.email = optString(user, UserInfoUtil.EMAIL);
         this.grade = optString(user, UserInfoUtil.GRADE);
+        this.state = optString(user, UserInfoUtil.STATE);
         this.wechat = optString(user, UserInfoUtil.WECHAT);
         this.realname = optString(user, UserInfoUtil.REALNAME);
         this.signature = optString(user, UserInfoUtil.SIGNATURE);

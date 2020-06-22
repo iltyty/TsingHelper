@@ -27,6 +27,7 @@ public class UserInfoUtil {
     public static final String EMAIL = "email";
     public static final String GRADE = "grade";
     public static final String PHONE = "phone";
+    public static final String STATE = "state";
     public static final String AVATAR = "avatar";
     public static final String WECHAT = "wechat";
     public static final String REALNAME = "realname";

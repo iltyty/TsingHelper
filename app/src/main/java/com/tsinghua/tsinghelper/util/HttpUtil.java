@@ -35,6 +35,7 @@ public class HttpUtil extends NetworkUtil {
     public static final String USER_FORGET_PWD = USER_PREFIX + "forget-pwd/";
     public static final String USER_MODIFY_PWD = USER_PREFIX + "modify-pwd/";
     public static final String USER_TASK_STATES = USER_PREFIX + "task-states/";
+    public static final String USER_ONLINE_STATE = USER_PREFIX + "online-state/";
 
     public static final String TASK_ADD = TASK_PREFIX + "add/";
     public static final String TASK_GET = TASK_PREFIX + "get/";
