@@ -314,6 +314,10 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 201) {
+                    isDoing = true;
+                    isFailed = false;
+                    isRewarded = false;
+                    isUnderModeration = false;
                     TaskDetailActivity.this.runOnUiThread(() -> {
                         ToastUtil.showToast(TaskDetailActivity.this, "任务接取成功");
                         setTakeButtonAsTaken();
@@ -348,6 +352,10 @@ public class TaskDetailActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response)
                     throws IOException {
                 if (response.code() == 201) {
+                    isDoing = false;
+                    isFailed = false;
+                    isRewarded = false;
+                    isUnderModeration = true;
                     TaskDetailActivity.this.runOnUiThread(() -> {
                         ToastUtil.showToast(TaskDetailActivity.this, "提交成功");
                         setTakeButtonAsUnderModeration();
