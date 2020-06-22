@@ -258,21 +258,16 @@ public class TaskDetailActivity extends AppCompatActivity {
                     break;
                 case "meal":
                     mTaskType.setText("代餐跑腿");
-                    mViewSite.setVisibility(View.VISIBLE);
                     mSite.setText(taskDTO.site);
-                    mViewFoodNum.setVisibility(View.VISIBLE);
                     mFoodNum.setText(String.valueOf(taskDTO.foodNum));
                     break;
                 case "study":
                     mTaskType.setText("学习解惑");
-                    mViewSubjects.setVisibility(View.VISIBLE);
                     mSubjects.setText(taskDTO.subjects);
                     break;
                 case "questionnaire":
                     mTaskType.setText("个人问卷");
-                    mViewDemands.setVisibility(View.VISIBLE);
                     mDemands.setText(taskDTO.demands);
-                    mViewLink.setVisibility(View.VISIBLE);
                     mLink.setText(taskDTO.link);
                     break;
             }

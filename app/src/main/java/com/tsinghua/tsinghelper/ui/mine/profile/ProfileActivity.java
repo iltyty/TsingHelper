@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.bumptech.glide.signature.ObjectKey;
 import com.tsinghua.tsinghelper.R;
+import com.tsinghua.tsinghelper.dtos.UserDTO;
 import com.tsinghua.tsinghelper.ui.messages.MessageDetailActivity;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
 import com.tsinghua.tsinghelper.util.HttpUtil;
@@ -63,10 +64,17 @@ public class ProfileActivity extends AppCompatActivity {
     Button mBtnSendMsg;
     @BindView(R.id.online_state)
     ImageView mOnlineState;
+    @BindView(R.id.total_followed)
+    TextView mTotalFollowers;
+    @BindView(R.id.total_follow)
+    TextView mTotalFollowings;
 
-    private boolean isMe;
     private String uid;
     private String uname;
+    private boolean isMe;
+    private boolean hasFollowed;
+    private int followersNum;
+    private int followingsNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (isMe) {
             mUsername.setText(UserInfoUtil.me.username);
             mSignature.setText(UserInfoUtil.me.signature);
+            getMyFollowStates();
             switch (UserInfoUtil.me.state) {
                 case "busy":
                     mOnlineState.setImageResource(R.drawable.ic_yellow_dot_8dp);
@@ -106,6 +115,35 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void getMyFollowStates() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(UserInfoUtil.me.id));
+        HttpUtil.get(HttpUtil.USER_FOLLOW_STATE, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.logToConsole(e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    try {
+                        JSONObject resJson = new JSONObject(response.body().string());
+                        int followersNum = resJson.optInt("followersNum", 0);
+                        int followingsNum = resJson.optInt("followingsNum", 0);
+                        ProfileActivity.this.runOnUiThread(() -> {
+                            mTotalFollowers.setText(String.valueOf(followersNum));
+                            mTotalFollowings.setText(String.valueOf(followingsNum));
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -116,6 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
             getImages(userId);
         } else {
             userId = getIntent().getStringExtra("userId");
+            uid = userId;
             getImages(userId);
             getUserInfo(userId);
         }
@@ -197,6 +236,9 @@ public class ProfileActivity extends AppCompatActivity {
         params.put(UserInfoUtil.DORMITORY, "");
         params.put(UserInfoUtil.WECHAT, "");
         params.put(UserInfoUtil.EMAIL, "");
+        params.put(UserInfoUtil.FOLLOWERS, "");
+        params.put(UserInfoUtil.FOLLOWINGS, "");
+
         String url = HttpUtil.getUserProfileUrlById(userId);
         HttpUtil.get(url, params, new Callback() {
             @Override
@@ -205,19 +247,30 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
                 if (response.code() == 200) {
                     try {
                         JSONObject resJson = new JSONObject(response.body().string());
-                        uid = resJson.optString(UserInfoUtil.ID, "");
-                        uname = resJson.optString(UserInfoUtil.USERNAME, "");
-                        String signature = resJson.isNull(UserInfoUtil.SIGNATURE) ?
-                                "" : resJson.getString(UserInfoUtil.SIGNATURE);
-                        String state = resJson.optString(UserInfoUtil.STATE, "online");
+                        UserDTO other = new UserDTO(resJson);
+                        uname = other.username;
+                        followersNum = other.followers.size();
+                        followingsNum = other.followings.size();
+                        for (UserDTO user : other.followers) {
+                            if (user.id == UserInfoUtil.me.id) {
+                                hasFollowed = true;
+                                break;
+                            }
+                        }
                         ProfileActivity.this.runOnUiThread(() -> {
                             mUsername.setText(uname);
-                            mSignature.setText(signature);
-                            switch (state) {
+                            mSignature.setText(other.signature);
+                            if (hasFollowed) {
+                                setBtnFollowAsFollowed();
+                            }
+                            mTotalFollowers.setText(String.valueOf(followersNum));
+                            mTotalFollowings.setText(String.valueOf(followingsNum));
+                            switch (other.state) {
                                 case "online":
                                     mOnlineState.setImageResource(R.drawable.ic_green_dot_8dp);
                                     break;
@@ -238,8 +291,76 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void follow(View view) {
+    private void setBtnFollowAsFollowed() {
+        assert mBtnFollow != null;
+        mBtnFollow.setText("已关注");
+        mBtnFollow.setTextColor(getColor(R.color.white));
+        mBtnFollow.setBackground(getDrawable(R.drawable.btn_bg_transparent));
+    }
 
+    private void setBtnFollowAsUnfollowed() {
+        assert mBtnFollow != null;
+        mBtnFollow.setText("关注");
+        mBtnFollow.setTextColor(getColor(R.color.black));
+        mBtnFollow.setBackground(getDrawable(R.drawable.btn_follow));
+    }
+
+    public void btnFollowClicked(View view) {
+        if (hasFollowed) {
+            unfollow();
+        } else {
+            follow();
+        }
+    }
+
+    private void follow() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", uid);
+        HttpUtil.post(HttpUtil.USER_FOLLOW, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.handleNetworkError(
+                        ProfileActivity.this, "网络错误", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    hasFollowed = true;
+                    followersNum++;
+                    ProfileActivity.this.runOnUiThread(() -> {
+                        mTotalFollowers.setText(String.valueOf(followersNum));
+                        setBtnFollowAsFollowed();
+                    });
+                }
+            }
+        });
+    }
+
+    private void unfollow() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", uid);
+        HttpUtil.post(HttpUtil.USER_UNFOLLOW, params, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                ErrorHandlingUtil.handleNetworkError(
+                        ProfileActivity.this, "网络错误", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                if (response.code() == 201) {
+                    hasFollowed = false;
+                    followersNum--;
+                    ProfileActivity.this.runOnUiThread(() -> {
+                        mTotalFollowers.setText(String.valueOf(followersNum));
+                        setBtnFollowAsUnfollowed();
+                    });
+                }
+            }
+        });
     }
 
     public void sendMessage(View view) {

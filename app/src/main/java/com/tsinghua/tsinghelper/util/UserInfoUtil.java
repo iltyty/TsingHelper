@@ -33,6 +33,8 @@ public class UserInfoUtil {
     public static final String REALNAME = "realname";
     public static final String USERNAME = "username";
     public static final String DORMITORY = "dormitory";
+    public static final String FOLLOWERS = "followers";
+    public static final String FOLLOWINGS = "followings";
     public static final String SIGNATURE = "signature";
     public static final String DEPARTMENT = "department";
     public static final String DOING_TASKS = "doing_tasks";
