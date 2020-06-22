@@ -113,4 +113,9 @@ public class MessageStoreUtil {
         }
         return false;
     }
+
+    public static void clear() {
+        getInstance().myMsgs.clear();
+        getInstance().users.clear();
+    }
 }

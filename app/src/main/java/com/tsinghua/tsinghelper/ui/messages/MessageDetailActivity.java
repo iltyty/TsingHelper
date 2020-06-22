@@ -117,7 +117,7 @@ public class MessageDetailActivity extends AppCompatActivity {
             }
             String receiverId = String.valueOf(receiver.id);
             MessageStoreUtil.addMsg(receiverId, msg);
-            ChatHistoryCacheUtil.cache(receiverId, MessageStoreUtil.getMsgsWithUser(receiverId));
+//            ChatHistoryCacheUtil.cache(receiverId, MessageStoreUtil.getMsgsWithUser(receiverId));
             MessageDetailActivity.this.runOnUiThread(() -> {
                 // update message detail page
                 mAdapter.addToStart(msg, true);

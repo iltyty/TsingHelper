@@ -128,7 +128,6 @@ public class MessagesFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
                 try {
-                    System.out.println("Received message from server.");
                     boolean existed = false;
                     JSONObject resJson = new JSONObject(text);
                     String time = resJson.getString("time");
