@@ -16,9 +16,11 @@ import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 import com.tsinghua.tsinghelper.R;
 import com.tsinghua.tsinghelper.adapters.AccountStateAdapter;
+import com.tsinghua.tsinghelper.components.CircleIconTextItem;
 import com.tsinghua.tsinghelper.dtos.DialogDTO;
 import com.tsinghua.tsinghelper.dtos.MessageDTO;
 import com.tsinghua.tsinghelper.dtos.UserDTO;
+import com.tsinghua.tsinghelper.ui.mine.RelationsActivity;
 import com.tsinghua.tsinghelper.util.ChatHistoryCacheUtil;
 import com.tsinghua.tsinghelper.util.DialogDateFormatter;
 import com.tsinghua.tsinghelper.util.ErrorHandlingUtil;
@@ -47,12 +49,14 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
-public class MessagesFragment extends Fragment {
+public class MessagesFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.spinner)
     Spinner spinner;
     @BindView(R.id.dialog_list)
     DialogsList mDialogsList;
+    @BindView(R.id.address_book)
+    CircleIconTextItem mAddressBook;
 
     private DialogsListAdapter<DialogDTO> mAdapter;
 
@@ -65,6 +69,8 @@ public class MessagesFragment extends Fragment {
 
         initSpinner();
         initAdapter();
+        setOnClickListeners();
+
 //        readHistoryMsgs();
         getMsgsFromServer();
         initWebSocket();
@@ -72,6 +78,10 @@ public class MessagesFragment extends Fragment {
         mDialogsList.setAdapter(mAdapter);
 
         return root;
+    }
+
+    private void setOnClickListeners() {
+        mAddressBook.setOnClickListener(this);
     }
 
     private void setDialogs() {
@@ -240,5 +250,13 @@ public class MessagesFragment extends Fragment {
             it.putExtra("username", dialog.getDialogName());
             startActivity(it);
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.address_book) {
+            Intent it = new Intent(requireActivity(), RelationsActivity.class);
+            startActivity(it);
+        }
     }
 }
