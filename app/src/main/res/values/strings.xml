@@ -27,13 +27,22 @@
 
     <string name="published_task_tab">进行中</string>
     <string name="task_detail">任务详情</string>
-    <string name="community_task_description">为了防止提交任务的用户超出所需，一旦接受任务人数达到要求，任务将无法被接取。如果用户没有按时提交任务，则任务释放，任务重新可以被领取。您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+    <string name="community_task_description">为了防止提交任务的用户超出所需，一旦接受任务人数达到要求，
+        任务将无法被接取。如果用户没有按时提交任务，则任务释放，任务重新可以被领取。
+        您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
     <string name="study_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
-    <string name="questionnaire_task_description">您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
-    <string name="meal_task_description">为了防止多份代餐，任务一旦被某用户接取就不能再被别人接取。直到任务失败或接取方取消接取，任务可重新被接取。您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
+    <string name="questionnaire_task_description">您需要在一定时间内审核，
+        否则将自动视为完成并发放奖励。</string>
+    <string name="meal_task_description">为了防止多份代餐，任务一旦被某用户接取就不能再被别人接取。
+        直到任务失败或接取方取消接取，任务可重新被接取。
+        您需要在一定时间内审核，否则将自动视为完成并发放奖励。</string>
 
     <string name="empty_recycler_view_text_prompt">暂无数据</string>
 
     <string name="bonus_title">恭喜你！成功发现彩蛋页面！</string>
-    <string name="bonus_content">本项目由邱圆辉、杨松霖、那森共同开发。\n\n\n\n全部UI界面未采用第三方UI框架，均由原生安卓绘制而成。\n\n\n\n此项目是我们的第一个10000行+代码的项目，开发不易，特意在这里mark一下，留作纪念和鼓励。</string>
+    <string name="bonus_content">本项目由邱圆辉、杨松霖、那森共同开发。\n\n\n\n
+        全部UI界面未采用第三方UI框架，均由原生安卓绘制而成。\n\n\n\n
+        此项目是我们的第一个10000行+代码的项目，开发不易，特意在这里mark一下，留作纪念和鼓励。\n\n\n\n
+                                                                 —— 邱圆辉 2020.06.22
+    </string>
 </resources>
